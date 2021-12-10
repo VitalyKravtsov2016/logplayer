@@ -1,0 +1,9 @@
+*.~*
+*.dcu
+*.rsm
+*.dsm
+*.map
+*.log
+*.ddp
+*.exe
+~$*.*

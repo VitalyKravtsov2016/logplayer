@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.287,E:\Projects\DrvFRLogPlayer\Unit1.pas=E:\Projects\DrvFRLogPlayer\DriverCommands.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.688,=E:\Projects\DrvFRLogPlayer\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.642,=E:\Projects\DrvFRLogPlayer\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.498,=E:\Projects\DrvFRLogPlayer\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.072,E:\Projects\DrvFRLogPlayer\VersionInfo.pas=E:\Projects\DrvFRLogPlayer\Unit\VersionInfo.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.258,E:\Projects\DrvFRLogPlayer\CommonTypes.pas=E:\Projects\DrvFRLogPlayer\Unit\untCommand.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.909,E:\Projects\DrvFRLogPlayer\fmMain.pas=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.131,E:\Projects\DrvFRLogPlayer\fmMain.pas=E:\Projects\DrvFRLogPlayer\fmuMain.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.569,=E:\Projects\DrvFRLogPlayer\VersionInfo.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.216,=E:\Projects\DrvFRLogPlayer\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.976,E:\Projects\DrvFRLogPlayer\DrvFRLogPlayer.dproj=E:\Projects\DrvFRLogPlayer\LogPlayer.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.870,E:\Projects\DrvFRLogPlayer\fmuMain.pas=E:\Projects\DrvFRLogPlayer\Fmu\fmuMain.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.633,E:\Projects\DrvFRLogPlayer\DriverCommands.pas=E:\Projects\DrvFRLogPlayer\Unit\DriverCommands.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.645,E:\Projects\DrvFRLogPlayer\untLogPlayer.pas=E:\Projects\DrvFRLogPlayer\Unit\untLogPlayer.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.330,E:\Projects\DrvFRLogPlayer\DrvFRLogPlayer.dproj=C:\Users\User\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.751,E:\Projects\DrvFRLogPlayer\LogParser.pas=E:\Projects\DrvFRLogPlayer\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.214,E:\Projects\DrvFRLogPlayer\LogParser.pas=E:\Projects\DrvFRLogPlayer\Unit\LogParser.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.444,=E:\Projects\DrvFRLogPlayer\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.282,E:\Projects\DrvFRLogPlayer\Unit2.pas=E:\Projects\DrvFRLogPlayer\BinUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.093,E:\Projects\DrvFRLogPlayer\CommonTypes.pas=E:\Projects\DrvFRLogPlayer\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.088,=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.691,=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.381,=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.279,=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.308,=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.047,=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.519,=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.632,=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.930,=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.530,=E:\Projects\DrvFRLogPlayer\NotifyThread.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.909,E:\Projects\DrvFRLogPlayer\fmMain.dfm=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.131,E:\Projects\DrvFRLogPlayer\fmMain.dfm=E:\Projects\DrvFRLogPlayer\fmuMain.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.992,E:\Projects\DrvFRLogPlayer\LogPlayer.pas=E:\Projects\DrvFRLogPlayer\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.123,E:\Projects\DrvFRLogPlayer\LogPlayer.pas=E:\Projects\DrvFRLogPlayer\untLogPlayer.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.112,E:\Projects\DrvFRLogPlayer\DrvFRLib_TLB.pas=E:\Projects\DrvFRLogPlayer\Unit\DrvFRLib_TLB.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.527,E:\Projects\DrvFRLogPlayer\NotifyThread.pas=E:\Projects\DrvFRLogPlayer\Unit\NotifyThread.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.450,E:\Projects\DrvFRLogPlayer\BinUtils.pas=E:\Projects\DrvFRLogPlayer\Unit\BinUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.870,E:\Projects\DrvFRLogPlayer\fmuMain.dfm=E:\Projects\DrvFRLogPlayer\Fmu\fmuMain.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.069,=E:\Projects\DrvFRLogPlayer\DrvFRLib_TLB.pas</Transaction>
+  </Transactions>
+</BorlandProject>
