@@ -5,5 +5,7 @@
 *.map
 *.log
 *.ddp
+*.identcache
+*.local
 *.exe
 ~$*.*
