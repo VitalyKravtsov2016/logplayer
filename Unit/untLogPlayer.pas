@@ -77,7 +77,6 @@ begin
   except
     on E: Exception do
       GlobalEventBus.Post('Error', Index.ToString + ' ' + E.Message);
-
   end;
 end;
 

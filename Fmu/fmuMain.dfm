@@ -2,8 +2,8 @@ object fmMain: TfmMain
   Left = 0
   Top = 0
   Caption = 'LogPlayer'
-  ClientHeight = 480
-  ClientWidth = 678
+  ClientHeight = 584
+  ClientWidth = 717
   Color = clBtnFace
   Constraints.MinWidth = 694
   Font.Charset = DEFAULT_CHARSET
@@ -15,206 +15,236 @@ object fmMain: TfmMain
   Position = poDesktopCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  DesignSize = (
-    678
-    480)
   PixelsPerInch = 96
   TextHeight = 13
-  object lbl: TLabel
-    Left = 557
-    Top = 97
-    Width = 116
-    Height = 13
-    Anchors = [akTop, akRight]
-    Caption = #1050#1086#1084#1072#1085#1076#1099'-'#1080#1089#1082#1083#1102#1095#1077#1085#1080#1103':'
-  end
-  object btnOpen: TButton
-    Left = 8
-    Top = 8
-    Width = 137
-    Height = 25
-    Caption = #1054#1090#1082#1088#1099#1090#1100' '#1092#1072#1081#1083' '#1083#1086#1075#1072
-    ImageIndex = 0
-    ImageName = 'open'
-    ImageMargins.Left = 4
-    Images = pngmglstButtons
-    TabOrder = 0
-    OnClick = btnOpenClick
-  end
-  object btnStart: TButton
-    Left = 8
-    Top = 39
-    Width = 137
-    Height = 25
-    Caption = #1047#1072#1087#1091#1089#1090#1080#1090#1100
-    ImageIndex = 2
-    ImageName = 'right-chevron'
-    ImageMargins.Left = 4
-    Images = pngmglstButtons
-    TabOrder = 1
-    OnClick = btnStartClick
-  end
-  object edtStatus: TEdit
-    Left = 8
-    Top = 70
-    Width = 544
-    Height = 21
-    Anchors = [akLeft, akTop, akRight]
-    Color = clBtnFace
-    ReadOnly = True
-    TabOrder = 2
-  end
-  object btnStop: TButton
-    Left = 344
-    Top = 39
-    Width = 105
-    Height = 25
-    Caption = #1054#1089#1090#1072#1085#1086#1074#1080#1090#1100
-    Enabled = False
-    ImageIndex = 3
-    ImageName = 'cancel'
-    ImageMargins.Left = 4
-    Images = pngmglstButtons
-    TabOrder = 3
-    OnClick = btnStopClick
-  end
-  object progress: TProgressBar
-    Left = 558
-    Top = 72
-    Width = 112
-    Height = 17
-    Anchors = [akTop, akRight]
-    TabOrder = 4
-  end
-  object lvCommands: TListView
-    Left = 9
-    Top = 97
-    Width = 543
-    Height = 272
-    Anchors = [akLeft, akTop, akRight, akBottom]
-    Columns = <
-      item
-        Caption = 'Time'
-        Width = 140
-      end
-      item
-        Caption = 'Thread'
-        Width = 70
-      end
-      item
-        Caption = 'Command'
-        Width = 240
-      end
-      item
-        AutoSize = True
-        Caption = 'Data'
-      end>
-    ReadOnly = True
-    RowSelect = True
-    PopupMenu = pmMain
-    StateImages = pngmglst
-    TabOrder = 5
-    ViewStyle = vsReport
-    OnDblClick = lvCommandsDblClick
-    OnSelectItem = lvCommandsSelectItem
-  end
-  object memCommandExceptions: TMemo
-    Left = 558
-    Top = 116
-    Width = 112
-    Height = 253
-    Anchors = [akTop, akRight, akBottom]
-    Font.Charset = RUSSIAN_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Courier New'
-    Font.Style = []
-    Lines.Strings = (
-      'FF 0A')
-    ParentFont = False
-    ScrollBars = ssVertical
-    TabOrder = 6
-  end
-  object btnStartFromPosition: TButton
-    Left = 151
-    Top = 39
-    Width = 187
-    Height = 25
-    Caption = #1047#1072#1087#1091#1089#1090#1080#1090#1100' c '#1090#1077#1082#1091#1097#1077#1081' '#1089#1090#1088#1086#1082#1080
-    ImageIndex = 2
-    ImageName = 'right-chevron'
-    ImageMargins.Left = 4
-    Images = pngmglstButtons
-    TabOrder = 7
-    OnClick = btnStartFromPositionClick
-  end
-  object btnSettings: TButton
-    Left = 151
-    Top = 8
-    Width = 187
-    Height = 25
-    Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1072' '#1089#1074#1086#1081#1089#1090#1074' ...'
-    ImageIndex = 1
-    ImageName = 'settings'
-    ImageMargins.Left = 4
-    Images = pngmglstButtons
-    TabOrder = 8
-    OnClick = btnSettingsClick
-  end
-  object pnlCmdInfo: TPanel
-    Left = 8
-    Top = 375
-    Width = 662
-    Height = 97
-    Anchors = [akLeft, akRight, akBottom]
+  object pnl: TPanel
+    Left = 0
+    Top = 0
+    Width = 717
+    Height = 584
+    Align = alClient
     BevelOuter = bvNone
-    TabOrder = 9
-    ExplicitWidth = 751
-    object memInfo: TMemo
+    TabOrder = 0
+    object spl1: TSplitter
+      Left = 0
+      Top = 363
+      Width = 717
+      Height = 5
+      Cursor = crVSplit
+      Align = alBottom
+      ExplicitTop = 376
+    end
+    object pnlTop: TPanel
       Left = 0
       Top = 0
-      Width = 662
-      Height = 97
+      Width = 717
+      Height = 363
       Align = alClient
-      Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-      ParentFont = False
-      ReadOnly = True
-      ScrollBars = ssHorizontal
+      BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 751
-      ExplicitHeight = 87
+      ExplicitHeight = 395
+      DesignSize = (
+        717
+        363)
+      object lbl: TLabel
+        Left = 598
+        Top = 97
+        Width = 116
+        Height = 13
+        Anchors = [akTop, akRight]
+        Caption = #1050#1086#1084#1072#1085#1076#1099'-'#1080#1089#1082#1083#1102#1095#1077#1085#1080#1103':'
+        ExplicitLeft = 591
+      end
+      object btnCloseSession: TButton
+        Left = 455
+        Top = 8
+        Width = 105
+        Height = 25
+        Caption = #1047#1072#1082#1088#1099#1090#1100' '#1089#1084#1077#1085#1091
+        TabOrder = 0
+        OnClick = btnCloseSessionClick
+      end
+      object btnGetStatus: TButton
+        Left = 344
+        Top = 8
+        Width = 105
+        Height = 25
+        Caption = #1047#1072#1087#1088#1086#1089' '#1089#1086#1089#1090#1086#1103#1085#1080#1103
+        TabOrder = 1
+        OnClick = btnGetStatusClick
+      end
+      object btnOpen: TButton
+        Left = 8
+        Top = 8
+        Width = 137
+        Height = 25
+        Caption = #1054#1090#1082#1088#1099#1090#1100' '#1092#1072#1081#1083' '#1083#1086#1075#1072
+        ImageIndex = 0
+        ImageName = 'open'
+        ImageMargins.Left = 4
+        Images = pngmglstButtons
+        TabOrder = 2
+        OnClick = btnOpenClick
+      end
+      object btnOpenSession: TButton
+        Left = 344
+        Top = 8
+        Width = 105
+        Height = 25
+        Caption = #1054#1090#1082#1088#1099#1090#1100' '#1089#1084#1077#1085#1091
+        TabOrder = 3
+        OnClick = btnOpenSessionClick
+      end
+      object btnSettings: TButton
+        Left = 151
+        Top = 8
+        Width = 187
+        Height = 25
+        Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1072' '#1089#1074#1086#1081#1089#1090#1074' ...'
+        ImageIndex = 1
+        ImageName = 'settings'
+        ImageMargins.Left = 4
+        Images = pngmglstButtons
+        TabOrder = 4
+        OnClick = btnSettingsClick
+      end
+      object btnStart: TButton
+        Left = 8
+        Top = 39
+        Width = 137
+        Height = 25
+        Caption = #1047#1072#1087#1091#1089#1090#1080#1090#1100
+        ImageIndex = 2
+        ImageName = 'right-chevron'
+        ImageMargins.Left = 4
+        Images = pngmglstButtons
+        TabOrder = 5
+        OnClick = btnStartClick
+      end
+      object btnStartFromPosition: TButton
+        Left = 151
+        Top = 39
+        Width = 187
+        Height = 25
+        Caption = #1047#1072#1087#1091#1089#1090#1080#1090#1100' c '#1090#1077#1082#1091#1097#1077#1081' '#1089#1090#1088#1086#1082#1080
+        ImageIndex = 2
+        ImageName = 'right-chevron'
+        ImageMargins.Left = 4
+        Images = pngmglstButtons
+        TabOrder = 6
+        OnClick = btnStartFromPositionClick
+      end
+      object btnStop: TButton
+        Left = 344
+        Top = 39
+        Width = 105
+        Height = 25
+        Caption = #1054#1089#1090#1072#1085#1086#1074#1080#1090#1100
+        Enabled = False
+        ImageIndex = 3
+        ImageName = 'cancel'
+        ImageMargins.Left = 4
+        Images = pngmglstButtons
+        TabOrder = 7
+        OnClick = btnStopClick
+      end
+      object edtStatus: TEdit
+        Left = 8
+        Top = 70
+        Width = 591
+        Height = 21
+        Anchors = [akLeft, akTop, akRight]
+        Color = clBtnFace
+        ReadOnly = True
+        TabOrder = 8
+      end
+      object lvCommands: TListView
+        Left = 8
+        Top = 116
+        Width = 591
+        Height = 246
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        Columns = <
+          item
+            Caption = 'Time'
+            Width = 140
+          end
+          item
+            Caption = 'Thread'
+            Width = 70
+          end
+          item
+            Caption = 'Command'
+            Width = 240
+          end
+          item
+            AutoSize = True
+            Caption = 'Data'
+          end>
+        ReadOnly = True
+        RowSelect = True
+        PopupMenu = pmMain
+        StateImages = pngmglst
+        TabOrder = 9
+        ViewStyle = vsReport
+        OnDblClick = lvCommandsDblClick
+        OnSelectItem = lvCommandsSelectItem
+        ExplicitHeight = 278
+      end
+      object memCommandExceptions: TMemo
+        Left = 605
+        Top = 116
+        Width = 107
+        Height = 246
+        Anchors = [akTop, akRight, akBottom]
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Courier New'
+        Font.Style = []
+        Lines.Strings = (
+          'FF 0A')
+        ParentFont = False
+        ScrollBars = ssVertical
+        TabOrder = 10
+        ExplicitHeight = 278
+      end
+      object progress: TProgressBar
+        Left = 605
+        Top = 72
+        Width = 107
+        Height = 17
+        Anchors = [akTop, akRight]
+        TabOrder = 11
+      end
     end
-  end
-  object btnOpenSession: TButton
-    Left = 344
-    Top = 8
-    Width = 105
-    Height = 25
-    Caption = #1054#1090#1082#1088#1099#1090#1100' '#1089#1084#1077#1085#1091
-    TabOrder = 10
-    OnClick = btnOpenSessionClick
-  end
-  object btnCloseSession: TButton
-    Left = 455
-    Top = 8
-    Width = 105
-    Height = 25
-    Caption = #1047#1072#1082#1088#1099#1090#1100' '#1089#1084#1077#1085#1091
-    TabOrder = 11
-    OnClick = btnCloseSessionClick
-  end
-  object btnGetStatus: TButton
-    Left = 566
-    Top = 8
-    Width = 105
-    Height = 25
-    Caption = #1047#1072#1087#1088#1086#1089' '#1089#1086#1089#1090#1086#1103#1085#1080#1103
-    TabOrder = 12
-    OnClick = btnGetStatusClick
+    object pnlBottom: TPanel
+      Left = 0
+      Top = 368
+      Width = 717
+      Height = 216
+      Align = alBottom
+      BevelOuter = bvNone
+      TabOrder = 1
+      object memInfo: TMemo
+        Left = 8
+        Top = 0
+        Width = 704
+        Height = 216
+        Align = alCustom
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
+        ReadOnly = True
+        ScrollBars = ssBoth
+        TabOrder = 0
+        ExplicitHeight = 184
+      end
+    end
   end
   object dlgOpen: TOpenDialog
     DefaultExt = '*.*'

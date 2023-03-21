@@ -100,9 +100,9 @@
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Build>2</VerInfo_Build>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=ШТРИХ-М;FileDescription=LogPlayer;FileVersion=1.0.0.1;InternalName=LogPlayer;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=LogPlayer;ProductName=LogPlayer;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=ШТРИХ-М;FileDescription=LogPlayer;FileVersion=1.0.0.2;InternalName=LogPlayer;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=LogPlayer;ProductName=LogPlayer;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <DCC_ExeOutput>Bin\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_DcuOutput>Dcu\$(Platform)\$(Config)</DCC_DcuOutput>
     </PropertyGroup>
@@ -122,6 +122,14 @@
         <DCCReference Include="Unit\BinUtils.pas"/>
         <DCCReference Include="Unit\NotifyThread.pas"/>
         <DCCReference Include="Unit\VersionInfo.pas"/>
+        <DCCReference Include="Unit\CommandParser.pas"/>
+        <DCCReference Include="Unit\Fp.PrinterTypes.pas"/>
+        <DCCReference Include="Unit\Utils.BinStream.pas"/>
+        <DCCReference Include="Unit\TLVTags.pas"/>
+        <DCCReference Include="Unit\Parser.pas"/>
+        <DCCReference Include="Unit\untUtils.pas"/>
+        <DCCReference Include="Unit\FormatTLV.pas"/>
+        <DCCReference Include="Unit\TLVParser.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -143,14 +151,18 @@
                     <Source Name="MainSource">LogPlayer.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k270.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp270.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k270.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp270.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Win32\Debug\LogPlayer.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Bin\Win32\Debug\LogPlayer.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>LogPlayer.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Bin\Win32\Release\LogPlayer.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>LogPlayer.exe</RemoteName>
                         <Overwrite>true</Overwrite>

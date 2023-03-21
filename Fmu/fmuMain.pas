@@ -5,9 +5,10 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, LogParser, Vcl.StdCtrls, untCommand, untLogPlayer, DrvFRLib_TLB,
-  DriverCommands, SynEdit, Vcl.ComCtrls, JvAppStorage, JvAppXMLStorage,
+  DriverCommands, Vcl.ComCtrls, JvAppStorage, JvAppXMLStorage,
   JvComponentBase, JvFormPlacement, EventBus, NotifyThread, System.ImageList,
-  Vcl.ImgList, PngImageList, VersionInfo, Vcl.ExtCtrls, Vcl.Menus;
+  Vcl.ImgList, PngImageList, VersionInfo, Vcl.ExtCtrls, Vcl.Menus,
+  CommandParser;
 
 type
   TfmMain = class(TForm)
@@ -26,7 +27,6 @@ type
     btnSettings: TButton;
     pngmglst: TPngImageList;
     pngmglstButtons: TPngImageList;
-    pnlCmdInfo: TPanel;
     memInfo: TMemo;
     btnOpenSession: TButton;
     btnCloseSession: TButton;
@@ -36,6 +36,10 @@ type
     N1: TMenuItem;
     N2: TMenuItem;
     dlgSave: TSaveDialog;
+    pnl: TPanel;
+    pnlTop: TPanel;
+    pnlBottom: TPanel;
+    spl1: TSplitter;
     procedure btnOpenClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -217,6 +221,8 @@ procedure TfmMain.lvCommandsSelectItem(Sender: TObject; Item: TListItem;
 var
   Index: Integer;
   Command: TCommand;
+  Fields: string;
+  AnswerFields: string;
 begin
   if not FFinished then
     Exit;
@@ -233,6 +239,14 @@ begin
   memInfo.Lines.Add(Command.CommandName);
   memInfo.Lines.Add('Передано: ' + Command.Data);
   memInfo.Lines.Add('Принято : ' + Command.AnswerData);
+  ParseCommand(Command, Fields, AnswerFields);
+  memInfo.Lines.Add('');
+  memInfo.Lines.Add('Входные параметры:');
+  memInfo.Lines.Add(Fields);
+  memInfo.Lines.Add('Возвращенные параметры:');
+  memInfo.Lines.Add(AnswerFields);
+  memInfo.SelStart := 0;
+  memInfo.SelLength := 0;
 end;
 
 procedure TfmMain.N2Click(Sender: TObject);

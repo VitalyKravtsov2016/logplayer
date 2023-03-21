@@ -47,6 +47,8 @@ function Str2TimeBCD(const Data: AnsiString; Index: Integer): TDateTime;
 function Int64ToStr(i64: int64): AnsiString;
 function DateTimeToFN(const AValue: TDateTime): AnsiString;
 function BCDStrToDouble(const AStr: AnsiString; ADecimalPoint: Integer): Double;
+function BytesToString(const AData: TBytes): AnsiString;
+function StringToBytes(const AData: AnsiString): TBytes;
 
 
 const
@@ -624,7 +626,14 @@ begin
   Result := Int + FormatSettings.DecimalSeparator + Frac;
 end;
 
+    function BytesToString(const AData: TBytes): AnsiString;
+begin
+  SetString(Result, PAnsiChar(AData), Length(AData));
+end;
 
-
+function StringToBytes(const AData: AnsiString): TBytes;
+begin
+  Result := BytesOf(AData);
+end;
 
 end.
