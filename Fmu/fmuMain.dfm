@@ -42,6 +42,7 @@ object fmMain: TfmMain
       Height = 363
       Align = alClient
       BevelOuter = bvNone
+      Constraints.MinHeight = 200
       TabOrder = 0
       DesignSize = (
         802
@@ -85,6 +86,7 @@ object fmMain: TfmMain
         Width = 137
         Height = 25
         Caption = #1054#1090#1082#1088#1099#1090#1100' '#1092#1072#1081#1083' '#1083#1086#1075#1072
+        Default = True
         ImageIndex = 0
         ImageName = 'open'
         ImageMargins.Left = 4
@@ -264,6 +266,7 @@ object fmMain: TfmMain
       Height = 216
       Align = alBottom
       BevelOuter = bvNone
+      Constraints.MinHeight = 50
       TabOrder = 1
       object memInfo: TMemo
         Left = 8
@@ -293,12 +296,14 @@ object fmMain: TfmMain
   object formStorage: TJvFormStorage
     AppStorage = xmlStorage
     AppStoragePath = '%FORM_NAME%\'
+    AfterRestorePlacement = formStorageAfterRestorePlacement
     StoredProps.Strings = (
       'memCommandExceptions.Lines'
       'dlgOpen.FileName'
       'dlgOpen.InitialDir'
       'dlgSave.InitialDir'
-      'dlgSave.FileName')
+      'dlgSave.FileName'
+      'spl1.Top')
     StoredValues = <
       item
       end>

@@ -6,6 +6,8 @@ uses
    Utils.BinStream;
 
 type
+  TProtocol = (pNone, pProtocol1, pProtocol2, pPlain);
+
   PCommand = ^TCommand;
   TCommand = record
     Data: AnsiString;
@@ -14,6 +16,8 @@ type
     PlayedAnswerData: AnsiString;
     Played: Boolean;
     Selected: Boolean;
+    Protocol: TProtocol;
+    LineNumber: Integer;
   end;
   TCommandList = TList<TCommand>;
 
@@ -41,7 +45,10 @@ end;
 
 function TCommandHelper.CommandName: string;
 begin
-  Result := GetCommandName(Data);
+  if (Protocol = pProtocol2) and (Data = '') then
+    Result := 'Sync'
+  else
+    Result := GetCommandName(Data);
 end;
 
 function TCommandHelper.HasError: Boolean;

@@ -37,7 +37,8 @@ uses
   ParserCommand1E in 'Unit\Commands\ParserCommand1E.pas',
   ParserCommand1F in 'Unit\Commands\ParserCommand1F.pas',
   ParserCommand2D in 'Unit\Commands\ParserCommand2D.pas',
-  ParserCommand2E in 'Unit\Commands\ParserCommand2E.pas';
+  ParserCommand2E in 'Unit\Commands\ParserCommand2E.pas',
+  ParserCommand6B in 'Unit\Commands\ParserCommand6B.pas';
 
 {$R *.res}
 

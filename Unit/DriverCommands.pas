@@ -73,6 +73,7 @@ const
   SCommandName67 = 'Фискальный отчет по диапазону смен';
   SCommandName68 = 'Прерывание полного отчета';
   SCommandName69 = 'Чтение параметров фискализации';
+  SCommandName6B = 'Запрос описания ошибки';
   SCommandName70 = 'Открыть фискальный подкладной документ';
   SCommandName71 = 'Открыть стандартный фискальный подкладной документ';
   SCommandName72 = 'Формирование операции на подкладном документе';
@@ -309,6 +310,7 @@ begin
     $67: Result := SCommandName67;
     $68: Result := SCommandName68;
     $69: Result := SCommandName69;
+    $6B: Result := SCommandName6B;
     $70: Result := SCommandName70;
     $71: Result := SCommandName71;
     $72: Result := SCommandName72;

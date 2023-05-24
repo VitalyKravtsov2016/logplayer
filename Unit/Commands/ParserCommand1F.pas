@@ -17,7 +17,7 @@ implementation
 
 procedure TParserCommand1F.CreateAnswerFields;
 begin
-  AddAnswerField('Value', ftTableValue);
+  AddAnswerField('Value (HEX)', ftTableValue);
 end;
 
 procedure TParserCommand1F.CreateFields;

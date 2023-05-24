@@ -25,7 +25,7 @@ begin
   AddField('TableNumber', ftByte);
   AddField('Row', ftUInt16);
   AddField('Field', ftByte);
-  AddField('Value', ftTableValue);
+  AddField('Value (HEX)', ftTableValue);
 end;
 
 end.

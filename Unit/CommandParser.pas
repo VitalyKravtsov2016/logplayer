@@ -61,7 +61,7 @@ uses
   PrinterTypes, ParserCommandFF45, ParserCommandFF46, ParserCommandFF0C,
   ParserCommand17, ParserCommand2F, ParserCommand11, ParserCommand10,
   ParserCommandFC, ParserCommand8D, ParserCommand1E, ParserCommand1F,
-  ParserCommand2D, ParserCommand2E;
+  ParserCommand2D, ParserCommand2E, ParserCommand6B;
 
 procedure ParseCommand(const ACmd: TCommand; var Fields: string; var AnswerFields: string; var PlayedFields: string);
 var
@@ -590,6 +590,7 @@ begin
   AddCommand($2F, TParserCommand2F);
   AddCommand($2D, TParserCommand2D);
   AddCommand($2E, TParserCommand2E);
+  AddCommand($6B, TParserCommand6B);
   AddCommand($8D, TParserCommand8D);
   AddCommand($FC, TParserCommandFC);
 end;

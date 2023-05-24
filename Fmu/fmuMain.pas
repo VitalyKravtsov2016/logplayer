@@ -8,10 +8,9 @@ uses
   Vcl.StdCtrls, untCommand, untLogPlayer, DrvFRLib_TLB, DriverCommands,
   Vcl.ComCtrls, JvAppStorage, JvAppXMLStorage, JvComponentBase, JvFormPlacement,
   EventBus, NotifyThread, System.ImageList, Vcl.ImgList, PngImageList,
-  VersionInfo, Vcl.ExtCtrls, Vcl.Menus, CommandParser, Clipbrd;
+  VersionInfo, Vcl.ExtCtrls, Vcl.Menus, CommandParser, Clipbrd, FileUtils;
 
 type
-
   TfmMain = class(TForm)
     btnOpen: TButton;
     btnStart: TButton;
@@ -69,6 +68,7 @@ type
     procedure N5Click(Sender: TObject);
     procedure btnFindErrorClick(Sender: TObject);
     procedure N7Click(Sender: TObject);
+    procedure formStorageAfterRestorePlacement(Sender: TObject);
   private
     FPlayer: TLogPlayer;
     FCommands: TCommandList;
@@ -191,6 +191,7 @@ var
   Command: TCommand;
   cmd: PCommand;
 begin
+  memInfo.Clear;
   lvCommands.Clear;
   ParseLog(AStr, FCommands);
   progress.Min := 0;
@@ -214,17 +215,21 @@ end;
 procedure TfmMain.OpenFromFile(const AFileName: string);
 var
   S: TStringList;
+  F:TFileStream;
   Command: TCommand;
   cmd: PCommand;
 begin
+  memInfo.Clear;
   lvCommands.Clear;
+  F:= TFileStream.Create(FileOpenAsReadOnly(AFileName));
   S := TStringList.Create;
   try
-    S.LoadFromFile(AFileName);
+    S.LoadFromStream(F);
     OpenFromText(S);
     lblFileName.Caption := AFileName;
   finally
     S.Free;
+    F.Free;
   end;
 end;
 
@@ -320,13 +325,12 @@ begin
   FFirstCommandIndex := FContinueIndex;
   if FFirstCommandIndex < 0 then
     FFirstCommandIndex := 0;
-  //SelectAll;
   AsyncAwait2(Play, OnFinished);
 end;
 
 procedure TfmMain.FormCreate(Sender: TObject);
 var
-Edit: TEdit;
+  Edit: TEdit;
 begin
   Caption := 'SHTRIH-M: Log player & analyzer v.' + GetFileVersionInfoStr;
   FCommands := TCommandList.Create;
@@ -344,6 +348,12 @@ begin
   FCommands.Free;
   FDriver.Free;
   FPlayer.Free;
+end;
+
+procedure TfmMain.formStorageAfterRestorePlacement(Sender: TObject);
+begin
+  Resize;
+  Repaint;
 end;
 
 procedure TfmMain.LoadFromClipboard;
@@ -370,6 +380,7 @@ var
   Fields: string;
   AnswerFields: string;
   PlayedFields: string;
+  protocolstr: string;
 begin
   if not FFinished then
     Exit;
@@ -383,6 +394,16 @@ begin
 
   Command := FCommands[Index];
   memInfo.Clear;
+  case Command.Protocol of
+    pProtocol1:
+      protocolstr := '[Protocol v1]';
+    pProtocol2:
+      protocolstr := '[Protocol v2]';
+    pPlain:
+      protocolstr := '[Protocol v1 (plain)]'   else
+    protocolstr := '';
+  end;
+  memInfo.Lines.Add(Command.Attributes + ' ' + protocolstr + ' (Line ' + Command.LineNumber.ToString + ')');
   memInfo.Lines.Add(Command.CommandName);
   memInfo.Lines.Add('Передано     : ' + Command.Data);
   memInfo.Lines.Add('Принято (лог): ' + Command.AnswerData);
@@ -459,12 +480,12 @@ begin
   until i >= (lvCommands.Items.Count - 1);
      // lvCommands.DeleteSelected;
 
-   for i := 0 to lvCommands.Items.Count - 1 do
-   begin
-     memInfo.Lines.Add('lv ' + i.ToString + ' ' + lvCommands.Items[i].Caption);
-     memInfo.Lines.Add('lv ' + i.ToString + ' ' + FCommands[i].Attributes);
-     memInfo.Lines.Add('');
-   end;
+  for i := 0 to lvCommands.Items.Count - 1 do
+  begin
+    memInfo.Lines.Add('lv ' + i.ToString + ' ' + lvCommands.Items[i].Caption);
+    memInfo.Lines.Add('lv ' + i.ToString + ' ' + FCommands[i].Attributes);
+    memInfo.Lines.Add('');
+  end;
 end;
 
 procedure TfmMain.OnCommandRun(AMsg: string);
@@ -492,15 +513,7 @@ begin
   lvCommands.Items[Index].StateIndex := 2;
   lvCommands.Items.EndUpdate;
   lvCommands.SetFocus;
- { if Application.MessageBox(PWideChar('Ошибка: ' + ErrorText + #13#10 + 'Продолжить?'), 'Ошибка', MB_YESNO + MB_ICONSTOP) = IDYES then
-  begin
-    if Index < (FCommands.Count - 1) then
-      FContinueIndex := Index + 1;
-    ContinuePlay;
-  end
-  else  }
-
-    edtStatus.Text := Format('(%d/%d) %s: Ошибка: %s', [Index + 1, FCommands.Count, FCommands[Index].CommandName, ErrorText]);
+  edtStatus.Text := Format('(%d/%d) %s: Ошибка: %s', [Index + 1, FCommands.Count, FCommands[Index].CommandName, ErrorText]);
 end;
 
 procedure TfmMain.OnErrorQuery(AMsg: string);
@@ -573,22 +586,15 @@ end;
 
 procedure TfmMain.SelLine(Index: integer);
 begin
-  //lvcommands.Items.BeginUpdate;
-  try
   if Index > 0 then
     lvCommands.Items[Index - 1].StateIndex := -1;
   if Index < 0 then
     Exit;
-
-  //lvCommands.ClearSelection;
   lvCommands.Items[Index].Selected := True;
   lvCommands.Items[Index].MakeVisible(True);
   if lvCommands.Items[Index].StateIndex < 1 then
     lvCommands.Items[Index].StateIndex := 0;
   lvCommands.SetFocus;
-  finally
-    //lvCommands.Items.EndUpdate;
-  end;
   progress.Position := Index;
   edtStatus.Text := Format('(%d/%d) %s', [Index + 1, FCommands.Count, FCommands[Index].CommandName]);
 end;
