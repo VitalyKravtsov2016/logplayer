@@ -2,7 +2,8 @@ unit untCommand;
 
 interface
 uses
-   System.Classes, System.Generics.Collections, BinUtils;
+   System.Classes, System.Generics.Collections, BinUtils,
+   Utils.BinStream;
 
 type
   PCommand = ^TCommand;
@@ -10,7 +11,9 @@ type
     Data: AnsiString;
     Attributes: AnsiString;
     AnswerData: AnsiString;
+    PlayedAnswerData: AnsiString;
     Played: Boolean;
+    Selected: Boolean;
   end;
   TCommandList = TList<TCommand>;
 
@@ -19,6 +22,7 @@ type
     function ThreadID: AnsiString;
     function CommandName: string;
     function Code: Integer;
+    function HasError: Boolean;
   end;
 
 implementation
@@ -38,6 +42,23 @@ end;
 function TCommandHelper.CommandName: string;
 begin
   Result := GetCommandName(Data);
+end;
+
+function TCommandHelper.HasError: Boolean;
+var
+  Stream: IBinStream;
+  b: Byte;
+begin
+  Result := False;
+  Stream := TBinStream.Create([]);
+  Stream.WriteBytes(HexToBytes(AnswerData));
+  Stream.Stream.Position := 0;
+  if Stream.Size < 2 then Exit;
+  b := Stream.ReadByte;
+  if b = $FF then
+    Stream.ReadByte;
+  b := Stream.ReadByte;
+  Result := b <> 0;
 end;
 
 function TCommandHelper.ThreadID: AnsiString;

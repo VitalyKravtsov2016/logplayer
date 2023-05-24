@@ -18,7 +18,26 @@ uses
   Parser in 'Unit\Parser.pas',
   untUtils in 'Unit\untUtils.pas',
   FormatTLV in 'Unit\FormatTLV.pas',
-  TLVParser in 'Unit\TLVParser.pas';
+  TLVParser in 'Unit\TLVParser.pas',
+  ParserCommandFF45 in 'Unit\Commands\ParserCommandFF45.pas',
+  ParserCommandFF46 in 'Unit\Commands\ParserCommandFF46.pas',
+  ParserCommandFF0C in 'Unit\Commands\ParserCommandFF0C.pas',
+  ParserCommand17 in 'Unit\Commands\ParserCommand17.pas',
+  ParserCommand2F in 'Unit\Commands\ParserCommand2F.pas',
+  ParserCommand11 in 'Unit\Commands\ParserCommand11.pas',
+  PrinterTypes in '..\drvfr5\Source\DrvFR\Units\PrinterTypes.pas',
+  DriverTypes in '..\drvfr5\Source\Shared\DriverTypes.pas',
+  GlobalConst in '..\drvfr5\Source\Shared\GlobalConst.pas',
+  TextEncoding in '..\drvfr5\Source\DrvFR\Units\TextEncoding.pas',
+  LangUtils in '..\drvfr5\Source\DrvFRTst\Units\LangUtils.pas',
+  FileUtils in '..\drvfr5\Source\Shared\FileUtils.pas',
+  ParserCommand10 in 'Unit\Commands\ParserCommand10.pas',
+  ParserCommandFC in 'Unit\Commands\ParserCommandFC.pas',
+  ParserCommand8D in 'Unit\Commands\ParserCommand8D.pas',
+  ParserCommand1E in 'Unit\Commands\ParserCommand1E.pas',
+  ParserCommand1F in 'Unit\Commands\ParserCommand1F.pas',
+  ParserCommand2D in 'Unit\Commands\ParserCommand2D.pas',
+  ParserCommand2E in 'Unit\Commands\ParserCommand2E.pas';
 
 {$R *.res}
 

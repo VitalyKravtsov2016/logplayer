@@ -7,72 +7,41 @@ uses
   BinUtils, Classes, TLVParser;
 
 type
-  TFieldType = (ftByte, ftUInt32, ftQuantity6, fTQuantity5, ftDate, ftTime,
-  ftSum, ftString, ftCheckType, ftPaymentTypeSign, ftPaymentItemSign,
-  ftTaxValue, ftSumm1Value, ftTax, ftTLV, ftTaxType, ftTax1);
+  TFieldType = (ftByte, ftUInt32, ftUint16, ftINN, ftQuantity6, ftQuantity5, ftDateTime, ftDate, ftTime, ftSum, ftString, ftString40, ftTableValue, ftFieldType, ftCheckType, ftPaymentTypeSign, ftPaymentItemSign, ftTaxValue, ftSumm1Value, ftTax, ftTLV, ftTaxType, ftTax1, ftSoftVersion, ftECRMode, ftECRAdvancedMode, ftECRFlags, ftBatteryVoltage, ftPowerSourceVoltage, ftPortNumber, ftCheckType2);
+
+  TParseType = (pFields, pAnswerFields, pPlayedFields);
 
   TParserCommand = class
   private
     function TaxValueToString(AValue: UInt64): string;
     function Summ1ToString(AValue: UInt64): string;
     function CheckTypeToString(AValue: Byte): string;
+    function CheckType2ToString(AValue: Byte): string;
     function TaxTypeToString(AValue: Byte): string;
     function Tax1ToString(AValue: Byte): string;
     function PaymentTypeSigntoString(AValue: Byte): string;
     function PaymentItemSignToString(AValue: Byte): string;
+    function ECRFlagsToString(AValue: UInt16): string;
+    function FieldTypeToString(AValue: Byte): string;
   protected
     FFields: TList<TPair<string, TFieldType>>;
     FAnswerFields: TList<TPair<string, TFieldType>>;
     FStream: IBinStream;
     procedure Start(const ACmd: TCommand);
     procedure StartAnswer(const ACmd: TCommand);
+    procedure StartPlayedAnswer(const ACmd: TCommand);
     procedure AddField(const AName: string; AFieldType: TFieldType);
     procedure AddAnswerField(const AName: string; AFieldType: TFieldType);
+    function PortNumToString(APortNumber: Integer): string;
   public
     procedure CreateFields; virtual;
     procedure CreateAnswerFields; virtual;
-    function Parse(const ACmd: TCommand; Answer: Boolean = False): string; virtual;
+    function Parse(const ACmd: TCommand; Source: TParseType): string; virtual;
     constructor Create;
     destructor Destroy; override;
   end;
 
   TParserCommandClass = class of TParserCommand;
-
-  // FNOperation
-  TParserCommandFF45 = class(TParserCommand)
-  public
-    procedure CreateFields; override;
-    procedure CreateAnswerFields; override;
-  end;
-
-  // FNCloseCheckEx
-  TParserCommandFF46 = class(TParserCommand)
-  public
-    procedure CreateFields; override;
-    procedure CreateAnswerFields; override;
-  end;
-
-  // FNSendTLV
-  TParserCommandFF0C = class(TParserCommand)
-  public
-    procedure CreateFields; override;
-    procedure CreateAnswerFields; override;
-  end;
-
-  // PrintString
-  TParserCommand17 = class(TParserCommand)
-  public
-    procedure CreateFields; override;
-    procedure CreateAnswerFields; override;
-  end;
-
-  // PrintStringWithFont
-  TParserCommand2F = class(TParserCommand)
-  public
-    procedure CreateFields; override;
-    procedure CreateAnswerFields; override;
-  end;
-
 
   TParserCommands = class
   private
@@ -84,11 +53,17 @@ type
     function GetParserCommandClass(ACode: UInt16): TParserCommandClass;
   end;
 
-procedure ParseCommand(const ACmd: TCommand; var Fields: string; var AnswerFields: string);
+procedure ParseCommand(const ACmd: TCommand; var Fields: string; var AnswerFields: string; var PlayedFields: string);
 
 implementation
 
-procedure ParseCommand(const ACmd: TCommand; var Fields: string; var AnswerFields: string);
+uses
+  PrinterTypes, ParserCommandFF45, ParserCommandFF46, ParserCommandFF0C,
+  ParserCommand17, ParserCommand2F, ParserCommand11, ParserCommand10,
+  ParserCommandFC, ParserCommand8D, ParserCommand1E, ParserCommand1F,
+  ParserCommand2D, ParserCommand2E;
+
+procedure ParseCommand(const ACmd: TCommand; var Fields: string; var AnswerFields: string; var PlayedFields: string);
 var
   Commands: TParserCommands;
   Command: TParserCommand;
@@ -96,14 +71,14 @@ begin
   Commands := TParserCommands.Create;
   try
     Command := Commands.GetParserCommandClass(ACmd.Code).Create;
-    Fields := Command.Parse(ACmd);
-    AnswerFields := Command.Parse(ACmd, True);
+    Fields := Command.Parse(ACmd, pFields);
+    AnswerFields := Command.Parse(ACmd, pAnswerFields);
+    PlayedFields := Command.Parse(ACmd, pPlayedFields);
   finally
     Command.Free;
     Commands.Free;
   end;
 end;
-
 
 { TParserCommand }
 
@@ -117,17 +92,51 @@ begin
   FFields.Add(TPair<string, TFieldType>.Create(AName, AFieldType));
 end;
 
+function TParserCommand.PortNumToString(APortNumber: Integer): string;
+begin
+  Result := APortNumber.ToString + ' [';
+  case APortNumber of
+    0:
+      Result := Result + 'RS-232';
+    1:
+      Result := Result + 'USB vCOM';
+    2:
+      Result := Result + 'TCP сокет (RNDIS, Ethernet, WI-FI, ppp)';
+    3:
+      Result := Result + 'I2C (Основная плата)';
+  else
+    Result := Result + 'неизвестный тип';
+  end;
+  Result := Result + ']';
+end;
+
 function TParserCommand.CheckTypeToString(AValue: Byte): string;
 begin
   Result := AValue.ToString + ' [';
   case AValue of
     0:
       Result := Result + 'Приход';
-    1:
-      Result := Result + 'Возврат прихода';
     2:
+      Result := Result + 'Возврат прихода';
+    1:
       Result := Result + 'Расход';
     3:
+      Result := Result + 'Возврат расхода';
+  end;
+  Result := Result + ']';
+end;
+
+function TParserCommand.CheckType2ToString(AValue: Byte): string;
+begin
+  Result := AValue.ToString + ' [';
+  case AValue of
+    1:
+      Result := Result + 'Приход';
+    2:
+      Result := Result + 'Возврат прихода';
+    3:
+      Result := Result + 'Расход';
+    4:
       Result := Result + 'Возврат расхода';
   end;
   Result := Result + ']';
@@ -159,7 +168,43 @@ begin
   inherited;
 end;
 
-function TParserCommand.Parse(const ACmd: TCommand; Answer: Boolean): string;
+function TestBitValue(AValue: Integer; BitNumber: Integer; const TrueValue: string; const FalseValue: string): string;
+begin
+  if TestBit(AValue, BitNumber) then
+    Result := TrueValue
+  else
+    Result := FalseValue;
+end;
+
+function TParserCommand.ECRFlagsToString(AValue: UInt16): string;
+begin
+  Result := Format('0x%.4x', [AValue]) + #13#10;
+  Result := Result + '    Рулон контр. ленты        : ' + TestBitValue(AValue, 0, 'есть', 'нет') + #13#10;
+  Result := Result + '    Рулон чековой ленты       : ' + TestBitValue(AValue, 1, 'есть', 'нет') + #13#10;
+  Result := Result + '    Опт. датчик контр. ленты  : ' + TestBitValue(AValue, 6, 'бумага есть', 'бумаги нет') + #13#10;
+  Result := Result + '    Опт датчик чеков. ленты   : ' + TestBitValue(AValue, 7, 'бумага есть', 'бумаги нет') + #13#10;
+  Result := Result + '    Рычаг термог. контр. ленты: ' + TestBitValue(AValue, 8, 'опущен', 'поднят') + #13#10;
+  Result := Result + '    Рычаг термог. чеков. ленты: ' + TestBitValue(AValue, 9, 'опущен', 'поднят') + #13#10;
+  Result := Result + '    Крышка корпуса ККТ        : ' + TestBitValue(AValue, 10, 'поднята', 'опущена') + #13#10;
+  Result := Result + '    Денежный ящик             : ' + TestBitValue(AValue, 11, 'открыт', 'закрыт') + #13#10;
+  Result := Result + '    Крышка контр. ленты       : ' + TestBitValue(AValue, 12, 'поднята', 'опущена');
+end;
+
+function TParserCommand.FieldTypeToString(AValue: Byte): string;
+begin
+  Result := AValue.ToString + ' [';
+  case AValue of
+    0:
+      Result := Result + 'Int';
+    1:
+      Result := Result + 'Str';
+  else
+    Result := Result + 'Unknown';
+  end;
+  Result := Result + ']';
+end;
+
+function TParserCommand.Parse(const ACmd: TCommand; Source: TParseType): string;
 var
   Field: TPair<string, TFieldType>;
   b: Byte;
@@ -167,11 +212,21 @@ var
   Value: string;
   l: Integer;
   TlvParser: TTLVParser;
+  Res: Byte;
+  IntValue: Integer;
+  FieldList: TList<TPair<string, TFieldType>>;
+  Buf: AnsiString;
+  Buf1: AnsiString;
 begin
-  if Answer then
-    StartAnswer(ACmd)
-  else
-    Start(ACmd);
+  case Source of
+    pFields:
+      Start(ACmd);
+    pAnswerFields:
+      StartAnswer(ACmd);
+    pPlayedFields:
+      StartPlayedAnswer(ACmd);
+  end;
+
   if FStream.Size = 0 then
   begin
     Result := '';
@@ -181,11 +236,25 @@ begin
   b := FStream.ReadByte;
   if b = $FF then
     FStream.ReadByte;
+  if Source in [pAnswerFields, pPlayedFields] then
+  begin
+    Res := FStream.ReadByte;
+    if Res <> 0 then
+    begin
+      Result := 'Error: ' + Res.ToString + '(0x' + IntToHex(Res, 2) + ') ' + TPrinterError.GetDescription(Res, True);
+      Exit;
+    end;
+  end;
   S := TStringList.Create;
   try
-    for Field in FFields do
+    if Source in [pAnswerFields, pPlayedFields] then
+      FieldList := FAnswerFields
+    else
+      FieldList := FFields;
+
+    for Field in FieldList do
     begin
-      l := 10 - Length(Field.Key);
+      l := 15 - Length(Field.Key);
       if l < 0 then
         l := 0;
 
@@ -200,6 +269,14 @@ begin
           begin
             Value := Value + FStream.ReadUInt32.ToString;
           end;
+        ftUInt16:
+          begin
+            Value := Value + FStream.ReadUInt16.ToString;
+          end;
+        ftSoftVersion:
+          begin
+            Value := Value + FStream.ReadString(1) + '.' + FStream.ReadString(1);
+          end;
         ftQuantity6:
           begin
             Value := Value + Format('%.6f', [FStream.ReadInt(6) / 1000000]);
@@ -210,11 +287,15 @@ begin
           end;
         ftDate:
           begin
-            //Value := Value +
+            Value := Value + DateToStr(Str2Date(IntToBin(FStream.ReadInt(3), 3), 1));
           end;
         ftTime:
           begin
-            //Value := Value +
+            Value := Value + TimeToStr(Str2Time(IntToBin(FStream.ReadInt(3), 3), 1));
+          end;
+        ftDateTime:
+          begin
+            Value := Value + DateTimeToStr(Str2Date(IntToBin(FStream.ReadInt(5), 5), 1));
           end;
         ftSum:
           begin
@@ -224,9 +305,27 @@ begin
           begin
             Value := Value + FStream.ReadString;
           end;
+        ftString40:
+          begin
+            Value := Value + TrimRight(FStream.ReadString(40));
+          end;
+        ftFieldType:
+          begin
+            Value := Value + FieldTypeToString(FStream.ReadByte);
+          end;
+        ftTableValue:
+          begin
+            Buf := FStream.ReadString;
+            Buf1 := Copy(Buf, 1, 8);
+            Value := Value + StrToHex(Buf) + #13#10 + '    Str: ' + TrimRight(Buf) + #13#10 + '    Int: ' + BinToInt(Buf1, 1, Length(Buf1)).ToString;
+          end;
         ftCheckType:
           begin
             Value := Value + CheckTypeToString(FStream.ReadByte);
+          end;
+        ftCheckType2:
+          begin
+            Value := Value + CheckType2ToString(FStream.ReadByte);
           end;
         ftPaymentTypeSign:
           begin
@@ -266,6 +365,36 @@ begin
         ftTax1:
           begin
             Value := Value + Tax1ToString(FStream.ReadByte);
+          end;
+        ftINN:
+          begin
+            Value := Value + Int64ToStr(FStream.ReadInt(6));
+          end;
+        ftECRMode:
+          begin
+            IntValue := FStream.ReadByte;
+            Value := Value + Format('%d [%s]', [IntValue, GetECRModeDescription(IntValue)]);
+          end;
+        ftECRAdvancedMode:
+          begin
+            IntValue := FStream.ReadByte;
+            Value := Value + Format('%d [%s]', [IntValue, GetAdvancedModeDescription(IntValue)]);
+          end;
+        ftECRFlags:
+          begin
+            Value := Value + ECRFlagsToString(FStream.ReadUInt16);
+          end;
+        ftBatteryVoltage:
+          begin
+            Value := Value + Format('%.2f В.', [Round2(FStream.ReadByte / 255 * 100 * 5) / 100]);
+          end;
+        ftPowerSourceVoltage:
+          begin
+            Value := Value + Format('%.2f В.', [Round2(FStream.ReadByte * 24 / $D8 * 100) / 100]);
+          end;
+        ftPortNumber:
+          begin
+            Value := Value + PortNumToString(FStream.ReadByte);
           end;
       end;
       S.Add(Value);
@@ -375,24 +504,29 @@ end;
 
 procedure TParserCommand.StartAnswer(const ACmd: TCommand);
 begin
-  FStream := TBinStream.Create(StringToBytes(ACmd.AnswerData));
+  FStream := TBinStream.Create(StringToBytes(HexToStr(ACmd.AnswerData)));
+end;
+
+procedure TParserCommand.StartPlayedAnswer(const ACmd: TCommand);
+begin
+  FStream := TBinStream.Create(StringToBytes(HexToStr(ACmd.PlayedAnswerData)));
 end;
 
 function TParserCommand.Tax1ToString(AValue: Byte): string;
 begin
- Result := AValue.ToString + ' [';
+  Result := AValue.ToString + ' [';
   case AValue of
     1:
       Result := Result + 'НДС 20%';
     2:
       Result := Result + 'НДС 10%';
-    3:
-      Result := Result + 'НДС 0%';
     4:
+      Result := Result + 'НДС 0%';
+    8:
       Result := Result + 'БЕЗ НДС';
-    5:
+    16:
       Result := Result + 'НДС 20/120';
-    6:
+    32:
       Result := Result + 'НДС 10/110';
   end;
   Result := Result + ']';
@@ -448,8 +582,16 @@ begin
   AddCommand($FF46, TParserCommandFF46);
   AddCommand($FF0C, TParserCommandFF0C);
   AddCommand($FF4D, TParserCommandFF0C);
+  AddCommand($10, TParserCommand10);
+  AddCommand($11, TParserCommand11);
   AddCommand($17, TParserCommand17);
+  AddCommand($1E, TParserCommand1E);
+  AddCommand($1F, TParserCommand1F);
   AddCommand($2F, TParserCommand2F);
+  AddCommand($2D, TParserCommand2D);
+  AddCommand($2E, TParserCommand2E);
+  AddCommand($8D, TParserCommand8D);
+  AddCommand($FC, TParserCommandFC);
 end;
 
 destructor TParserCommands.Destroy;
@@ -469,108 +611,6 @@ begin
       Exit;
     end;
   Result := TParserCommand;
-end;
-
-{ TParserCommandFF46 }
-
-procedure TParserCommandFF46.CreateAnswerFields;
-begin
-
-end;
-
-procedure TParserCommandFF46.CreateFields;
-begin
-  AddField('Password', ftUInt32);
-  AddField('CheckType', ftCheckType);
-  AddField('Quantity', ftQuantity6);
-  AddField('Price', ftSum);
-  AddField('Summ1', ftSumm1Value);
-  AddField('TaxValue', ftTaxValue);
-  AddField('Tax1', ftTax1);
-  AddField('Department', ftByte);
-  AddField('PaymentTypeSign', ftPaymentTypeSign);
-  AddField('PaymentItemSign', ftPaymentItemSign);
-  AddField('StringForPrinting', ftString);
-end;
-
-{ TParserCommandFF45 }
-
-procedure TParserCommandFF45.CreateAnswerFields;
-begin
-
-end;
-
-procedure TParserCommandFF45.CreateFields;
-begin
-  AddField('Password', ftUInt32);
-  AddField('Summ1', ftSum);
-  AddField('Summ2', ftSum);
-  AddField('Summ3', ftSum);
-  AddField('Summ4', ftSum);
-  AddField('Summ5', ftSum);
-  AddField('Summ6', ftSum);
-  AddField('Summ7', ftSum);
-  AddField('Summ8', ftSum);
-  AddField('Summ9', ftSum);
-  AddField('Summ10', ftSum);
-  AddField('Summ11', ftSum);
-  AddField('Summ12', ftSum);
-  AddField('Summ13', ftSum);
-  AddField('Summ14', ftSum);
-  AddField('Summ15', ftSum);
-  AddField('Summ16', ftSum);
-  AddField('RoundingSumm', ftByte);
-  AddField('TaxValue1', ftTaxValue);
-  AddField('TaxValue2', ftTaxValue);
-  AddField('TaxValue3', ftTaxValue);
-  AddField('TaxValue4', ftTaxValue);
-  AddField('TaxValue5', ftTaxValue);
-  AddField('TaxValue6', ftTaxValue);
-  AddField('TaxType', ftTaxType);
-  AddField('StringForPrinting', ftString);
-end;
-
-{ TParserCommandFF0C }
-
-procedure TParserCommandFF0C.CreateAnswerFields;
-begin
-
-
-end;
-
-procedure TParserCommandFF0C.CreateFields;
-begin
-  AddField('Password', ftUInt32);
-  AddField('TLVData', ftTLV);
-end;
-
-{ TParserCommand17 }
-
-procedure TParserCommand17.CreateAnswerFields;
-begin
-
-end;
-
-procedure TParserCommand17.CreateFields;
-begin
-  AddField('Password', ftUInt32);
-  AddField('Tape type', ftByte);
-  AddField('StringForPrinting', ftString);
-end;
-
-{ TParserCommand2F }
-
-procedure TParserCommand2F.CreateAnswerFields;
-begin
-
-end;
-
-procedure TParserCommand2F.CreateFields;
-begin
-  AddField('Password', ftUInt32);
-  AddField('Tape type', ftByte);
-  AddField('FontType', ftByte);
-  AddField('StringForPrinting', ftString);
 end;
 
 end.

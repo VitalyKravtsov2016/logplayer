@@ -84,9 +84,9 @@
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Build>2</VerInfo_Build>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=ШТРИХ-М;FileDescription=LogPlayer;FileVersion=1.0.0.1;InternalName=LogPlayer;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=LogPlayer;ProductName=LogPlayer;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=ШТРИХ-М;FileDescription=LogPlayer;FileVersion=1.0.0.2;InternalName=LogPlayer;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=LogPlayer;ProductName=LogPlayer;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <DCC_ExeOutput>Bin\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_DcuOutput>Dcu\$(Platform)\$(Config)</DCC_DcuOutput>
     </PropertyGroup>
@@ -130,6 +130,25 @@
         <DCCReference Include="Unit\untUtils.pas"/>
         <DCCReference Include="Unit\FormatTLV.pas"/>
         <DCCReference Include="Unit\TLVParser.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF45.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF46.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF0C.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand17.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand2F.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand11.pas"/>
+        <DCCReference Include="..\drvfr5\Source\DrvFR\Units\PrinterTypes.pas"/>
+        <DCCReference Include="..\drvfr5\Source\Shared\DriverTypes.pas"/>
+        <DCCReference Include="..\drvfr5\Source\Shared\GlobalConst.pas"/>
+        <DCCReference Include="..\drvfr5\Source\DrvFR\Units\TextEncoding.pas"/>
+        <DCCReference Include="..\drvfr5\Source\DrvFRTst\Units\LangUtils.pas"/>
+        <DCCReference Include="..\drvfr5\Source\Shared\FileUtils.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand10.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFC.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand8D.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand1E.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand1F.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand2D.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand2E.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

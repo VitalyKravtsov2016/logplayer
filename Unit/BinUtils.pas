@@ -49,7 +49,7 @@ function DateTimeToFN(const AValue: TDateTime): AnsiString;
 function BCDStrToDouble(const AStr: AnsiString; ADecimalPoint: Integer): Double;
 function BytesToString(const AData: TBytes): AnsiString;
 function StringToBytes(const AData: AnsiString): TBytes;
-
+function HexToBytes(const AData: AnsiString): TBytes;
 
 const
   //C_DOUBLE_PREC = 0.00001; //    9.5E-4;
@@ -636,4 +636,10 @@ begin
   Result := BytesOf(AData);
 end;
 
+function HexToBytes(const AData: AnsiString): TBytes;
+begin
+  Result := StringToBytes(HexToStr(AData));
+end;
+
 end.
+
