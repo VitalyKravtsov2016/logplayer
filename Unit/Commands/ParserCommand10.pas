@@ -9,6 +9,7 @@ type
   public
     procedure CreateFields; override;
     procedure CreateAnswerFields; override;
+    function GetShortValue: string; override;
   end;
 
 implementation
@@ -62,6 +63,11 @@ end;
 procedure TParserCommand10.CreateFields;
 begin
   AddField('Password', ftUInt32);
+end;
+
+function TParserCommand10.GetShortValue: string;
+begin
+  Result := GetAnswerFieldValue('ECRMode') + ' ' + GetAnswerFieldValue('ECRAdvancedMode');
 end;
 
 end.

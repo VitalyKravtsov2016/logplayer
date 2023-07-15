@@ -100,11 +100,12 @@
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Build>2</VerInfo_Build>
+        <VerInfo_Build>4</VerInfo_Build>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=ШТРИХ-М;FileDescription=LogPlayer;FileVersion=1.0.0.2;InternalName=LogPlayer;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=LogPlayer;ProductName=LogPlayer;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=ШТРИХ-М;FileDescription=LogPlayer;FileVersion=1.0.0.4;InternalName=LogPlayer;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=LogPlayer;ProductName=LogPlayer;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <DCC_ExeOutput>Bin\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_DcuOutput>Dcu\$(Platform)\$(Config)</DCC_DcuOutput>
+        <Icon_MainIcon>LogPlayer_Icon.ico</Icon_MainIcon>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -150,6 +151,15 @@
         <DCCReference Include="Unit\Commands\ParserCommand2D.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand2E.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand6B.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand80.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand81.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand82.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand83.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand85.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand89.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommand8E.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF67.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF61.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

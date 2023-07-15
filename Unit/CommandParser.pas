@@ -7,7 +7,7 @@ uses
   BinUtils, Classes, TLVParser;
 
 type
-  TFieldType = (ftByte, ftUInt32, ftUint16, ftINN, ftQuantity6, ftQuantity5, ftDateTime, ftDate, ftTime, ftSum, ftString, ftString40, ftTableValue, ftFieldType, ftCheckType, ftPaymentTypeSign, ftPaymentItemSign, ftTaxValue, ftSumm1Value, ftTax, ftTLV, ftTaxType, ftTax1, ftSoftVersion, ftECRMode, ftECRAdvancedMode, ftECRFlags, ftBatteryVoltage, ftPowerSourceVoltage, ftPortNumber, ftCheckType2);
+  TFieldType = (ftByte, ftUInt32, ftUint16, ftINN, ftBarcode, ftBarcodeTLV, ftKMAnswer, ftQuantity6, ftQuantity5, ftDateTime, ftDate, ftTime, ftSum, ftString, ftString40, ftTableValue, ftFieldType, ftCheckType, ftPaymentTypeSign, ftPaymentItemSign, ftTaxValue, ftSumm1Value, ftTax, ftTLV, ftTaxType, ftTax1, ftSoftVersion, ftECRMode, ftECRAdvancedMode, ftECRFlags, ftBatteryVoltage, ftPowerSourceVoltage, ftPortNumber, ftCheckType2);
 
   TParseType = (pFields, pAnswerFields, pPlayedFields);
 
@@ -25,17 +25,23 @@ type
     function FieldTypeToString(AValue: Byte): string;
   protected
     FFields: TList<TPair<string, TFieldType>>;
+    FFieldsValues: TList<TPair<string, string>>;
+    FAnswerFieldsValues: TList<TPair<string, string>>;
     FAnswerFields: TList<TPair<string, TFieldType>>;
     FStream: IBinStream;
+    function GetFieldValue(const AName: string): string;
+    function GetAnswerFieldValue(const AName: string): string;
     procedure Start(const ACmd: TCommand);
     procedure StartAnswer(const ACmd: TCommand);
     procedure StartPlayedAnswer(const ACmd: TCommand);
     procedure AddField(const AName: string; AFieldType: TFieldType);
     procedure AddAnswerField(const AName: string; AFieldType: TFieldType);
     function PortNumToString(APortNumber: Integer): string;
+//    function FieldValueToString(Field):;
   public
     procedure CreateFields; virtual;
     procedure CreateAnswerFields; virtual;
+    function GetShortValue: string; virtual;
     function Parse(const ACmd: TCommand; Source: TParseType): string; virtual;
     constructor Create;
     destructor Destroy; override;
@@ -54,6 +60,7 @@ type
   end;
 
 procedure ParseCommand(const ACmd: TCommand; var Fields: string; var AnswerFields: string; var PlayedFields: string);
+function GetCommandShortValue(ACmd: TCommand): string;
 
 implementation
 
@@ -61,7 +68,9 @@ uses
   PrinterTypes, ParserCommandFF45, ParserCommandFF46, ParserCommandFF0C,
   ParserCommand17, ParserCommand2F, ParserCommand11, ParserCommand10,
   ParserCommandFC, ParserCommand8D, ParserCommand1E, ParserCommand1F,
-  ParserCommand2D, ParserCommand2E, ParserCommand6B;
+  ParserCommand2D, ParserCommand2E, ParserCommand6B, ParserCommand80,
+  ParserCommand81, ParserCommand82, ParserCommand83, ParserCommand85,
+  ParserCommand89, ParserCommand8E, ParserCommandFF67;
 
 procedure ParseCommand(const ACmd: TCommand; var Fields: string; var AnswerFields: string; var PlayedFields: string);
 var
@@ -74,6 +83,23 @@ begin
     Fields := Command.Parse(ACmd, pFields);
     AnswerFields := Command.Parse(ACmd, pAnswerFields);
     PlayedFields := Command.Parse(ACmd, pPlayedFields);
+  finally
+    Command.Free;
+    Commands.Free;
+  end;
+end;
+
+function GetCommandShortValue(ACmd: TCommand): string;
+var
+  Commands: TParserCommands;
+  Command: TParserCommand;
+begin
+  Commands := TParserCommands.Create;
+  try
+    Command := Commands.GetParserCommandClass(ACmd.Code).Create;
+    Command.Parse(ACmd, pFields);
+    Command.Parse(ACmd, pAnswerFields);
+    Result := Command.GetShortValue;
   finally
     Command.Free;
     Commands.Free;
@@ -146,6 +172,8 @@ constructor TParserCommand.Create;
 begin
   inherited;
   FFields := TList<TPair<string, TFieldType>>.Create;
+  FFieldsValues := TList<TPair<string, string>>.Create;
+  FAnswerFieldsValues := TList<TPair<string, string>>.Create;
   FAnswerFields := TList<TPair<string, TFieldType>>.Create;
   CreateFields;
   CreateAnswerFields;
@@ -164,6 +192,8 @@ end;
 destructor TParserCommand.Destroy;
 begin
   FFields.Free;
+  FFieldsValues.Free;
+  FAnswerFieldsValues.Free;
   FAnswerFields.Free;
   inherited;
 end;
@@ -204,6 +234,32 @@ begin
   Result := Result + ']';
 end;
 
+function TParserCommand.GetFieldValue(const AName: string): string;
+var
+  Pair: TPair<string, string>;
+begin
+  Result := '';
+  for Pair in FFieldsValues do
+    if AnsiLowerCase(Pair.Key) = AnsiLowerCase(AName) then
+      Result := Pair.Value;
+end;
+
+function TParserCommand.GetAnswerFieldValue(const AName: string): string;
+var
+  Pair: TPair<string, string>;
+begin
+  Result := '';
+  for Pair in FAnswerFieldsValues do
+    if AnsiLowerCase(Pair.Key) = AnsiLowerCase(AName) then
+      Result := Pair.Value;
+end;
+
+
+function TParserCommand.GetShortValue: string;
+begin
+  Result := '';
+end;
+
 function TParserCommand.Parse(const ACmd: TCommand; Source: TParseType): string;
 var
   Field: TPair<string, TFieldType>;
@@ -211,18 +267,34 @@ var
   S: TStringList;
   Value: string;
   l: Integer;
+  Len: Integer;
   TlvParser: TTLVParser;
   Res: Byte;
   IntValue: Integer;
   FieldList: TList<TPair<string, TFieldType>>;
   Buf: AnsiString;
   Buf1: AnsiString;
+  FieldValue: string;
+  procedure AddValue(const AName: string; const AValue: string);
+  begin
+    if Source = pFields then
+      FFieldsValues.Add(TPair<string, string>.Create(AName, AValue))
+    else
+      if Source = pAnswerFields then
+        FAnswerFieldsValues.Add(TPair<string, string>.Create(AName, AValue));
+  end;
 begin
   case Source of
     pFields:
+    begin
+      FFieldsValues.Clear;
       Start(ACmd);
+    end;
     pAnswerFields:
+    begin
+      FAnswerFieldsValues.Clear;
       StartAnswer(ACmd);
+    end;
     pPlayedFields:
       StartPlayedAnswer(ACmd);
   end;
@@ -259,93 +331,109 @@ begin
         l := 0;
 
       Value := ' ' + Field.Key + StringOfChar(' ', l) + ': ';
-
+      FieldValue := '';
       case Field.Value of
         ftByte:
           begin
-            Value := Value + FStream.ReadByte.ToString;
+            FieldValue := FStream.ReadByte.ToString;
+           // Value := Value + FieldValue;
           end;
         ftUInt32:
           begin
-            Value := Value + FStream.ReadUInt32.ToString;
+            FieldValue := FStream.ReadUInt32.ToString;
+           // Value := Value +
           end;
         ftUInt16:
           begin
-            Value := Value + FStream.ReadUInt16.ToString;
+            FieldValue := FStream.ReadUInt16.ToString;
           end;
         ftSoftVersion:
           begin
-            Value := Value + FStream.ReadString(1) + '.' + FStream.ReadString(1);
+            FieldValue := FStream.ReadString(1) + '.' + FStream.ReadString(1);
           end;
         ftQuantity6:
           begin
-            Value := Value + Format('%.6f', [FStream.ReadInt(6) / 1000000]);
+            FieldValue := Format('%.6f', [FStream.ReadInt(6) / 1000000]);
           end;
         fTQuantity5:
           begin
-            Value := Value + Format('%.3f', [FStream.ReadInt(5) / 1000]);
+            FieldValue := Format('%.3f', [FStream.ReadInt(5) / 1000]);
           end;
         ftDate:
           begin
-            Value := Value + DateToStr(Str2Date(IntToBin(FStream.ReadInt(3), 3), 1));
+            FieldValue := DateToStr(Str2Date(IntToBin(FStream.ReadInt(3), 3), 1));
           end;
         ftTime:
           begin
-            Value := Value + TimeToStr(Str2Time(IntToBin(FStream.ReadInt(3), 3), 1));
+            FieldValue := TimeToStr(Str2Time(IntToBin(FStream.ReadInt(3), 3), 1));
           end;
         ftDateTime:
           begin
-            Value := Value + DateTimeToStr(Str2Date(IntToBin(FStream.ReadInt(5), 5), 1));
+            FieldValue := DateTimeToStr(Str2Date(IntToBin(FStream.ReadInt(5), 5), 1));
           end;
         ftSum:
           begin
-            Value := Value + Format('%.2f', [FStream.ReadInt(5) / 100]);
+            FieldValue := Format('%.2f', [FStream.ReadInt(5) / 100]);
           end;
         ftString:
           begin
-            Value := Value + FStream.ReadString;
+            FieldValue := FStream.ReadString;
           end;
         ftString40:
           begin
-            Value := Value + TrimRight(FStream.ReadString(40));
+            FieldValue := TrimRight(FStream.ReadString(40));
+          end;
+        ftBarcode:
+          begin
+            Len := FStream.ReadByte;
+            FieldValue := StringReplace(FStream.ReadString(Len), #$1D, '<0x1D>', [rfReplaceAll]);
           end;
         ftFieldType:
           begin
-            Value := Value + FieldTypeToString(FStream.ReadByte);
+            FieldValue := FieldTypeToString(FStream.ReadByte);
           end;
         ftTableValue:
           begin
             Buf := FStream.ReadString;
             Buf1 := Copy(Buf, 1, 8);
-            Value := Value + StrToHex(Buf) + #13#10 + '    Str: ' + TrimRight(Buf) + #13#10 + '    Int: ' + BinToInt(Buf1, 1, Length(Buf1)).ToString;
+            if Length(Buf) > 8 then
+              FieldValue := TrimRight(Buf)
+            else
+              if Length(Buf) = 0 then
+                FieldValue := ''
+              else
+                if Trim(Buf) = '' then
+                  FieldValue := BinToInt(Buf1, 1, Length(Buf1)).ToString
+                else
+                    FieldValue := #13#10 + 'Str: ' + TrimRight(Buf) + #13#10 + 'Int: ' + BinToInt(Buf1, 1, Length(Buf1)).ToString;
           end;
         ftCheckType:
           begin
-            Value := Value + CheckTypeToString(FStream.ReadByte);
+            FieldValue := CheckTypeToString(FStream.ReadByte);
           end;
         ftCheckType2:
           begin
-            Value := Value + CheckType2ToString(FStream.ReadByte);
+            FieldValue := CheckType2ToString(FStream.ReadByte);
           end;
         ftPaymentTypeSign:
           begin
-            Value := Value + PaymentTypeSigntoString(FStream.ReadByte);
+            FieldValue := PaymentTypeSigntoString(FStream.ReadByte);
           end;
         ftPaymentItemSign:
           begin
-            Value := Value + PaymentItemSignToString(FStream.ReadByte);
+            FieldValue := PaymentItemSignToString(FStream.ReadByte);
           end;
         ftTaxValue:
           begin
-            Value := Value + TaxValueToString(FStream.ReadInt(5));
+            FieldValue := TaxValueToString(FStream.ReadInt(5));
           end;
         ftSumm1Value:
           begin
-            Value := Value + Summ1ToString(FStream.ReadInt(5));
+            FieldValue := Summ1ToString(FStream.ReadInt(5));
           end;
         ftTax:
           begin
-            Value := Value + FStream.ReadByte.ToString;
+            FieldValue := FStream.ReadByte.ToString;
           end;
         ftTLV:
           begin
@@ -353,50 +441,52 @@ begin
             try
               TlvParser.ShowTagNumbers := True;
               TlvParser.BaseIndent := 4;
-              Value := Value + #13#10 + TlvParser.ParseTLV(FStream.ReadString);
+              FieldValue := #13#10 + TlvParser.ParseTLV(FStream.ReadString);
             finally
               TlvParser.Free;
             end;
           end;
         ftTaxType:
           begin
-            Value := Value + TaxTypeToString(FStream.ReadByte);
+            FieldValue := TaxTypeToString(FStream.ReadByte);
           end;
         ftTax1:
           begin
-            Value := Value + Tax1ToString(FStream.ReadByte);
+            FieldValue := Tax1ToString(FStream.ReadByte);
           end;
         ftINN:
           begin
-            Value := Value + Int64ToStr(FStream.ReadInt(6));
+            FieldValue := Int64ToStr(FStream.ReadInt(6));
           end;
         ftECRMode:
           begin
             IntValue := FStream.ReadByte;
-            Value := Value + Format('%d [%s]', [IntValue, GetECRModeDescription(IntValue)]);
+            FieldValue := Format('%d [%s]', [IntValue, GetECRModeDescription(IntValue)]);
           end;
         ftECRAdvancedMode:
           begin
             IntValue := FStream.ReadByte;
-            Value := Value + Format('%d [%s]', [IntValue, GetAdvancedModeDescription(IntValue)]);
+            FieldValue := Format('%d [%s]', [IntValue, GetAdvancedModeDescription(IntValue)]);
           end;
         ftECRFlags:
           begin
-            Value := Value + ECRFlagsToString(FStream.ReadUInt16);
+            FieldValue := ECRFlagsToString(FStream.ReadUInt16);
           end;
         ftBatteryVoltage:
           begin
-            Value := Value + Format('%.2f Â.', [Round2(FStream.ReadByte / 255 * 100 * 5) / 100]);
+            FieldValue := Format('%.2f Â.', [Round2(FStream.ReadByte / 255 * 100 * 5) / 100]);
           end;
         ftPowerSourceVoltage:
           begin
-            Value := Value + Format('%.2f Â.', [Round2(FStream.ReadByte * 24 / $D8 * 100) / 100]);
+            FieldValue := Format('%.2f Â.', [Round2(FStream.ReadByte * 24 / $D8 * 100) / 100]);
           end;
         ftPortNumber:
           begin
-            Value := Value + PortNumToString(FStream.ReadByte);
+            FieldValue := PortNumToString(FStream.ReadByte);
           end;
       end;
+      Value := Value + FieldValue;
+      AddValue(Field.Key, FieldValue);
       S.Add(Value);
     end;
   finally
@@ -582,6 +672,7 @@ begin
   AddCommand($FF46, TParserCommandFF46);
   AddCommand($FF0C, TParserCommandFF0C);
   AddCommand($FF4D, TParserCommandFF0C);
+  AddCommand($FF67, TParserCommandFF67);
   AddCommand($10, TParserCommand10);
   AddCommand($11, TParserCommand11);
   AddCommand($17, TParserCommand17);
@@ -591,6 +682,12 @@ begin
   AddCommand($2D, TParserCommand2D);
   AddCommand($2E, TParserCommand2E);
   AddCommand($6B, TParserCommand6B);
+  AddCommand($80, TParserCommand80);
+  AddCommand($81, TParserCommand81);
+  AddCommand($82, TParserCommand82);
+  AddCommand($83, TParserCommand83);
+  AddCommand($85, TParserCommand85);
+  AddCommand($89, TParserCommand89);
   AddCommand($8D, TParserCommand8D);
   AddCommand($FC, TParserCommandFC);
 end;

@@ -2,13 +2,15 @@ unit ParserCommandFC;
 
 interface
 uses
-  CommandParser;
+  SysUtils, CommandParser;
+
 type
   // GetDeviceMetrics
   TParserCommandFC = class(TParserCommand)
   public
     procedure CreateFields; override;
     procedure CreateAnswerFields; override;
+    function GetShortValue: string; override;
   end;
 
 implementation
@@ -43,6 +45,12 @@ end;
 procedure TParserCommandFC.CreateFields;
 begin
 
+end;
+
+function TParserCommandFC.GetShortValue: string;
+begin
+  Result := Format('%s (%s)', [Trim(GetAnswerFieldValue('Description')),
+                               GetAnswerFieldValue('Model')]);
 end;
 
 end.

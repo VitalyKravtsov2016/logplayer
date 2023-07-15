@@ -69,6 +69,8 @@ type
     procedure btnFindErrorClick(Sender: TObject);
     procedure N7Click(Sender: TObject);
     procedure formStorageAfterRestorePlacement(Sender: TObject);
+    procedure lvCommandsAdvancedCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState; Stage: TCustomDrawStage; var DefaultDraw: Boolean);
+    procedure lvCommandsAdvancedCustomDrawSubItem(Sender: TCustomListView; Item: TListItem; SubItem: Integer; State: TCustomDrawState; Stage: TCustomDrawStage; var DefaultDraw: Boolean);
   private
     FPlayer: TLogPlayer;
     FCommands: TCommandList;
@@ -120,7 +122,7 @@ begin
   Item.Caption := ACommand.TimeStamp;
   Item.SubItems.Add(ACommand.ThreadID);
   Item.SubItems.Add(ACommand.CommandName);
-  Item.SubItems.Add(ACommand.Data);
+  Item.SubItems.Add(GetCommandShortValue(ACommand){ACommand.Data});
   if ACommand.HasError then
     Item.StateIndex := 1;
 end;
@@ -215,13 +217,13 @@ end;
 procedure TfmMain.OpenFromFile(const AFileName: string);
 var
   S: TStringList;
-  F:TFileStream;
+  F: TFileStream;
   Command: TCommand;
   cmd: PCommand;
 begin
   memInfo.Clear;
   lvCommands.Clear;
-  F:= TFileStream.Create(FileOpenAsReadOnly(AFileName));
+  F := TFileStream.Create(FileOpenAsReadOnly(AFileName));
   S := TStringList.Create;
   try
     S.LoadFromStream(F);
@@ -371,6 +373,45 @@ begin
       S.Free;
     end;
   end;
+end;
+
+procedure TfmMain.lvCommandsAdvancedCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState; Stage: TCustomDrawStage; var DefaultDraw: Boolean);
+begin
+  if Item.StateIndex = 1 then
+    Sender.Canvas.Font.Color := clRed;
+  {if (Item.SubItems[1] = 'Открыть чек') or
+  (Item.SubItems[1] = 'Операция V2') or
+  (Item.SubItems[1] = 'Закрытие чека расширенное вариант V2')
+  then
+     Sender.Canvas.Font.Style := [fsBold]
+  else
+    if Item.SubItems[1] = 'Печать строки данным шрифтом' then
+      Sender.Canvas.Font.Name := 'Courier New';}
+end;
+
+procedure TfmMain.lvCommandsAdvancedCustomDrawSubItem(Sender: TCustomListView; Item: TListItem; SubItem: Integer; State: TCustomDrawState; Stage: TCustomDrawStage; var DefaultDraw: Boolean);
+begin
+  if Item.StateIndex = 1 then
+    Sender.Canvas.Font.Color := clRed;
+  if SubItem <= 1 then
+    Exit;
+
+  if (Item.SubItems[1] = 'Открыть чек') or
+  (Item.SubItems[1] = 'Операция V2') or
+  (Item.SubItems[1] = 'Закрытие чека расширенное вариант V2') or
+  (Item.SubItems[1] = 'Продажа') or
+  (Item.SubItems[1] = 'Покупка') or
+  (Item.SubItems[1] = 'Возврат продажи') or
+  (Item.SubItems[1] = 'Возврат покупки') or
+  (Item.SubItems[1] = 'Подытог чека')
+ then
+    Sender.Canvas.Font.Style := [fsBold]
+  else if (SubItem = 3) and (Item.SubItems[1] = 'Печать строки данным шрифтом') then
+    Sender.Canvas.Font.Name := 'Courier New'
+  else if (SubItem = 3) and ((Item.SubItems[1] = 'Запрос состояния') or (Item.SubItems[1] = 'Короткий запрос состояния')) then
+    Sender.Canvas.Font.Color := clPurple
+  else if (SubItem = 3) and (Item.SubItems[1] = 'Запрос описания ошибки') then
+    Sender.Canvas.Font.Color := clRed;
 end;
 
 procedure TfmMain.lvCommandsSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);

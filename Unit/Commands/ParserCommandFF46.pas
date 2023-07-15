@@ -2,13 +2,15 @@ unit ParserCommandFF46;
 
 interface
 uses
-  CommandParser;
+  SysUtils, CommandParser;
+
 type
   // FNOperation
   TParserCommandFF46 = class(TParserCommand)
   public
     procedure CreateFields; override;
     procedure CreateAnswerFields; override;
+    function GetShortValue: string; override;
   end;
 
 implementation
@@ -33,6 +35,15 @@ begin
   AddField('PaymentTypeSign', ftPaymentTypeSign);
   AddField('PaymentItemSign', ftPaymentItemSign);
   AddField('StringForPrinting', ftString);
+end;
+
+function TParserCommandFF46.GetShortValue: string;
+begin
+  Result := Format('%s %s X %s (%s %s ) %s', [
+          GetFieldValue('CheckType'),
+          GetFieldValue('Price'), GetFieldValue('Quantity'),
+          GetFieldValue('PaymentTypeSign'), GetFieldValue('PaymentItemSign'),
+          GetFieldValue('StringForPrinting')]);
 end;
 
 end.

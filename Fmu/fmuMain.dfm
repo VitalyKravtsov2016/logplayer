@@ -189,13 +189,21 @@ object fmMain: TfmMain
             AutoSize = True
             Caption = 'Data'
           end>
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         MultiSelect = True
         ReadOnly = True
         RowSelect = True
+        ParentFont = False
         PopupMenu = pmMain
         StateImages = pngmglst
         TabOrder = 9
         ViewStyle = vsReport
+        OnAdvancedCustomDrawItem = lvCommandsAdvancedCustomDrawItem
+        OnAdvancedCustomDrawSubItem = lvCommandsAdvancedCustomDrawSubItem
         OnSelectItem = lvCommandsSelectItem
       end
       object memCommandExceptions: TMemo

@@ -9,6 +9,7 @@ type
   public
     procedure CreateFields; override;
     procedure CreateAnswerFields; override;
+    function GetShortValue: string; override;
   end;
 
 implementation
@@ -23,6 +24,11 @@ end;
 procedure TParserCommand6B.CreateFields;
 begin
 
+end;
+
+function TParserCommand6B.GetShortValue: string;
+begin
+  Result := 'Œÿ»¡ ¿ ' + GetAnswerFieldValue('ErrorDescription');
 end;
 
 end.

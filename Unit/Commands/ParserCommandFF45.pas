@@ -2,13 +2,15 @@ unit ParserCommandFF45;
 
 interface
 uses
-  CommandParser;
+  SysUtils, CommandParser;
+
 type
   // FNCloseCheckEx
   TParserCommandFF45 = class(TParserCommand)
   public
     procedure CreateFields; override;
     procedure CreateAnswerFields; override;
+    function GetShortValue: string; override;
   end;
 
 implementation
@@ -55,6 +57,11 @@ begin
   AddField('TaxValue6', ftTaxValue);
   AddField('TaxType', ftTaxType);
   AddField('StringForPrinting', ftString);
+end;
+
+function TParserCommandFF45.GetShortValue: string;
+begin
+  Result := Format('«¿ –€“»≈ ◊≈ ¿ [ƒŒ : %s] [‘œ: %s]  ', [GetAnswerFieldValue('DocumentNumber'), GetAnswerFieldValue('FiscalSign')]);
 end;
 
 end.

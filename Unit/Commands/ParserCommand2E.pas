@@ -2,13 +2,15 @@ unit ParserCommand2E;
 
 interface
 uses
-  CommandParser;
+  SysUtils, CommandParser;
+
 type
   // ReadFieldStruct
   TParserCommand2E = class(TParserCommand)
   public
     procedure CreateFields; override;
     procedure CreateAnswerFields; override;
+    function GetShortValue: string; override;
   end;
 
 implementation
@@ -26,6 +28,12 @@ begin
   AddField('Password', ftUInt32);
   AddField('TableNumber', ftByte);
   AddField('FieldNumber', ftByte);
+end;
+
+function TParserCommand2E.GetShortValue: string;
+begin
+  Result := Format('“%sœ%s %s', [GetFieldValue('TableNumber'),
+                GetFieldValue('FieldNumber'), GetAnswerFieldValue('FieldName')]);
 end;
 
 end.

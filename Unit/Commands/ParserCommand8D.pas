@@ -9,6 +9,7 @@ type
   public
     procedure CreateFields; override;
     procedure CreateAnswerFields; override;
+    function GetShortValue: string; override;
   end;
 
 implementation
@@ -24,6 +25,11 @@ procedure TParserCommand8D.CreateFields;
 begin
   AddField('Password', ftUInt32);
   AddField('CheckType', ftCheckType);
+end;
+
+function TParserCommand8D.GetShortValue: string;
+begin
+  Result := '我市垡扰 着世 ' + GetFieldValue('CheckType');
 end;
 
 end.

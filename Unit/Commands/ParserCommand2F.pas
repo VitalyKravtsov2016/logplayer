@@ -9,6 +9,7 @@ type
   public
     procedure CreateFields; override;
     procedure CreateAnswerFields; override;
+    function GetShortValue: string; override;
   end;
 
 implementation
@@ -26,6 +27,11 @@ begin
   AddField('Tape type', ftByte);
   AddField('FontType', ftByte);
   AddField('StringForPrinting', ftString);
+end;
+
+function TParserCommand2F.GetShortValue: string;
+begin
+  Result := GetFieldValue('StringForPrinting');
 end;
 
 end.

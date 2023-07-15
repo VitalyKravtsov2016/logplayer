@@ -2,13 +2,15 @@ unit ParserCommandFF0C;
 
 interface
 uses
-  CommandParser;
+  SysUtils, CommandParser;
+
 type
   // FNSendTLV
   TParserCommandFF0C = class(TParserCommand)
   public
     procedure CreateFields; override;
     procedure CreateAnswerFields; override;
+    function GetShortValue: string; override;
   end;
 
 implementation
@@ -26,6 +28,10 @@ begin
   AddField('TLVData', ftTLV);
 end;
 
+function TParserCommandFF0C.GetShortValue: string;
+begin
+  Result := StringReplace(GetFieldValue('TLVData'), #13#10, ' ', [rfReplaceAll]);
+end;
 
 end.
 
