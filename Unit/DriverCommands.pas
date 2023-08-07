@@ -244,6 +244,8 @@ const
   SCommandNameFF71 = 'Начать выгрузку уведомлений  о реализации маркированных товаров'; // FF71H
   SCommandNameFF72 = 'Прочитать блок уведомления'; // FF72H
   SCommandNameFF73 = 'Подтвердить выгрузку уведомления'; // FF73H
+  SCommandNameFF74 = 'Запрос исполнения ФН'; // FF74H
+  SCommandNameFF75 = 'Запрос размера данных документа в ФН'; // FF73H
 
 function GetCommandName(Command: Word): string; overload;
 var
@@ -476,6 +478,8 @@ begin
     $FF71: Result := SCommandNameFF71;
     $FF72: Result := SCommandNameFF72;
     $FF73: Result := SCommandNameFF73;
+    $FF74: Result := SCommandNameFF74;
+    $FF75: Result := SCommandNameFF75;
   else
     Result := 'Неизвестная команда';
   end;
