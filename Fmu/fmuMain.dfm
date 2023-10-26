@@ -3,7 +3,7 @@ object fmMain: TfmMain
   Top = 0
   Caption = 'LogPlayer'
   ClientHeight = 584
-  ClientWidth = 802
+  ClientWidth = 791
   Color = clBtnFace
   Constraints.MinWidth = 694
   Font.Charset = DEFAULT_CHARSET
@@ -20,7 +20,7 @@ object fmMain: TfmMain
   object pnl: TPanel
     Left = 0
     Top = 0
-    Width = 802
+    Width = 791
     Height = 584
     Align = alClient
     BevelOuter = bvNone
@@ -28,7 +28,7 @@ object fmMain: TfmMain
     object spl1: TSplitter
       Left = 0
       Top = 363
-      Width = 802
+      Width = 791
       Height = 5
       Cursor = crVSplit
       Align = alBottom
@@ -38,38 +38,29 @@ object fmMain: TfmMain
     object pnlTop: TPanel
       Left = 0
       Top = 0
-      Width = 802
+      Width = 791
       Height = 363
       Align = alClient
       BevelOuter = bvNone
       Constraints.MinHeight = 200
       TabOrder = 0
       DesignSize = (
-        802
+        791
         363)
       object lbl: TLabel
-        Left = 683
-        Top = 97
+        Left = 672
+        Top = 103
         Width = 116
         Height = 13
         Anchors = [akTop, akRight]
         Caption = #1050#1086#1084#1072#1085#1076#1099'-'#1080#1089#1082#1083#1102#1095#1077#1085#1080#1103':'
-        ExplicitLeft = 591
       end
       object lblFileName: TLabel
-        Left = 8
-        Top = 97
-        Width = 3
+        Left = 584
+        Top = 103
+        Width = 81
         Height = 13
-      end
-      object btnCloseSession: TButton
-        Left = 488
-        Top = 8
-        Width = 144
-        Height = 25
-        Caption = #1047#1072#1082#1088#1099#1090#1100' '#1089#1084#1077#1085#1091
-        TabOrder = 0
-        OnClick = btnCloseSessionClick
+        Anchors = [akLeft, akTop, akRight]
       end
       object btnGetStatus: TButton
         Left = 344
@@ -77,7 +68,7 @@ object fmMain: TfmMain
         Width = 105
         Height = 25
         Caption = #1047#1072#1087#1088#1086#1089' '#1089#1086#1089#1090#1086#1103#1085#1080#1103
-        TabOrder = 1
+        TabOrder = 0
         OnClick = btnGetStatusClick
       end
       object btnOpen: TButton
@@ -91,17 +82,17 @@ object fmMain: TfmMain
         ImageName = 'open'
         ImageMargins.Left = 4
         Images = pngmglstButtons
-        TabOrder = 2
+        TabOrder = 1
         OnClick = btnOpenClick
       end
-      object btnOpenSession: TButton
+      object btnPasteFromClipboard: TButton
         Left = 340
         Top = 8
         Width = 144
         Height = 25
-        Caption = #1054#1090#1082#1088#1099#1090#1100' '#1089#1084#1077#1085#1091
-        TabOrder = 3
-        OnClick = btnOpenSessionClick
+        Caption = #1042#1089#1090#1072#1074#1080#1090#1100' '#1080#1079' '#1073#1091#1092#1077#1088#1072
+        TabOrder = 2
+        OnClick = btnPasteFromClipboardClick
       end
       object btnSettings: TButton
         Left = 149
@@ -113,7 +104,7 @@ object fmMain: TfmMain
         ImageName = 'settings'
         ImageMargins.Left = 4
         Images = pngmglstButtons
-        TabOrder = 4
+        TabOrder = 3
         OnClick = btnSettingsClick
       end
       object btnStart: TButton
@@ -126,7 +117,7 @@ object fmMain: TfmMain
         ImageName = 'right-chevron'
         ImageMargins.Left = 4
         Images = pngmglstButtons
-        TabOrder = 5
+        TabOrder = 4
         OnClick = btnStartClick
       end
       object btnStartFromPosition: TButton
@@ -139,7 +130,7 @@ object fmMain: TfmMain
         ImageName = 'right-chevron'
         ImageMargins.Left = 4
         Images = pngmglstButtons
-        TabOrder = 6
+        TabOrder = 5
         OnClick = btnStartFromPositionClick
       end
       object btnStop: TButton
@@ -153,29 +144,29 @@ object fmMain: TfmMain
         ImageName = 'cancel'
         ImageMargins.Left = 4
         Images = pngmglstButtons
-        TabOrder = 7
+        TabOrder = 6
         OnClick = btnStopClick
       end
       object edtStatus: TEdit
         Left = 8
         Top = 70
-        Width = 676
+        Width = 665
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         Color = clBtnFace
         ReadOnly = True
-        TabOrder = 8
+        TabOrder = 7
       end
       object lvCommands: TListView
         Left = 8
-        Top = 116
-        Width = 676
-        Height = 246
+        Top = 128
+        Width = 665
+        Height = 234
         Anchors = [akLeft, akTop, akRight, akBottom]
         Columns = <
           item
             Caption = 'Time'
-            Width = 140
+            Width = 150
           end
           item
             Caption = 'Thread'
@@ -200,17 +191,20 @@ object fmMain: TfmMain
         ParentFont = False
         PopupMenu = pmMain
         StateImages = pngmglst
-        TabOrder = 9
+        TabOrder = 8
         ViewStyle = vsReport
         OnAdvancedCustomDrawItem = lvCommandsAdvancedCustomDrawItem
         OnAdvancedCustomDrawSubItem = lvCommandsAdvancedCustomDrawSubItem
         OnSelectItem = lvCommandsSelectItem
       end
       object memCommandExceptions: TMemo
-        Left = 690
-        Top = 116
+        Left = 679
+        Top = 128
         Width = 107
-        Height = 246
+        Height = 234
+        Hint = 
+          #1050#1086#1076#1099' '#1082#1086#1084#1072#1085#1076', '#1082#1086#1090#1086#1088#1099#1077' '#1085#1077' '#1073#1091#1076#1091#1090' '#1074#1099#1087#1086#1083#1085#1103#1090#1100#1089#1103#13#10#1050#1072#1078#1076#1099#1081' '#1082#1086#1076' '#1082#1086#1084#1072#1085#1076#1099' '#1085#1072 +
+          ' '#1086#1090#1076#1077#1083#1100#1085#1086#1081' '#1089#1090#1088#1086#1082#1077
         Anchors = [akTop, akRight, akBottom]
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
@@ -220,16 +214,18 @@ object fmMain: TfmMain
         Lines.Strings = (
           'FF 0A')
         ParentFont = False
+        ParentShowHint = False
         ScrollBars = ssVertical
-        TabOrder = 10
+        ShowHint = True
+        TabOrder = 9
       end
       object progress: TProgressBar
-        Left = 690
+        Left = 679
         Top = 72
         Width = 107
         Height = 17
         Anchors = [akTop, akRight]
-        TabOrder = 11
+        TabOrder = 10
       end
       object btnStartCurrentLine: TButton
         Left = 340
@@ -241,7 +237,7 @@ object fmMain: TfmMain
         ImageName = 'right-chevron'
         ImageMargins.Left = 4
         Images = pngmglstButtons
-        TabOrder = 12
+        TabOrder = 11
         OnClick = btnStartCurrentLineClick
       end
       object btnStartSelected: TButton
@@ -254,23 +250,44 @@ object fmMain: TfmMain
         ImageName = 'right-chevron'
         ImageMargins.Left = 4
         Images = pngmglstButtons
-        TabOrder = 13
+        TabOrder = 12
         OnClick = btnStartSelectedClick
       end
       object btnFindError: TButton
-        Left = 636
+        Left = 488
         Top = 8
         Width = 144
         Height = 25
         Caption = #1053#1072#1081#1090#1080' '#1086#1096#1080#1073#1082#1091
-        TabOrder = 14
+        TabOrder = 13
         OnClick = btnFindErrorClick
+      end
+      object edtSearch: TEdit
+        Left = 8
+        Top = 99
+        Width = 481
+        Height = 21
+        Hint = #1055#1086#1080#1089#1082' '#1087#1086' '#1074#1088#1077#1084#1077#1085#1080' '#1080#1083#1080' '#1085#1072#1079#1074#1072#1085#1080#1102' '#1082#1086#1084#1072#1085#1076#1099
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 14
+        OnChange = edtSearchChange
+        OnClick = edtSearchClick
+      end
+      object btnSearch: TButton
+        Left = 496
+        Top = 96
+        Width = 75
+        Height = 25
+        Caption = #1055#1086#1080#1089#1082
+        TabOrder = 15
+        OnClick = btnSearchClick
       end
     end
     object pnlBottom: TPanel
       Left = 0
       Top = 368
-      Width = 802
+      Width = 791
       Height = 216
       Align = alBottom
       BevelOuter = bvNone
@@ -279,7 +296,7 @@ object fmMain: TfmMain
       object memInfo: TMemo
         Left = 8
         Top = 0
-        Width = 789
+        Width = 778
         Height = 216
         Align = alCustom
         Anchors = [akLeft, akTop, akRight, akBottom]
@@ -299,7 +316,7 @@ object fmMain: TfmMain
     DefaultExt = '*.*'
     Filter = '*.log;*.txt|*.log;*.txt|*.log|*.log|*.txt|*.txt|*.*|*.*'
     Left = 152
-    Top = 136
+    Top = 168
   end
   object formStorage: TJvFormStorage
     AppStorage = xmlStorage
@@ -311,12 +328,13 @@ object fmMain: TfmMain
       'dlgOpen.InitialDir'
       'dlgSave.InitialDir'
       'dlgSave.FileName'
-      'spl1.Top')
+      'spl1.Top'
+      'dlgOpen.FilterIndex')
     StoredValues = <
       item
       end>
     Left = 40
-    Top = 136
+    Top = 168
   end
   object xmlStorage: TJvAppXMLFileStorage
     StorageOptions.BooleanStringTrueValues = 'TRUE, YES, Y'
@@ -327,7 +345,7 @@ object fmMain: TfmMain
     RootNodeName = 'Configuration'
     SubStorages = <>
     Left = 96
-    Top = 136
+    Top = 168
   end
   object pngmglst: TPngImageList
     PngImages = <
@@ -396,7 +414,7 @@ object fmMain: TfmMain
           D6A228CEBF01D895B08C03C3895A0000000049454E44AE426082}
       end>
     Left = 208
-    Top = 136
+    Top = 168
   end
   object pngmglstButtons: TPngImageList
     PngImages = <
@@ -497,11 +515,11 @@ object fmMain: TfmMain
           6082}
       end>
     Left = 264
-    Top = 136
+    Top = 168
   end
   object pmMain: TPopupMenu
     Left = 336
-    Top = 136
+    Top = 168
     object Pfdfa1: TMenuItem
       Caption = #1042#1099#1087#1086#1083#1085#1080#1090#1100' '#1101#1090#1091' '#1089#1090#1088#1086#1082#1091
       OnClick = Pfdfa1Click
@@ -535,6 +553,6 @@ object fmMain: TfmMain
     Filter = '*.txt|*.txt|*.*|*.*'
     Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
     Left = 392
-    Top = 136
+    Top = 168
   end
 end

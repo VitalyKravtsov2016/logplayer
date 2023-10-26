@@ -8,7 +8,8 @@ uses
   Vcl.StdCtrls, untCommand, untLogPlayer, DrvFRLib_TLB, DriverCommands,
   Vcl.ComCtrls, JvAppStorage, JvAppXMLStorage, JvComponentBase, JvFormPlacement,
   EventBus, NotifyThread, System.ImageList, Vcl.ImgList, PngImageList,
-  VersionInfo, Vcl.ExtCtrls, Vcl.Menus, CommandParser, Clipbrd, FileUtils;
+  VersionInfo, Vcl.ExtCtrls, Vcl.Menus, CommandParser, Clipbrd, FileUtils,
+  untFileUtil;
 
 type
   TfmMain = class(TForm)
@@ -28,8 +29,7 @@ type
     pngmglst: TPngImageList;
     pngmglstButtons: TPngImageList;
     memInfo: TMemo;
-    btnOpenSession: TButton;
-    btnCloseSession: TButton;
+    btnPasteFromClipboard: TButton;
     btnGetStatus: TButton;
     pmMain: TPopupMenu;
     pmMain1: TMenuItem;
@@ -48,6 +48,8 @@ type
     N4: TMenuItem;
     N5: TMenuItem;
     btnFindError: TButton;
+    edtSearch: TEdit;
+    btnSearch: TButton;
     procedure btnOpenClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -55,7 +57,7 @@ type
     procedure btnStopClick(Sender: TObject);
     procedure btnSettingsClick(Sender: TObject);
     procedure btnStartFromPositionClick(Sender: TObject);
-    procedure btnOpenSessionClick(Sender: TObject);
+    procedure btnPasteFromClipboardClick(Sender: TObject);
     procedure btnCloseSessionClick(Sender: TObject);
     procedure btnGetStatusClick(Sender: TObject);
     procedure lvCommandsSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
@@ -71,6 +73,9 @@ type
     procedure formStorageAfterRestorePlacement(Sender: TObject);
     procedure lvCommandsAdvancedCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState; Stage: TCustomDrawStage; var DefaultDraw: Boolean);
     procedure lvCommandsAdvancedCustomDrawSubItem(Sender: TCustomListView; Item: TListItem; SubItem: Integer; State: TCustomDrawState; Stage: TCustomDrawStage; var DefaultDraw: Boolean);
+    procedure btnSearchClick(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchClick(Sender: TObject);
   private
     FPlayer: TLogPlayer;
     FCommands: TCommandList;
@@ -217,21 +222,18 @@ end;
 procedure TfmMain.OpenFromFile(const AFileName: string);
 var
   S: TStringList;
-  F: TFileStream;
   Command: TCommand;
   cmd: PCommand;
 begin
   memInfo.Clear;
   lvCommands.Clear;
-  F := TFileStream.Create(FileOpenAsReadOnly(AFileName));
   S := TStringList.Create;
   try
-    S.LoadFromStream(F);
+    LoadFromFile2v1(AFileName, TEncoding.GetEncoding(1251), S);
     OpenFromText(S);
     lblFileName.Caption := AFileName;
   finally
     S.Free;
-    F.Free;
   end;
 end;
 
@@ -246,13 +248,51 @@ begin
   OpenFromFile(dlgOpen.FileName);
 end;
 
-procedure TfmMain.btnOpenSessionClick(Sender: TObject);
+procedure TfmMain.btnPasteFromClipboardClick(Sender: TObject);
 begin
-  memInfo.Clear;
+  LoadFromClipboard;
+  {memInfo.Clear;
   Application.ProcessMessages;
 
   FDriver.Password := FDriver.SysAdminPassword;
-  Check(FDriver.OpenSession, 'Открытие смены');
+  Check(FDriver.OpenSession, 'Открытие смены'); }
+end;
+
+procedure TfmMain.btnSearchClick(Sender: TObject);
+var
+  i: Integer;
+  current: Integer;
+begin
+  if FCommands.Count = 0 then
+    Exit;
+  current := lvCommands.ItemIndex;
+  if current < 0 then
+    current := 0;
+  repeat
+    if FCommands[current].HasData(edtSearch.Text) then
+      Inc(current);
+    if current = (FCommands.Count - 1) then
+      Exit;
+
+    for i := current to FCommands.Count - 1 do
+    begin
+      if FCommands[i].HasData(edtSearch.Text) then
+      begin
+        lvCommands.ClearSelection;
+        lvCommands.Items[i].Selected := True;
+        lvCommands.Items[i].MakeVisible(True);
+        lvCommands.SetFocus;
+        Exit;
+      end;
+    end;
+    if Application.MessageBox('Начать с начала?', 'Поиск завершен', MB_OKCANCEL) = IDOK then
+    begin
+      current := 0;
+      Continue;
+    end
+    else
+      Break
+  until False;
 end;
 
 procedure TfmMain.btnSettingsClick(Sender: TObject);
@@ -330,6 +370,17 @@ begin
   AsyncAwait2(Play, OnFinished);
 end;
 
+procedure TfmMain.edtSearchChange(Sender: TObject);
+begin
+  btnOpen.Default := False;
+  btnSearch.Default := True;
+end;
+
+procedure TfmMain.edtSearchClick(Sender: TObject);
+begin
+  edtSearchChange(Self);
+end;
+
 procedure TfmMain.FormCreate(Sender: TObject);
 var
   Edit: TEdit;
@@ -338,6 +389,9 @@ begin
   FCommands := TCommandList.Create;
   FDriver := TDrvFR.Create(nil);
   DragAcceptFiles(Handle, True);
+  ChangeWindowMessageFilter(WM_DROPFILES, MSGFLT_ADD);
+  ChangeWindowMessageFilter(WM_COPYDATA, MSGFLT_ADD);
+  ChangeWindowMessageFilter($0049, MSGFLT_ADD);
   GlobalEventBus.RegisterSubscriberForChannels(Self);
   FFinished := True;
   FPlayer := TLogPlayer.Create;
@@ -396,15 +450,7 @@ begin
   if SubItem <= 1 then
     Exit;
 
-  if (Item.SubItems[1] = 'Открыть чек') or
-  (Item.SubItems[1] = 'Операция V2') or
-  (Item.SubItems[1] = 'Закрытие чека расширенное вариант V2') or
-  (Item.SubItems[1] = 'Продажа') or
-  (Item.SubItems[1] = 'Покупка') or
-  (Item.SubItems[1] = 'Возврат продажи') or
-  (Item.SubItems[1] = 'Возврат покупки') or
-  (Item.SubItems[1] = 'Подытог чека')
- then
+  if (Item.SubItems[1] = 'Открыть чек') or (Item.SubItems[1] = 'Открытие смены') or (Item.SubItems[1] = 'Суточный отчет с гашением') or (Item.SubItems[1] = 'Операция V2') or (Item.SubItems[1] = 'Закрытие чека расширенное вариант V2') or (Item.SubItems[1] = 'Продажа') or (Item.SubItems[1] = 'Покупка') or (Item.SubItems[1] = 'Возврат продажи') or (Item.SubItems[1] = 'Возврат покупки') or (Item.SubItems[1] = 'Подытог чека') then
     Sender.Canvas.Font.Style := [fsBold]
   else if (SubItem = 3) and (Item.SubItems[1] = 'Печать строки данным шрифтом') then
     Sender.Canvas.Font.Name := 'Courier New'
@@ -447,7 +493,10 @@ begin
   memInfo.Lines.Add(Command.Attributes + ' ' + protocolstr + ' (Line ' + Command.LineNumber.ToString + ')');
   memInfo.Lines.Add(Command.CommandName);
   memInfo.Lines.Add('Передано     : ' + Command.Data);
-  memInfo.Lines.Add('Принято (лог): ' + Command.AnswerData);
+  if Command.AnswerData = '' then
+    memInfo.Lines.Add('Принято (лог): НЕТ ОТВЕТА')
+  else
+    memInfo.Lines.Add('Принято (лог): ' + Command.AnswerData);
   memInfo.Lines.Add('Принято (ККТ): ' + Command.PlayedAnswerData);
   ParseCommand(Command, Fields, AnswerFields, PlayedFields);
   memInfo.Lines.Add('');

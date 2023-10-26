@@ -15,24 +15,24 @@ type
 
 implementation
 
-{ TParserCommandFF0C }
+{ TParserCommand67}
 
 procedure TParserCommandFF67.CreateAnswerFields;
 begin
-
+  AddAnswerField('MarkingType', ftMarkingType);
+  AddAnswerField('MarkingTypeEx', ftMarkingTypeEx);
+  AddAnswerField('KM Server Answer', ftKMSendAnswer);
 end;
 
 procedure TParserCommandFF67.CreateFields;
 begin
   AddField('Password', ftUInt32);
-  AddField('Barcode', ftBarcode);
-  AddField('OSU', ftByte);
+  AddField('Barcode', ftBarcodeOSU);
 end;
 
 function TParserCommandFF67.GetShortValue: string;
 begin
-  Result := '     KM: ' + GetFieldValue('Barcode');
+  Result := GetFieldValue('Barcode');
 end;
 
 end.
-

@@ -47,7 +47,10 @@ uses
   ParserCommand89 in 'Unit\Commands\ParserCommand89.pas',
   ParserCommand8E in 'Unit\Commands\ParserCommand8E.pas',
   ParserCommandFF67 in 'Unit\Commands\ParserCommandFF67.pas',
-  ParserCommandFF61 in 'Unit\Commands\ParserCommandFF61.pas';
+  ParserCommandFF61 in 'Unit\Commands\ParserCommandFF61.pas',
+  ParserCommandFF69 in 'Unit\Commands\ParserCommandFF69.pas',
+  LogFile in '..\drvfr5\Source\Shared\LogFile.pas',
+  untFileUtil in 'Unit\untFileUtil.pas';
 
 {$R *.res}
 

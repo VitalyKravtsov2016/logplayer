@@ -6,7 +6,7 @@ uses
 
 type
   // FNCheckItemBarcode
-  TParserCommand61 = class(TParserCommand)
+  TParserCommandFF61 = class(TParserCommand)
   public
     procedure CreateFields; override;
     procedure CreateAnswerFields; override;
@@ -17,7 +17,7 @@ implementation
 
 { TParserCommand61}
 
-procedure TParserCommand61.CreateAnswerFields;
+procedure TParserCommandFF61.CreateAnswerFields;
 begin
 {
 CheckItemLocalResult := BinToInt(Data, 1, 1); //Статус  локальной проверки
@@ -39,15 +39,13 @@ CheckItemLocalResult := BinToInt(Data, 1, 1); //Статус  локальной проверки
     if (AddLength > 2) and (KMServerErrorCode = 0) then
 
 }
-  AddAnswerField('CheckItemLocalResult', ftByte);
-  AddAnswerField('CheckItemLocalError', ftByte);
-  AddAnswerField('MarkingType2', ftByte);
-  AddAnswerField('KMAnswer', ftKMAnswer);
-
-
+  AddAnswerField('CheckItemLocalResult', ftCheckItemLocalResult);
+  AddAnswerField('CheckItemLocalError', ftCheckItemLocalError);
+  AddAnswerField('MarkingType2', ftMarkingType2);
+  AddAnswerField('KM Server Answer', ftKMAnswer);
 end;
 
-procedure TParserCommand61.CreateFields;
+procedure TParserCommandFF61.CreateFields;
 begin
 {//    Result := Send(#$FF#$61 + FPassw +
 AnsiChar(ItemStatus) +
@@ -57,12 +55,14 @@ AnsiChar(Length(TLVData)) +
 LBarcode +
 TLVData);}
   AddField('Password', ftUInt32);
+  AddField('ItemStatus', ftItemStatus);
   AddField('CheckItemMode', ftByte);
   AddField('Barcode', ftBarcodeTLV);
 end;
 
-function TParserCommand61.GetShortValue: string;
+function TParserCommandFF61.GetShortValue: string;
 begin
+  Result := GetFieldValue('Barcode');
  { Result := Format('Запись Т%sР%sП%s = %s', [
   GetFieldValue('TableNumber'), GetFieldValue('Row'), GetFieldValue('Field'), GetFieldValue('Value')
   ]);}

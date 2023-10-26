@@ -2,7 +2,7 @@ unit untCommand;
 
 interface
 uses
-   System.Classes, System.Generics.Collections, BinUtils,
+   System.SysUtils, System.Classes, System.Generics.Collections, BinUtils,
    Utils.BinStream;
 
 type
@@ -18,6 +18,7 @@ type
     Selected: Boolean;
     Protocol: TProtocol;
     LineNumber: Integer;
+    DriverError: string;
   end;
   TCommandList = TList<TCommand>;
 
@@ -27,6 +28,7 @@ type
     function CommandName: string;
     function Code: Integer;
     function HasError: Boolean;
+    function HasData(const AData: string): Boolean;
   end;
 
 implementation
@@ -51,12 +53,24 @@ begin
     Result := GetCommandName(Data);
 end;
 
+function TCommandHelper.HasData(const AData: string): Boolean;
+begin
+  Result := (Pos(LowerCase(AData, loUserLocale), LowerCase(Attributes, loUserLocale)) > 0) or
+            (Pos(LowerCase(AData, loUserLocale), LowerCase(TimeStamp, loUserLocale)) > 0) or
+            (Pos(LowerCase(AData, loUserLocale), LowerCase(CommandName, loUserLocale)) > 0);
+end;
+
 function TCommandHelper.HasError: Boolean;
 var
   Stream: IBinStream;
   b: Byte;
 begin
   Result := False;
+  if AnswerData = '' then
+  begin
+    Result := True;
+    Exit;
+  end;
   Stream := TBinStream.Create([]);
   Stream.WriteBytes(HexToBytes(AnswerData));
   Stream.Stream.Position := 0;

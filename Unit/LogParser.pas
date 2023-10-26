@@ -119,6 +119,19 @@ begin
   Result := Copy(AStr, k + Length(pSign), Length(AStr));
 end;
 
+const ErrStr = '[ERROR] TFiscalPrinter -';
+function IsDriverError(const AStr: string; var AErrorText: string): Boolean;
+var
+k: Integer;
+begin
+  Result := False;
+  k := Pos(ErrStr, AStr);
+  if k = 0 then
+    Exit;
+  Result := True;
+  AErrorText := Copy(AStr, k + Length(ErrStr), Length(AStr));
+end;
+
 procedure ParseLog(SL: TStringList; ACommandList: TCommandList);
 var
   i: Integer;
@@ -133,6 +146,7 @@ var
   Command: TCommand;
   Protocol: TProtocol;
   LineNumber: Integer;
+  mDriverError: string;
 begin
   TxData := '';
   RxData := '';
@@ -152,6 +166,7 @@ begin
     case State of
       sNone:
         begin
+          Command.DriverError := '';
           Data := GetTransferBytes(S, Protocol);
           if Data <> '' then
           begin
@@ -219,6 +234,8 @@ begin
         end;
       sTransfer:
         begin
+          if IsDriverError(S, mDriverError) then
+            Command.DriverError := mDriverError;
           Data := GetTransferBytes(S, Protocol);
           if Data = '' then
           begin
@@ -230,6 +247,7 @@ begin
             Command.Protocol := Protocol;
             Command.LineNumber := LineNumber;
             ACommandList.Add(Command);
+            Command.DriverError := '';
             TxData := '';
             State := sNone;
             LineNumber := -1;
@@ -249,6 +267,8 @@ begin
         end;
       sRx:
         begin
+          if IsDriverError(S, mDriverError) then
+            Command.DriverError := mDriverError;
           Data := GetRxBytes(S, pProtocol1);
           if Data = '' then
           begin
@@ -286,6 +306,7 @@ begin
             Command.Protocol := pProtocol2;
             Command.LineNumber := LineNumber;
             ACommandList.Add(Command);
+            Command.DriverError := '';
             TxData := '';
             RxData := '';
             State := sNone;
@@ -323,6 +344,7 @@ begin
     Command.Protocol := Protocol;
     Command.LineNumber := LineNumber;
     ACommandList.Add(Command);
+    Command.DriverError := '';
   end;
 end;
 
