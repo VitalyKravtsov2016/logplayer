@@ -166,7 +166,7 @@ object fmMain: TfmMain
         Columns = <
           item
             Caption = 'Time'
-            Width = 150
+            Width = 160
           end
           item
             Caption = 'Thread'
