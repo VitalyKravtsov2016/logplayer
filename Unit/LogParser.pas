@@ -215,7 +215,7 @@ begin
                 end;
               pPlain:
                 begin
-                  if GetRxBytes(SNext, pProtocol1) <> '' then
+                  if GetRxBytes(S, pProtocol1) <> '' then
                     State := sRxplain;
                 end;
             end;
