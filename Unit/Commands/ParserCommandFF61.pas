@@ -47,13 +47,6 @@ end;
 
 procedure TParserCommandFF61.CreateFields;
 begin
-{//    Result := Send(#$FF#$61 + FPassw +
-AnsiChar(ItemStatus) +
-Char(CheckItemMode) +
-AnsiChar(Length(LBarcode)) +
-AnsiChar(Length(TLVData)) +
-LBarcode +
-TLVData);}
   AddField('Password', ftUInt32);
   AddField('ItemStatus', ftItemStatus);
   AddField('CheckItemMode', ftByte);
@@ -62,10 +55,7 @@ end;
 
 function TParserCommandFF61.GetShortValue: string;
 begin
-  Result := GetFieldValue('Barcode');
- { Result := Format('Запись Т%sР%sП%s = %s', [
-  GetFieldValue('TableNumber'), GetFieldValue('Row'), GetFieldValue('Field'), GetFieldValue('Value')
-  ]);}
+  Result := '[M] ' + GetFieldValue('Barcode');
 end;
 
 end.

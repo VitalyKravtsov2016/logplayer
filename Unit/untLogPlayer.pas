@@ -16,7 +16,7 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    procedure PlayLog(Drv: TDrvFR; Commands: TCommandList; ExceptList: TStrings; AResetECR: Boolean; AFirstCommandIndex: Integer; ACount: Integer);
+    procedure PlayLog(Drv: TDrvFR; Commands: TCommandList; ExceptList: TStrings; AResetECR: Boolean; AFirstCommandIndex: Integer; ACount: Integer; AInfinitePlay: Boolean);
     procedure StopPlaying;
     property PlayMode: TPlayMode read FPlayMode write FPlayMode;
   published
@@ -142,10 +142,10 @@ begin
           //Exit;
         end;
       pmStop:
-      begin
-        Result := False;
-        Exit;
-      end;
+        begin
+          Result := False;
+          Exit;
+        end;
 
       pmContinue:
         begin
@@ -175,7 +175,7 @@ begin
   FPlayMode := pmStop;
 end;
 
-procedure TLogPlayer.PlayLog(Drv: TDrvFR; Commands: TCommandList; ExceptList: TStrings; AResetECR: Boolean; AFirstCommandIndex, ACount: Integer);
+procedure TLogPlayer.PlayLog(Drv: TDrvFR; Commands: TCommandList; ExceptList: TStrings; AResetECR: Boolean; AFirstCommandIndex, ACount: Integer; AInfinitePlay: Boolean);
 var
   Command: TCommand;
   Cmd: AnsiString;
@@ -190,73 +190,79 @@ begin
   try
     //if Drv.ResetECR <> 0 then
     //  raise Exception.CreateFmt('%d, %s', [Drv.ErrorCode, Drv.ResultCodeDescription]);
-
-    if (ACount = 0) or (ACount > (AFirstCommandIndex + Commands.Count - 1)) then
-      Count := Commands.Count - 1
-    else
-      Count := AFirstCommandIndex + ACount - 1;
-    FPlayMode := pmPlay;
-    for Index := AFirstCommandIndex to Count do
+    while True do
     begin
-      try
-        if FStopFlag then
-          Break;
-        Command := Commands[Index];
-        if not Command.Selected then
-          Continue;
-        if not PlayableCommand(Command, ExceptList) then
-          Continue;
-        GlobalEventBus.Post('CommandRun', Index.ToString);
+      if (ACount = 0) or (ACount > (AFirstCommandIndex + Commands.Count - 1)) then
+        Count := Commands.Count - 1
+      else
+        Count := AFirstCommandIndex + ACount - 1;
+      FPlayMode := pmPlay;
+      for Index := AFirstCommandIndex to Count do
+      begin
+        try
+          if FStopFlag then
+            Break;
+          Command := Commands[Index];
+          if not Command.Selected then
+            Continue;
+          if not PlayableCommand(Command, ExceptList) then
+            Continue;
+          GlobalEventBus.Post('CommandRun', Index.ToString);
 
-        Drv.BinaryConversion := BINARY_CONVERSION_HEX;
-        Drv.TransferBytes := Command.Data;
-        repeat
-          Res := Drv.ExchangeBytes;
-          Inc(RepCount);
-          if (Res = $50) or (Res = $4B) then
-            Sleep(50);
-        until ((Res <> $50) and (Res <> $4B)) or (RepCount >= 5);
-        if Res > 0 then
-        begin
-          if Length(Command.Data) >= 2 then
+          Drv.BinaryConversion := BINARY_CONVERSION_HEX;
+          Drv.TransferBytes := Command.Data;
+          repeat
+            Res := Drv.ExchangeBytes;
+            Inc(RepCount);
+            if (Res = $50) or (Res = $4B) then
+              Sleep(50);
+          until ((Res <> $50) and (Res <> $4B)) or (RepCount >= 5);
+          if Res > 0 then
           begin
-            Data := HexToStr(Command.Data);
-            ErrorAnswer := (Data[1]);
-            if Data[1] = #$FF then
-              ErrorAnswer := ErrorAnswer + Data[2] + Chr(Res)
-            else
-              ErrorAnswer := ErrorAnswer + Chr(Res);
-            PCommand(@Commands.List[Index])^.PlayedAnswerData := StrToHex(ErrorAnswer);
-          end
-          else
-            PCommand(@Commands.List[Index])^.PlayedAnswerData := '';
-        end
-        else
-          PCommand(@Commands.List[Index])^.PlayedAnswerData := Drv.TransferBytes;
-
-        PCommand(@Commands.List[Index])^.Played := True;
-        if Res <> 0 then
-          raise Exception.CreateFmt('%d, %s', [Drv.ResultCode, Drv.ResultCodeDescription]);
-        if Pos('FF 45', Command.Data) > 0 then
-        begin
-          Drv.WaitForPrinting;
-        end;
-      except
-        on E: Exception do
-        begin
-          if Index < Count then
-          begin
-            GlobalEventBus.Post('ErrorQuery', Index.ToString + ' ' + E.Message);
-            if ContinueOnError then
+            if Length(Command.Data) >= 2 then
             begin
-              FPlayMode := pmPlay;
-              Continue;
+              Data := HexToStr(Command.Data);
+              ErrorAnswer := (Data[1]);
+              if Data[1] = #$FF then
+                ErrorAnswer := ErrorAnswer + Data[2] + Chr(Res)
+              else
+                ErrorAnswer := ErrorAnswer + Chr(Res);
+              PCommand(@Commands.List[Index])^.PlayedAnswerData := StrToHex(ErrorAnswer);
             end
             else
-              raise;
+              PCommand(@Commands.List[Index])^.PlayedAnswerData := '';
+          end
+          else
+            PCommand(@Commands.List[Index])^.PlayedAnswerData := Drv.TransferBytes;
+
+          PCommand(@Commands.List[Index])^.Played := True;
+          if Res <> 0 then
+            raise Exception.CreateFmt('%d, %s', [Drv.ResultCode, Drv.ResultCodeDescription]);
+          if Pos('FF 45', Command.Data) > 0 then
+          begin
+            Drv.WaitForPrinting;
+          end;
+        except
+          on E: Exception do
+          begin
+            if Index < Count then
+            begin
+              GlobalEventBus.Post('ErrorQuery', Index.ToString + ' ' + E.Message);
+              if ContinueOnError then
+              begin
+                FPlayMode := pmPlay;
+                Continue;
+              end
+              else
+                raise;
+            end;
           end;
         end;
       end;
+      if FStopFlag then
+        Break;
+      if not AInfinitePlay then
+        Break;
     end;
   except
     on E: Exception do

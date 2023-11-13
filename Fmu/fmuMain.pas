@@ -50,6 +50,8 @@ type
     btnFindError: TButton;
     edtSearch: TEdit;
     btnSearch: TButton;
+    chkIngoreKKTErrors: TCheckBox;
+    chkInfinitePlay: TCheckBox;
     procedure btnOpenClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -84,6 +86,8 @@ type
     FDriver: TDrvFR;
     FFinished: Boolean;
     FContinueIndex: Integer;
+    FLastStateIndex: Integer;
+    FLastIndex: Integer;
     procedure SelLine(Index: integer);
     procedure AddCommand(ACommand: TCommand);
     procedure Play(Sender: TObject);
@@ -269,14 +273,16 @@ begin
   if current < 0 then
     current := 0;
   repeat
-    if FCommands[current].HasData(edtSearch.Text) then
+    if FCommands[current].HasData(edtSearch.Text) or
+    (Pos(LowerCase(edtSearch.Text, loUserLocale), LowerCase(lvCommands.Items[current].SubItems[2], loUserLocale)) > 0) then
       Inc(current);
     if current = (FCommands.Count - 1) then
       Exit;
 
     for i := current to FCommands.Count - 1 do
     begin
-      if FCommands[i].HasData(edtSearch.Text) then
+      if FCommands[i].HasData(edtSearch.Text) or
+      (Pos(LowerCase(edtSearch.Text, loUserLocale), LowerCase(lvCommands.Items[i].SubItems[2], loUserLocale)) > 0) then
       begin
         lvCommands.ClearSelection;
         lvCommands.Items[i].Selected := True;
@@ -395,6 +401,8 @@ begin
   GlobalEventBus.RegisterSubscriberForChannels(Self);
   FFinished := True;
   FPlayer := TLogPlayer.Create;
+  FLastStateIndex := -1;
+  FLastIndex := 0;
 end;
 
 procedure TfmMain.FormDestroy(Sender: TObject);
@@ -449,6 +457,12 @@ begin
     Sender.Canvas.Font.Color := clRed;
   if SubItem <= 1 then
     Exit;
+
+  if Pos('[ERROR]', Item.SubItems[2]) > 0 then
+  begin
+    Sender.Canvas.Font.Color := clRed;
+    Exit;
+  end;
 
   if (Item.SubItems[1] = 'Открыть чек') or (Item.SubItems[1] = 'Открытие смены') or (Item.SubItems[1] = 'Суточный отчет с гашением') or (Item.SubItems[1] = 'Операция V2') or (Item.SubItems[1] = 'Закрытие чека расширенное вариант V2') or (Item.SubItems[1] = 'Продажа') or (Item.SubItems[1] = 'Покупка') or (Item.SubItems[1] = 'Возврат продажи') or (Item.SubItems[1] = 'Возврат покупки') or (Item.SubItems[1] = 'Подытог чека') then
     Sender.Canvas.Font.Style := [fsBold]
@@ -606,8 +620,28 @@ begin
   edtStatus.Text := Format('(%d/%d) %s: Ошибка: %s', [Index + 1, FCommands.Count, FCommands[Index].CommandName, ErrorText]);
 end;
 
+function ExtractErrorCode(const AMsg: string): Integer;
+var
+  k: Integer;
+  s: string;
+begin
+  k := Pos(' ', AMsg);
+  s := Copy(AMsg, k, Pos(',', AMsg) - k);
+  try
+    Result := StrToInt(Trim(s));
+  except
+    Result := -1;
+  end;
+end;
+
 procedure TfmMain.OnErrorQuery(AMsg: string);
 begin
+  if (chkIngoreKKTErrors.Checked) and (ExtractErrorCode(AMsg) > 0) then
+  begin
+    FPlayer.PlayMode := pmContinue;
+    Exit;
+  end;
+
   if Application.MessageBox(PWideChar('Ошибка: ' + AMsg + #13#10 + 'Продолжить?'), 'Ошибка', MB_YESNO + MB_ICONSTOP) = IDYES then
   begin
     FPlayer.PlayMode := pmContinue;
@@ -642,7 +676,7 @@ begin
     PCommand(@FCommands.List[i])^.Played := False;
   end;
 
-  FPlayer.PlayLog(FDriver, FCommands, memCommandExceptions.Lines, True, FFirstCommandIndex, FPlayCommandCount);
+  FPlayer.PlayLog(FDriver, FCommands, memCommandExceptions.Lines, True, FFirstCommandIndex, FPlayCommandCount, chkInfinitePlay.Checked);
 end;
 
 procedure TfmMain.pmMain1Click(Sender: TObject);
@@ -676,12 +710,17 @@ end;
 
 procedure TfmMain.SelLine(Index: integer);
 begin
-  if Index > 0 then
-    lvCommands.Items[Index - 1].StateIndex := -1;
+  if (FLastIndex >= 0 ) and (FLastIndex < lvCommands.Items.Count) then
+  begin
+    lvCommands.Items[FLastIndex].StateIndex := FLastStateIndex;
+    lvCommands.Items[FLastIndex].Selected := False;
+  end;
   if Index < 0 then
     Exit;
   lvCommands.Items[Index].Selected := True;
   lvCommands.Items[Index].MakeVisible(True);
+  FLastStateIndex := lvCommands.Items[Index].StateIndex;
+  FLastIndex := Index;
   if lvCommands.Items[Index].StateIndex < 1 then
     lvCommands.Items[Index].StateIndex := 0;
   lvCommands.SetFocus;
@@ -709,8 +748,16 @@ begin
   btnStart.Enabled := not AStarted;
   btnStop.Enabled := AStarted;
   btnStartFromPosition.Enabled := not AStarted;
+  btnStartFromPosition.Enabled := not AStarted;
+  btnStartCurrentLine.Enabled := not AStarted;
+  btnStartSelected.Enabled := not AStarted;
   btnOpen.Enabled := not AStarted;
+  btnSettings.Enabled := not AStarted;
+  btnPasteFromClipboard.Enabled := not AStarted;
+  btnFindError.Enabled := not AStarted;
   memCommandExceptions.Enabled := not AStarted;
+  chkInfinitePlay.Enabled := not AStarted;
+  chkIngoreKKTErrors.Enabled := not AStarted;
   memInfo.Clear;
 end;
 

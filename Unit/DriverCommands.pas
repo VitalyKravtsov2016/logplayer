@@ -176,12 +176,6 @@ const
   SCommandNameFEEE = 'Запись лицензий ККТ';
   SCommandNameFEEF = 'Чтение лицензий ККТ';
 
-
-
-
-
-
-
   SCommandNameF7 = 'Запрос параметров модели';
 
   SCommandNameFF01 = 'Запрос статуса ФН';

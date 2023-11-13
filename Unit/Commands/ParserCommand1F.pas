@@ -32,7 +32,7 @@ end;
 
 function TParserCommand1F.GetShortValue: string;
 begin
-  Result := Format('Чтение T%sР%sП%s = %s', [GetFieldValue('TableNumber'),
+  Result := Format('Чтение Т%sР%sП%s = %s', [GetFieldValue('TableNumber'),
                        GetFieldValue('Row'),
                        GetFieldValue('Field'),
                        StringReplace(GetAnswerFieldValue('Value'), #13#10, ' ', [rfReplaceAll])]);

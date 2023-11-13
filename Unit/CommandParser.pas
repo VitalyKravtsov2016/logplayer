@@ -118,6 +118,7 @@ function GetCommandShortValue(ACmd: TCommand): string;
 var
   Commands: TParserCommands;
   Command: TParserCommand;
+  ErrorCode: Integer;
 begin
   Commands := TParserCommands.Create;
   try
@@ -125,6 +126,9 @@ begin
     Command.Parse(ACmd, pFields);
     Command.Parse(ACmd, pAnswerFields);
     Result := Command.GetShortValue;
+    ErrorCode := ACmd.ErrorCode;
+    if ErrorCode <> 0 then
+      Result := Result + ' [ERROR] ' + ErrorCode.ToString + ' (0x' + IntToHex(ErrorCode, 2) + ') ' + TPrinterError.GetDescription(ErrorCode, True)
   finally
     Command.Free;
     Commands.Free;

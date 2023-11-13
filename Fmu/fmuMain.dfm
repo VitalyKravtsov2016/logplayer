@@ -3,7 +3,7 @@ object fmMain: TfmMain
   Top = 0
   Caption = 'LogPlayer'
   ClientHeight = 584
-  ClientWidth = 791
+  ClientWidth = 814
   Color = clBtnFace
   Constraints.MinWidth = 694
   Font.Charset = DEFAULT_CHARSET
@@ -20,7 +20,7 @@ object fmMain: TfmMain
   object pnl: TPanel
     Left = 0
     Top = 0
-    Width = 791
+    Width = 814
     Height = 584
     Align = alClient
     BevelOuter = bvNone
@@ -28,7 +28,7 @@ object fmMain: TfmMain
     object spl1: TSplitter
       Left = 0
       Top = 363
-      Width = 791
+      Width = 814
       Height = 5
       Cursor = crVSplit
       Align = alBottom
@@ -38,27 +38,27 @@ object fmMain: TfmMain
     object pnlTop: TPanel
       Left = 0
       Top = 0
-      Width = 791
+      Width = 814
       Height = 363
       Align = alClient
       BevelOuter = bvNone
       Constraints.MinHeight = 200
       TabOrder = 0
       DesignSize = (
-        791
+        814
         363)
       object lbl: TLabel
-        Left = 672
-        Top = 103
+        Left = 695
+        Top = 131
         Width = 116
         Height = 13
         Anchors = [akTop, akRight]
         Caption = #1050#1086#1084#1072#1085#1076#1099'-'#1080#1089#1082#1083#1102#1095#1077#1085#1080#1103':'
       end
       object lblFileName: TLabel
-        Left = 584
-        Top = 103
-        Width = 81
+        Left = 340
+        Top = 71
+        Width = 461
         Height = 13
         Anchors = [akLeft, akTop, akRight]
       end
@@ -149,8 +149,8 @@ object fmMain: TfmMain
       end
       object edtStatus: TEdit
         Left = 8
-        Top = 70
-        Width = 665
+        Top = 92
+        Width = 688
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         Color = clBtnFace
@@ -159,9 +159,9 @@ object fmMain: TfmMain
       end
       object lvCommands: TListView
         Left = 8
-        Top = 128
-        Width = 665
-        Height = 234
+        Top = 152
+        Width = 688
+        Height = 210
         Anchors = [akLeft, akTop, akRight, akBottom]
         Columns = <
           item
@@ -198,10 +198,10 @@ object fmMain: TfmMain
         OnSelectItem = lvCommandsSelectItem
       end
       object memCommandExceptions: TMemo
-        Left = 679
-        Top = 128
+        Left = 702
+        Top = 152
         Width = 107
-        Height = 234
+        Height = 210
         Hint = 
           #1050#1086#1076#1099' '#1082#1086#1084#1072#1085#1076', '#1082#1086#1090#1086#1088#1099#1077' '#1085#1077' '#1073#1091#1076#1091#1090' '#1074#1099#1087#1086#1083#1085#1103#1090#1100#1089#1103#13#10#1050#1072#1078#1076#1099#1081' '#1082#1086#1076' '#1082#1086#1084#1072#1085#1076#1099' '#1085#1072 +
           ' '#1086#1090#1076#1077#1083#1100#1085#1086#1081' '#1089#1090#1088#1086#1082#1077
@@ -220,8 +220,8 @@ object fmMain: TfmMain
         TabOrder = 9
       end
       object progress: TProgressBar
-        Left = 679
-        Top = 72
+        Left = 702
+        Top = 94
         Width = 107
         Height = 17
         Anchors = [akTop, akRight]
@@ -264,7 +264,7 @@ object fmMain: TfmMain
       end
       object edtSearch: TEdit
         Left = 8
-        Top = 99
+        Top = 122
         Width = 481
         Height = 21
         Hint = #1055#1086#1080#1089#1082' '#1087#1086' '#1074#1088#1077#1084#1077#1085#1080' '#1080#1083#1080' '#1085#1072#1079#1074#1072#1085#1080#1102' '#1082#1086#1084#1072#1085#1076#1099
@@ -276,18 +276,34 @@ object fmMain: TfmMain
       end
       object btnSearch: TButton
         Left = 496
-        Top = 96
+        Top = 120
         Width = 75
         Height = 25
         Caption = #1055#1086#1080#1089#1082
         TabOrder = 15
         OnClick = btnSearchClick
       end
+      object chkIngoreKKTErrors: TCheckBox
+        Left = 8
+        Top = 69
+        Width = 153
+        Height = 17
+        Caption = #1048#1075#1085#1086#1088#1080#1088#1086#1074#1072#1090#1100' '#1086#1096#1080#1073#1082#1080' '#1050#1050#1058
+        TabOrder = 16
+      end
+      object chkInfinitePlay: TCheckBox
+        Left = 167
+        Top = 69
+        Width = 169
+        Height = 17
+        Caption = #1047#1072#1094#1080#1082#1083#1080#1090#1100' '#1074#1086#1089#1087#1088#1086#1080#1079#1074#1077#1076#1077#1085#1080#1077
+        TabOrder = 17
+      end
     end
     object pnlBottom: TPanel
       Left = 0
       Top = 368
-      Width = 791
+      Width = 814
       Height = 216
       Align = alBottom
       BevelOuter = bvNone
@@ -296,7 +312,7 @@ object fmMain: TfmMain
       object memInfo: TMemo
         Left = 8
         Top = 0
-        Width = 778
+        Width = 801
         Height = 216
         Align = alCustom
         Anchors = [akLeft, akTop, akRight, akBottom]
@@ -329,7 +345,9 @@ object fmMain: TfmMain
       'dlgSave.InitialDir'
       'dlgSave.FileName'
       'spl1.Top'
-      'dlgOpen.FilterIndex')
+      'dlgOpen.FilterIndex'
+      'chkIngoreKKTErrors.Checked'
+      'chkInfinitePlay.Checked')
     StoredValues = <
       item
       end>

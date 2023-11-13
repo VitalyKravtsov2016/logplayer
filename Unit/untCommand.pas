@@ -28,6 +28,7 @@ type
     function CommandName: string;
     function Code: Integer;
     function HasError: Boolean;
+    function ErrorCode: Integer;
     function HasData(const AData: string): Boolean;
   end;
 
@@ -51,6 +52,28 @@ begin
     Result := 'Sync'
   else
     Result := GetCommandName(Data);
+end;
+
+function TCommandHelper.ErrorCode: Integer;
+var
+  Stream: IBinStream;
+  b: Byte;
+begin
+  Result := -1;
+  if AnswerData = '' then
+  begin
+    Result := -1;
+    Exit;
+  end;
+  Stream := TBinStream.Create([]);
+  Stream.WriteBytes(HexToBytes(AnswerData));
+  Stream.Stream.Position := 0;
+  if Stream.Size < 2 then Exit;
+  b := Stream.ReadByte;
+  if b = $FF then
+    Stream.ReadByte;
+  b := Stream.ReadByte;
+  Result := b;
 end;
 
 function TCommandHelper.HasData(const AData: string): Boolean;

@@ -32,7 +32,7 @@ end;
 
 function TParserCommandFF67.GetShortValue: string;
 begin
-  Result := GetFieldValue('Barcode');
+  Result := '[M] ' + GetFieldValue('Barcode');
 end;
 
 end.

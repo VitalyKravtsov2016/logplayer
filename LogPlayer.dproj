@@ -100,9 +100,9 @@
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Build>11</VerInfo_Build>
+        <VerInfo_Build>14</VerInfo_Build>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=ШТРИХ-М;FileDescription=LogPlayer;FileVersion=1.1.0.11;InternalName=LogPlayer;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=LogPlayer;ProductName=LogPlayer;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=ШТРИХ-М;FileDescription=LogPlayer;FileVersion=1.1.0.14;InternalName=LogPlayer;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=LogPlayer;ProductName=LogPlayer;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <DCC_ExeOutput>Bin\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_DcuOutput>Dcu\$(Platform)\$(Config)</DCC_DcuOutput>
         <Icon_MainIcon>LogPlayer_Icon.ico</Icon_MainIcon>
@@ -185,6 +185,7 @@
                     <Source Name="MainSource">LogPlayer.dpr</Source>
                 </Source>
                 <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclDataSnapNativeServer270.bpl">Embarcadero DBExpress DataSnap Native Server Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k270.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp270.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
