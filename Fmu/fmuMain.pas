@@ -88,7 +88,7 @@ type
     FContinueIndex: Integer;
     FLastStateIndex: Integer;
     FLastIndex: Integer;
-    procedure SelLine(Index: integer);
+    procedure SelLine(Index: integer; ACycleNumber: Integer);
     procedure AddCommand(ACommand: TCommand);
     procedure Play(Sender: TObject);
     procedure ContinuePlay;
@@ -273,16 +273,14 @@ begin
   if current < 0 then
     current := 0;
   repeat
-    if FCommands[current].HasData(edtSearch.Text) or
-    (Pos(LowerCase(edtSearch.Text, loUserLocale), LowerCase(lvCommands.Items[current].SubItems[2], loUserLocale)) > 0) then
+    if FCommands[current].HasData(edtSearch.Text) or (Pos(LowerCase(edtSearch.Text, loUserLocale), LowerCase(lvCommands.Items[current].SubItems[2], loUserLocale)) > 0) then
       Inc(current);
     if current = (FCommands.Count - 1) then
       Exit;
 
     for i := current to FCommands.Count - 1 do
     begin
-      if FCommands[i].HasData(edtSearch.Text) or
-      (Pos(LowerCase(edtSearch.Text, loUserLocale), LowerCase(lvCommands.Items[i].SubItems[2], loUserLocale)) > 0) then
+      if FCommands[i].HasData(edtSearch.Text) or (Pos(LowerCase(edtSearch.Text, loUserLocale), LowerCase(lvCommands.Items[i].SubItems[2], loUserLocale)) > 0) then
       begin
         lvCommands.ClearSelection;
         lvCommands.Items[i].Selected := True;
@@ -309,6 +307,7 @@ end;
 procedure TfmMain.btnStartClick(Sender: TObject);
 begin
   SetControlsState(True);
+  FFirstCommandIndex := 0;
   FPlayCommandCount := 0;
   FFinished := False;
   SelectAll;
@@ -595,29 +594,64 @@ end;
 procedure TfmMain.OnCommandRun(AMsg: string);
 var
   Line: Integer;
+  CycleNumber: Integer;
+  Splitted: TArray<string>;
 begin
-  Line := AMsg.ToInteger;
+  Splitted := AMsg.Split([' ']);
+  if Length(Splitted) = 0 then
+    Exit;
+
+  Line := Splitted[0].ToInteger;
   if Line > 0 then
     lvCommands.Items[Line - 1].Selected := False;
 
-  SelLine(Line);
+  if Length(Splitted) > 1 then
+    CycleNumber := Splitted[1].ToInteger
+  else
+    CycleNumber := -1;
+  SelLine(Line, CycleNumber);
 end;
 
 procedure TfmMain.OnError(AMsg: string);
 var
   ErrorText: string;
   Index: Integer;
+  CycleNumber: Integer;
+  Splitted: TArray<string>;
 begin
   if lvCommands.Items.Count = 0 then
     Exit;
-  Index := StrToIntDef(Copy(AMsg, 1, Pos(' ', AMsg) - 1), 0);
-  ErrorText := Copy(AMsg, Pos(' ', AMsg) + 1, Length(AMsg));
-  SelLine(Index);
+  Splitted := AMsg.Split([' ']);
+  if Length(Splitted) = 0 then
+    Exit;
+
+  Index := Splitted[0].ToInteger;
+
+  if Length(Splitted) > 2 then
+    CycleNumber := Splitted[1].ToInteger
+  else
+    CycleNumber := -1;
+  ErrorText := '';
+  if Length(Splitted) = 2 then
+    ErrorText := Splitted[2]
+  else if Length(Splitted) > 2 then
+    ErrorText := Splitted[3];
+
+
+ // Index := StrToIntDef(Copy(AMsg, 1, Pos(' ', AMsg) - 1), 0);
+//  ErrorText := Copy(AMsg, Pos(' ', AMsg) + 1, Length(AMsg));
+  if Index < 0 then
+    Index := 0;
+
+  SelLine(Index, -1);
   lvCommands.Items.BeginUpdate;
   lvCommands.Items[Index].StateIndex := 2;
   lvCommands.Items.EndUpdate;
   lvCommands.SetFocus;
-  edtStatus.Text := Format('(%d/%d) %s: Ошибка: %s', [Index + 1, FCommands.Count, FCommands[Index].CommandName, ErrorText]);
+  if CycleNumber >= 0 then
+    edtStatus.Text := Format('Цикл %d (%d/%d) %s: Ошибка: %s', [CycleNumber, Index + 1, FCommands.Count, FCommands[Index].CommandName, ErrorText])
+  else
+    edtStatus.Text := Format('(%d/%d) %s: Ошибка: %s', [Index + 1, FCommands.Count, FCommands[Index].CommandName, ErrorText]);
 end;
 
 function ExtractErrorCode(const AMsg: string): Integer;
@@ -667,7 +701,7 @@ var
   Command: TCommand;
   i: Integer;
 begin
-  FFirstCommandIndex := lvCommands.ItemIndex;
+ // FFirstCommandIndex := lvCommands.ItemIndex;
   if FFirstCommandIndex < 0 then
     FFirstCommandIndex := 0;
   for i := 0 to FCommands.Count - 1 do
@@ -708,14 +742,14 @@ begin
     PCommand(@FCommands.List[i])^.Selected := lvCommands.Items[i].Selected;
 end;
 
-procedure TfmMain.SelLine(Index: integer);
+procedure TfmMain.SelLine(Index: integer; ACycleNumber: Integer);
 begin
-  if (FLastIndex >= 0 ) and (FLastIndex < lvCommands.Items.Count) then
+  if (FLastIndex >= 0) {and (FLastIndex < lvCommands.Items.Count)} then
   begin
     lvCommands.Items[FLastIndex].StateIndex := FLastStateIndex;
     lvCommands.Items[FLastIndex].Selected := False;
   end;
-  if Index < 0 then
+  if (Index < 0) or (Index > (lvCommands.Items.Count - 1)) then
     Exit;
   lvCommands.Items[Index].Selected := True;
   lvCommands.Items[Index].MakeVisible(True);
@@ -725,6 +759,9 @@ begin
     lvCommands.Items[Index].StateIndex := 0;
   lvCommands.SetFocus;
   progress.Position := Index;
+  if ACycleNumber >= 0 then
+    edtStatus.Text := Format('Цикл %d (%d/%d) %s', [ACycleNumber, Index + 1, FCommands.Count, FCommands[Index].CommandName])
+  else
   edtStatus.Text := Format('(%d/%d) %s', [Index + 1, FCommands.Count, FCommands[Index].CommandName]);
 end;
 

@@ -185,13 +185,20 @@ var
   Count: Integer;
   ErrorAnswer: AnsiString;
   Data: AnsiString;
+  fCycleNumber: Integer;
 begin
   FStopFlag := False;
   try
     //if Drv.ResetECR <> 0 then
     //  raise Exception.CreateFmt('%d, %s', [Drv.ErrorCode, Drv.ResultCodeDescription]);
+    if AInfinitePlay then
+      fCycleNumber := 0
+    else
+      fCycleNumber := -1;
     while True do
     begin
+      if AInfinitePlay then
+        Inc(fCycleNumber);
       if (ACount = 0) or (ACount > (AFirstCommandIndex + Commands.Count - 1)) then
         Count := Commands.Count - 1
       else
@@ -207,7 +214,10 @@ begin
             Continue;
           if not PlayableCommand(Command, ExceptList) then
             Continue;
-          GlobalEventBus.Post('CommandRun', Index.ToString);
+          if AInfinitePlay then
+            GlobalEventBus.Post('CommandRun', Index.ToString + ' ' + fCycleNumber.ToString)
+          else
+            GlobalEventBus.Post('CommandRun', Index.ToString);
 
           Drv.BinaryConversion := BINARY_CONVERSION_HEX;
           Drv.TransferBytes := Command.Data;
@@ -266,7 +276,12 @@ begin
     end;
   except
     on E: Exception do
-      GlobalEventBus.Post('Error', Index.ToString + ' ' + E.Message);
+    begin
+      if AInfinitePlay then
+        GlobalEventBus.Post('Error', Index.ToString + ' ' + E.Message)
+      else
+        GlobalEventBus.Post('Error', Index.ToString + ' ' + fCycleNumber.ToString + ' ' + E.Message);
+    end;
   end;
 end;
 

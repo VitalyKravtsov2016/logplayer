@@ -58,7 +58,7 @@ object fmMain: TfmMain
       object lblFileName: TLabel
         Left = 340
         Top = 71
-        Width = 461
+        Width = 3
         Height = 13
         Anchors = [akLeft, akTop, akRight]
       end
