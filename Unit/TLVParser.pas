@@ -56,7 +56,10 @@ var
 begin
   Result := '';
   if Length(AData) < 4 then
-    raise Exception.Create('TLV length error');
+  begin
+    Result := 'TLV length error';
+    Exit;
+  end;
 
   S := '';
   i := 1;

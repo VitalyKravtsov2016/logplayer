@@ -18,6 +18,7 @@ procedure SetBitInt(var Value: Integer; Bit: Byte);
 function TestBit(Value, Bit: Integer): Boolean;
 function StrToDec(const Value: AnsiString): AnsiString;
 function Str2Date(const Data: AnsiString; Index: Integer): TDateTime;
+function Str2DateDoc(const Data: AnsiString; Index: Integer): TDateTime;
 function Str2DateRev(const Data: AnsiString; Index: Integer): TDateTime;
 function Str2Time(const Data: AnsiString; Index: Integer): TDateTime;
 function IntToBin(Value, Count: Int64): AnsiString;
@@ -158,6 +159,25 @@ begin
 
   if not DoEncodeDate(2000 + Year, Month, Day, Result) then
     Result := 0;
+end;
+
+function Str2DateDoc(const Data: AnsiString; Index: Integer): TDateTime;
+var
+  Day, Month, Year, h, m: Byte;
+  D: TDateTime;
+  T: TDateTime;
+begin
+  Year := Ord(Data[Index]);
+  Month := Ord(Data[Index + 1]);
+  Day := Ord(Data[Index + 2]);
+  h := Ord(Data[Index + 3]);
+  m := Ord(Data[Index + 4]);
+
+  if not DoEncodeDate(2000 + Year, Month, Day, D) then
+    D := 0;
+  if not DoEncodeTime(h, m, 0, 0, T) then
+    T := 0;
+  Result := D + T;
 end;
 
 function Str2DateBCD(const Data: AnsiString; Index: Integer): TDateTime;

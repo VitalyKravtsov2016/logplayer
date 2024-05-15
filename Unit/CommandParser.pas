@@ -7,23 +7,7 @@ uses
   BinUtils, Classes, TLVParser;
 
 type
-  TFieldType = (ftByte, ftUInt32, ftUint16, ftINN, ftBarcode, ftBarcodeTLV,
-  ftKMAnswer, ftQuantity6, ftQuantity5, ftDateTime, ftDate, ftTime, ftSum,
-  ftString, ftString40, ftTableValue, ftFieldType, ftCheckType,
-  ftPaymentTypeSign, ftPaymentItemSign, ftTaxValue, ftSumm1Value,
-  ftTax, ftTLV, ftTaxType, ftTax1, ftSoftVersion, ftECRMode,
-  ftECRAdvancedMode, ftECRFlags, ftBatteryVoltage, ftPowerSourceVoltage,
-  ftPortNumber, ftCheckType2,
-  ftCheckItemLocalResult,
-  ftCheckItemLocalError,
-  ftMarkingType2,
-  ftItemStatus,
-  ftBarcodeOSU,
-  ftMarkingType,
-  ftMarkingTypeEx,
-  ftAcceptOrDecline,
-  ftKMSendAnswer
-  );
+  TFieldType = (ftByte, ftUInt32, ftUint16, ftINN, ftBarcode, ftBarcodeTLV, ftKMAnswer, ftQuantity6, ftQuantity5, ftDateTime, ftDate, ftTime, ftSum, ftString, ftString40, ftTableValue, ftFieldType, ftCheckType, ftPaymentTypeSign, ftPaymentItemSign, ftTaxValue, ftSumm1Value, ftTax, ftTLV, ftTaxType, ftTax1, ftSoftVersion, ftECRMode, ftECRAdvancedMode, ftECRFlags, ftBatteryVoltage, ftPowerSourceVoltage, ftPortNumber, ftCheckType2, ftCheckItemLocalResult, ftCheckItemLocalError, ftMarkingType2, ftItemStatus, ftBarcodeOSU, ftMarkingType, ftMarkingTypeEx, ftAcceptOrDecline, ftKMSendAnswer, ftString16, ftDateTimeDoc, ftFNSessionState, ftFNCurrentDocument, ftFNDocumentData, ftFNLifeState);
 
   TParseType = (pFields, pAnswerFields, pPlayedFields);
 
@@ -81,6 +65,7 @@ type
   end;
 
 procedure ParseCommand(const ACmd: TCommand; var Fields: string; var AnswerFields: string; var PlayedFields: string);
+
 function GetCommandShortValue(ACmd: TCommand): string;
 
 implementation
@@ -91,8 +76,8 @@ uses
   ParserCommandFC, ParserCommand8D, ParserCommand1E, ParserCommand1F,
   ParserCommand2D, ParserCommand2E, ParserCommand6B, ParserCommand80,
   ParserCommand81, ParserCommand82, ParserCommand83, ParserCommand85,
-  ParserCommand89, ParserCommand8E, ParserCommandFF61, ParserCommandFF67,
-  ParserCommandFF69;
+  ParserCommand89, ParserCommand8E, ParserCommandFF01, ParserCommandFF61,
+  ParserCommandFF67, ParserCommandFF69;
 
 const
   VALUE_NOT_VISIBLE = '###logplayer_not_visible_value###';
@@ -230,7 +215,7 @@ begin
   else
   begin
     if TestBit(AValue, 0) then
-      Result := Result +  #13#10 +'  "результат проверки КП КМ фискальным накопителем с использованием ключа проверки КП отрицательный"';
+      Result := Result + #13#10 + '  "результат проверки КП КМ фискальным накопителем с использованием ключа проверки КП отрицательный"';
     {else
       Result := Result + '  "код маркировки не может быть проверен фискальным накопителем с использованием ключа проверки КП"'}
   end;
@@ -239,11 +224,16 @@ end;
 function CheckItemLocalErrorToStr(AValue: Integer): string;
 begin
   case AValue of
-    0: Result := 'КМ проверен в ФН';
-    1: Result := 'КМ данного типа не подлежит проверке в ФН';
-    2: Result := 'ФН не содержит ключ проверки кода проверки этого КМ';
-    3: Result := 'Проверка невозможна, так как отсутствуют теги 91 и / или 92 или их формат неверный';
-    4: Result := 'Внутренняя ошибка в ФН при проверке этого КМ';
+    0:
+      Result := 'КМ проверен в ФН';
+    1:
+      Result := 'КМ данного типа не подлежит проверке в ФН';
+    2:
+      Result := 'ФН не содержит ключ проверки кода проверки этого КМ';
+    3:
+      Result := 'Проверка невозможна, так как отсутствуют теги 91 и / или 92 или их формат неверный';
+    4:
+      Result := 'Внутренняя ошибка в ФН при проверке этого КМ';
   else
     Result := 'неизвестное значение'
   end;
@@ -252,12 +242,18 @@ end;
 function MarkingTypeToStr2(AValue: Integer): string;
 begin
   case AValue of
-    0: Result := 'Тип КМ не идентифицирован';
-    1: Result := 'Короткий КМ';
-    2: Result := 'КМ со значением кода проверки длиной 88 символов, подлежащим проверке в ФН';
-    3: Result := 'КМ со значением кода проверки длиной 44 символа, не подлежащим проверке в ФН';
-    4: Result := 'КМ со значением кода проверки длиной 44 символа, подлежащим проверке в ФН';
-    5: Result := 'КМ со значением кода проверки длиной 4 символа, не подлежащим проверке в ФН';
+    0:
+      Result := 'Тип КМ не идентифицирован';
+    1:
+      Result := 'Короткий КМ';
+    2:
+      Result := 'КМ со значением кода проверки длиной 88 символов, подлежащим проверке в ФН';
+    3:
+      Result := 'КМ со значением кода проверки длиной 44 символа, не подлежащим проверке в ФН';
+    4:
+      Result := 'КМ со значением кода проверки длиной 44 символа, подлежащим проверке в ФН';
+    5:
+      Result := 'КМ со значением кода проверки длиной 4 символа, не подлежащим проверке в ФН';
   else
     Result := 'неизвестное значение'
   end;
@@ -266,7 +262,7 @@ end;
 const
   MT_Unrecognized = 0;
   MT_EAN8 = 17672;
-  MT_EAN13 = $450D;//17677;
+  MT_EAN13 = $450D; //17677;
   MT_ITF14 = 18702;
   MT_DataMatrix = 17485;
   MT_Fur = 21062;
@@ -275,7 +271,6 @@ const
   MT_OSU_EAN8 = $4F08;
   MT_OSU_EAN13 = $4F0D;
   MT_OSU_GTIN_ITF14 = $4F0E;
-
   SUnrecognized = 'Нераспознанный код';
   SEAN8 = 'Код EAN-8, UPC-E';
   SEAN13 = 'Код EAN-13, UPC-A';
@@ -292,38 +287,56 @@ function MarkingTypeToStr(AValue: Integer): string;
 begin
   Result := 'Неизвестный тип';
   case AValue of
-    MT_Unrecognized: Result := SUnrecognized;
-    MT_EAN8: Result := SEAN8;
-    MT_EAN13: Result := SEAN13;
-    MT_ITF14: Result := SITF14;
-    MT_DataMatrix: begin
-                     Result := SDataMatrix; // + ': ' + MarkingTypeExToStr(AMarkingTypeEx);
-                   end;
-    MT_Fur: Result := SFur;
-    MT_EGAISPDF: Result := SEGAISPDF;
-    MT_EGAISDM: Result := SEGAISDM;
-    MT_OSU_EAN8: Result := SOSU_EAN8;
-    MT_OSU_EAN13: Result := SOSU_EAN13;
-    MT_OSU_GTIN_ITF14: Result := SOSU_GTIN_ITF14;
+    MT_Unrecognized:
+      Result := SUnrecognized;
+    MT_EAN8:
+      Result := SEAN8;
+    MT_EAN13:
+      Result := SEAN13;
+    MT_ITF14:
+      Result := SITF14;
+    MT_DataMatrix:
+      begin
+        Result := SDataMatrix; // + ': ' + MarkingTypeExToStr(AMarkingTypeEx);
+      end;
+    MT_Fur:
+      Result := SFur;
+    MT_EGAISPDF:
+      Result := SEGAISPDF;
+    MT_EGAISDM:
+      Result := SEGAISDM;
+    MT_OSU_EAN8:
+      Result := SOSU_EAN8;
+    MT_OSU_EAN13:
+      Result := SOSU_EAN13;
+    MT_OSU_GTIN_ITF14:
+      Result := SOSU_GTIN_ITF14;
   end;
 end;
 
 function MarkingTypeExToStr(AValue: Integer): string;
 begin
   case AValue of
-    0: Result := 'КМ-88';
-    1: Result := 'Симметричный';
-    2: Result := 'Табачный';
-    3: Result := 'КМ-44';
-    $FF: Result := 'GS-1 без маркировки';
+    0:
+      Result := 'КМ-88';
+    1:
+      Result := 'Симметричный';
+    2:
+      Result := 'Табачный';
+    3:
+      Result := 'КМ-44';
+    $FF:
+      Result := 'GS-1 без маркировки';
   end;
 end;
 
 function KMServerErrorCodeToStr(AValue: Integer): string;
 begin
   case AValue of
-    0: Result := 'Ошибок нет';
-    $FF: Result := 'Сервер не ответил в течение таймаута';
+    0:
+      Result := 'Ошибок нет';
+    $FF:
+      Result := 'Сервер не ответил в течение таймаута';
   else
     Result := ''
   end;
@@ -366,19 +379,125 @@ begin
     Result := Result + '  "результат проверки КП КМ и статуса товара сформирован ККТ, работающей в режиме передачи данных"'
 end;
 
-
 function ReasonErrorToStr(AValue: Integer): string;
 begin
   case AValue of
-    1: Result := 'Неверный фискальный признак';
-    2: Result := 'Неверный формат ответа';
-    3: Result := 'Неверный номер запроса в ответе';
-    4: Result := 'Неверный номер ФН';
-    5: Result := 'Неверный CRC блока данных';
-    7: Result := 'Неверная длина ответа';
+    1:
+      Result := 'Неверный фискальный признак';
+    2:
+      Result := 'Неверный формат ответа';
+    3:
+      Result := 'Неверный номер запроса в ответе';
+    4:
+      Result := 'Неверный номер ФН';
+    5:
+      Result := 'Неверный CRC блока данных';
+    7:
+      Result := 'Неверная длина ответа';
   else
     Result := 'неизвестное значение'
   end;
+end;
+
+function FNSessionStateToStr(AValue: Integer): string;
+begin
+  case AValue of
+    $00:
+      Result := 'Смена закрыта';
+    $01:
+      Result := 'Смена открыта';
+  else
+    Result := 'Неизвестное значение';
+  end;
+end;
+
+resourcestring
+  SNoOpenDocument = 'Нет открытого документа';
+  SRegistrationReport = 'Отчет о регистрации';
+  SOpenSessionReport = 'Отчет об открытии смены';
+  SCashReceipt = 'Кассовый чек';
+  SBSO = 'Бланк строгой отчетности';
+  SCloseSessionReport = 'Отчет о закрытии смены';
+  SCloseFNReport = 'Отчет о закрытии фискального накопителя';
+  SOperatorConfirm = 'Подтверждение оператора';
+  SRegistrationChangeReport = 'Отчет об изменении параметров регистрации';
+  SRegistrationChangeFNReport = 'Отчет об изменении параметров регистрации в связи с заменой ФН';
+  SCalculationStateReport = 'Отчет о текущем состоянии расчетов';
+  SCorrectionReceipt = 'Кассовый чек коррекции';
+  SBSOCorrectionReceipt = 'Бланк строгой отчетности коррекции';
+  SDocTypeUnknown = 'Неизвестный тип документа';
+
+function FNCurrentDocumentToStr(AValue: Integer): string;
+begin
+  case AValue of
+    $00:
+      Result := SNoOpenDocument;
+    $01:
+      Result := SRegistrationReport;
+    $02:
+      Result := SOpenSessionReport;
+    $04:
+      Result := SCashReceipt;
+    $08:
+      Result := SCloseSessionReport;
+    $10:
+      Result := SCloseFNReport;
+    $11:
+      Result := SBSO;
+    $12:
+      Result := SRegistrationChangeFNReport;
+    $13:
+      Result := SRegistrationChangeReport;
+    $14:
+      Result := SCorrectionReceipt;
+    $15:
+      Result := SBSOCorrectionReceipt;
+    $17:
+      Result := SCalculationStateReport;
+  else
+    Result := SDocTypeUnknown;
+  end;
+end;
+
+resourcestring
+  SFNNoDocumentData = 'Нет данных документа';
+  SFNDocumentDataReceived = 'Получены данные документа';
+  SFNUnknownValue = 'Неизвестное значение';
+
+function FNDocumentDataToStr(AValue: Integer): string;
+begin
+  case AValue of
+    $00:
+      Result := SFNNoDocumentData;
+    $01:
+      Result := SFNDocumentDataReceived;
+  else
+    Result := SFNUnknownValue;
+  end;
+end;
+
+function BoolToYesNo(AValue: Boolean): WideString;
+begin
+  if AValue then
+    Result := 'Да'
+  else
+    Result := 'Нет';
+end;
+
+function GetBitStr(AValue: Integer; Bit: Integer): WideString;
+begin
+  Result := BoolToYesNo(TestBit(AValue, Bit));
+end;
+
+resourcestring
+  SFNAdjusted = 'Проведена настройка ФН';
+  SFNFiscalModeOpened = 'Открыт фискальный режим';
+  SFNFiscalModeClosed = 'Закрыт фискальный режим';
+  SFNOFDTransferFinished = 'Закончена передача фискальных данных в ОФД';
+
+function FNLifeStateToStr(AValue: Integer): string;
+begin
+  Result := Result + #13#10 + '  ' + SFNAdjusted + ' ' + GetBitStr(AValue, 0) + #13#10 + '  ' + SFNFiscalModeOpened + ' ' + GetBitStr(AValue, 1) + #13#10 + '  ' + SFNFiscalModeClosed + ' ' + GetBitStr(AValue, 2) + #13#10 + '  ' + SFNOFDTransferFinished + ' ' + GetBitStr(AValue, 3);
 end;
 
 function TParserCommand.DecodeBarcodeOSU(Source: TParseType): string;
@@ -435,9 +554,9 @@ begin
       TLVData := FStream.ReadString;
       Parser := TTLVParser.Create;
       try
-         Parser.ShowTagNumbers := True;
-         Parser.BaseIndent := 2;
-         TLVDataStr := Parser.ParseTLV(TLVData);
+        Parser.ShowTagNumbers := True;
+        Parser.BaseIndent := 2;
+        TLVDataStr := Parser.ParseTLV(TLVData);
       finally
         Parser.Free;
       end;
@@ -445,8 +564,8 @@ begin
   end;
   if KMServerErrorCode >= 0 then
     AddValue('KMServerErrorCode', KMServerErrorCode.ToString + ' [' + KMServerErrorCodeToStr(KMServerErrorCode) + ']', Source);
-  if KMServerCheckingStatus >= 0  then
-    AddValue('KMServerCheckingStatus (Тег 2106)', KMServerCheckingStatus.ToString + ' [' + KMServerCheckingStatusToStr(KMServerCheckingStatus) + ']' , Source);
+  if KMServerCheckingStatus >= 0 then
+    AddValue('KMServerCheckingStatus (Тег 2106)', KMServerCheckingStatus.ToString + ' [' + KMServerCheckingStatusToStr(KMServerCheckingStatus) + ']', Source);
   if Length(TLVData) > 0 then
   begin
     AddValue('TLVData Hex', StrToHex(TLVData), Source);
@@ -576,7 +695,6 @@ begin
       Result := Pair.Value;
 end;
 
-
 function TParserCommand.GetShortValue: string;
 begin
   Result := '';
@@ -585,24 +703,26 @@ end;
 function TParserCommand.ItemStatusToString(AValue: Byte): string;
 begin
   case AValue of
-    1: Result := 'Штучный товар, реализован';
-    2: Result := 'Мерный товар, в стадии реализации';
-    3: Result := 'Штучный товар, возвращен';
-    4: Result := 'Часть товара, возвращена';
-    else
-      Result := 'Неизвестный статус';
+    1:
+      Result := 'Штучный товар, реализован';
+    2:
+      Result := 'Мерный товар, в стадии реализации';
+    3:
+      Result := 'Штучный товар, возвращен';
+    4:
+      Result := 'Часть товара, возвращена';
+  else
+    Result := 'Неизвестный статус';
   end;
 end;
 
 procedure TParserCommand.AddValue(const AName: string; const AValue: string; Source: TParseType);
 begin
   if Source = pFields then
-      FFieldsValues.Add(TPair<string, string>.Create(AName, AValue))
-  else
-     if Source = pAnswerFields then
-       FAnswerFieldsValues.Add(TPair<string, string>.Create(AName, AValue));
+    FFieldsValues.Add(TPair<string, string>.Create(AName, AValue))
+  else if Source = pAnswerFields then
+    FAnswerFieldsValues.Add(TPair<string, string>.Create(AName, AValue));
 end;
-
 
 function TParserCommand.Parse(const ACmd: TCommand; Source: TParseType): string;
 var
@@ -624,15 +744,15 @@ var
 begin
   case Source of
     pFields:
-    begin
-      FFieldsValues.Clear;
-      Start(ACmd);
-    end;
+      begin
+        FFieldsValues.Clear;
+        Start(ACmd);
+      end;
     pAnswerFields:
-    begin
-      FAnswerFieldsValues.Clear;
-      StartAnswer(ACmd);
-    end;
+      begin
+        FAnswerFieldsValues.Clear;
+        StartAnswer(ACmd);
+      end;
     pPlayedFields:
       StartPlayedAnswer(ACmd);
   end;
@@ -709,6 +829,10 @@ begin
           begin
             FieldValue := DateTimeToStr(Str2Date(IntToBin(FStream.ReadInt(5), 5), 1));
           end;
+        ftDateTimeDoc:
+          begin
+            FieldValue := DateTimeToStr(Str2DateDoc(IntToBin(FStream.ReadInt(5), 5), 1));
+          end;
         ftSum:
           begin
             FieldValue := Format('%.2f', [FStream.ReadInt(5) / 100]);
@@ -716,6 +840,10 @@ begin
         ftString:
           begin
             FieldValue := FStream.ReadString;
+          end;
+        ftString16:
+          begin
+            FieldValue := TrimRight(FStream.ReadString(16));
           end;
         ftString40:
           begin
@@ -736,14 +864,12 @@ begin
             Buf1 := Copy(Buf, 1, 8);
             if Length(Buf) > 8 then
               FieldValue := TrimRight(Buf)
+            else if Length(Buf) = 0 then
+              FieldValue := ''
+            else if Trim(Buf) = '' then
+              FieldValue := BinToInt(Buf1, 1, Length(Buf1)).ToString
             else
-              if Length(Buf) = 0 then
-                FieldValue := ''
-              else
-                if Trim(Buf) = '' then
-                  FieldValue := BinToInt(Buf1, 1, Length(Buf1)).ToString
-                else
-                    FieldValue := #13#10 + 'Str: ' + TrimRight(Buf) + #13#10 + 'Int: ' + BinToInt(Buf1, 1, Length(Buf1)).ToString;
+              FieldValue := #13#10 + 'Str: ' + TrimRight(Buf) + #13#10 + 'Int: ' + BinToInt(Buf1, 1, Length(Buf1)).ToString;
           end;
         ftCheckType:
           begin
@@ -822,64 +948,84 @@ begin
           begin
             FieldValue := PortNumToString(FStream.ReadByte);
           end;
-       ftCheckItemLocalResult:
-         begin
-           IntValue := FStream.ReadByte;
-           FieldValue := Format('%d [%s]', [IntValue, CheckItemLocalResultToStr(IntValue)]);
-         end;
-       ftCheckItemLocalError:
-         begin
-           IntValue := FStream.ReadByte;
-           FieldValue := Format('%d [%s]', [IntValue, CheckItemLocalErrorToStr(IntValue)]);
-         end;
-       ftMarkingType2:
-         begin
-           IntValue := FStream.ReadByte;
-           FieldValue := Format('%d [%s]', [IntValue, MarkingTypeToStr2(IntValue)]);
-         end;
-       ftKMAnswer:
-         begin
-           FieldValue := VALUE_NOT_VISIBLE;
-           DecodeKMAnswer(Source);
-         end;
-       ftKMSendAnswer:
-         begin
-           FieldValue := VALUE_NOT_VISIBLE;
-           DecodeKMSendAnswer(Source);
-         end;
-       ftBarcodeTLV:
-         begin
-           FieldValue := VALUE_NOT_VISIBLE;
-           DecodeTLVBarcode(Source);
-         end;
-       ftItemStatus:
-         begin
-           IntValue := FStream.ReadByte;
-           FieldValue := Format('%d [%s]', [IntValue, ItemStatusToString(IntValue)]);
-         end;
-       ftBarcodeOSU:
-         begin
-           FieldValue := VALUE_NOT_VISIBLE;
-           DecodeBarcodeOSU(Source);
-         end;
-       ftMarkingType:
-        begin
-          IntValue := FStream.ReadIntRev(2);
-          FieldValue := Format('%d [%s]', [IntValue, MarkingTypeToStr(IntValue)]);
-        end;
-       ftMarkingTypeEx:
-        begin
-          IntValue := FStream.ReadByte;
-          FieldValue := Format('%d [%s]', [IntValue, MarkingTypeExToStr(IntValue)]);
-        end;
-       ftAcceptOrDecline:
-         begin
-           IntValue := FStream.ReadByte;
-           if IntValue = 1 then
-             FieldValue := IntValue.ToString + ' [Принять]'
-           else
-             FieldValue := IntValue.ToString + ' [Отклонить]';
-         end;
+        ftCheckItemLocalResult:
+          begin
+            IntValue := FStream.ReadByte;
+            FieldValue := Format('%d [%s]', [IntValue, CheckItemLocalResultToStr(IntValue)]);
+          end;
+        ftCheckItemLocalError:
+          begin
+            IntValue := FStream.ReadByte;
+            FieldValue := Format('%d [%s]', [IntValue, CheckItemLocalErrorToStr(IntValue)]);
+          end;
+        ftMarkingType2:
+          begin
+            IntValue := FStream.ReadByte;
+            FieldValue := Format('%d [%s]', [IntValue, MarkingTypeToStr2(IntValue)]);
+          end;
+        ftKMAnswer:
+          begin
+            FieldValue := VALUE_NOT_VISIBLE;
+            DecodeKMAnswer(Source);
+          end;
+        ftKMSendAnswer:
+          begin
+            FieldValue := VALUE_NOT_VISIBLE;
+            DecodeKMSendAnswer(Source);
+          end;
+        ftBarcodeTLV:
+          begin
+            FieldValue := VALUE_NOT_VISIBLE;
+            DecodeTLVBarcode(Source);
+          end;
+        ftItemStatus:
+          begin
+            IntValue := FStream.ReadByte;
+            FieldValue := Format('%d [%s]', [IntValue, ItemStatusToString(IntValue)]);
+          end;
+        ftBarcodeOSU:
+          begin
+            FieldValue := VALUE_NOT_VISIBLE;
+            DecodeBarcodeOSU(Source);
+          end;
+        ftMarkingType:
+          begin
+            IntValue := FStream.ReadIntRev(2);
+            FieldValue := Format('%d [%s]', [IntValue, MarkingTypeToStr(IntValue)]);
+          end;
+        ftMarkingTypeEx:
+          begin
+            IntValue := FStream.ReadByte;
+            FieldValue := Format('%d [%s]', [IntValue, MarkingTypeExToStr(IntValue)]);
+          end;
+        ftAcceptOrDecline:
+          begin
+            IntValue := FStream.ReadByte;
+            if IntValue = 1 then
+              FieldValue := IntValue.ToString + ' [Принять]'
+            else
+              FieldValue := IntValue.ToString + ' [Отклонить]';
+          end;
+        ftFNSessionState:
+          begin
+            IntValue := FStream.ReadByte;
+            FieldValue := Format('%d [%s]', [IntValue, FNSessionStateToStr(IntValue)]);
+          end;
+        ftFNCurrentDocument:
+          begin
+            IntValue := FStream.ReadByte;
+            FieldValue := Format('%d [%s]', [IntValue, FNCurrentDocumentToStr(IntValue)]);
+          end;
+        ftFNDocumentData:
+          begin
+            IntValue := FStream.ReadByte;
+            FieldValue := Format('%d [%s]', [IntValue, FNDocumentDataToStr(IntValue)]);
+          end;
+        ftFNLifeState:
+          begin
+            IntValue := FStream.ReadByte;
+            FieldValue := Format('%d [%s]', [IntValue, FNLifeStateToStr(IntValue)]);
+          end;
       end;
       Value := Value + FieldValue;
       if FieldValue <> VALUE_NOT_VISIBLE then
@@ -890,12 +1036,11 @@ begin
       for FieldElement in FFieldsValues do
         S.Add(FieldElement.Key + ': ' + FieldElement.Value)
     end
-    else
-     if Source = pAnswerFields then
-     begin
-       for FieldElement in FAnswerFieldsValues do
-         S.Add(FieldElement.Key + ': ' + FieldElement.Value)
-     end
+    else if Source = pAnswerFields then
+    begin
+      for FieldElement in FAnswerFieldsValues do
+        S.Add(FieldElement.Key + ': ' + FieldElement.Value)
+    end
   finally
     Result := S.Text;
     S.Free;
@@ -1077,6 +1222,7 @@ begin
   FCommands := TList<TPair<UInt16, TParserCommandClass>>.Create;
   AddCommand($FF45, TParserCommandFF45);
   AddCommand($FF46, TParserCommandFF46);
+  AddCommand($FF01, TParserCommandFF01);
   AddCommand($FF0C, TParserCommandFF0C);
   AddCommand($FF4D, TParserCommandFF0C);
   AddCommand($FF61, TParserCommandFF61);

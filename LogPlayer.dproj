@@ -100,9 +100,9 @@
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Build>15</VerInfo_Build>
+        <VerInfo_Build>17</VerInfo_Build>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=ШТРИХ-М;FileDescription=LogPlayer;FileVersion=1.1.0.15;InternalName=LogPlayer;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=LogPlayer;ProductName=LogPlayer;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=ШТРИХ-М;FileDescription=LogPlayer;FileVersion=1.1.0.17;InternalName=LogPlayer;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=LogPlayer;ProductName=LogPlayer;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <DCC_ExeOutput>Bin\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_DcuOutput>Dcu\$(Platform)\$(Config)</DCC_DcuOutput>
         <Icon_MainIcon>LogPlayer_Icon.ico</Icon_MainIcon>
@@ -164,6 +164,7 @@
         <DCCReference Include="Unit\Commands\ParserCommandFF69.pas"/>
         <DCCReference Include="..\drvfr5\Source\Shared\LogFile.pas"/>
         <DCCReference Include="Unit\untFileUtil.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF01.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
