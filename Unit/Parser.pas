@@ -2,10 +2,7 @@ unit Parser;
 
 interface
   uses
-  // VCL
-  sysutils,
-  // This
-  FormatTLV, TLVTags, DrvFRlib_tlb
+  System.SysUtils, FormatTLV, TLVTags, DrvFRlib_tlb
   ;
 
 type
@@ -111,10 +108,6 @@ begin
     else
       S := S + ': ' + Item.GetStrValue(Data) + #13#10;
     Inc(i, l);
-
-//    if FIdent = 0 then
-//      S := S + #13#10;
-
   end;
   Result := S;
 end;

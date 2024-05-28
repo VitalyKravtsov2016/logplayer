@@ -1,9 +1,5 @@
 unit Fp.PrinterTypes;
 
-{$IFDEF FPC}
-  {$MODE Delphi}
-{$ENDIF}
-
 interface
 
 type

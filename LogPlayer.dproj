@@ -128,7 +128,6 @@
         <DCCReference Include="Unit\Fp.PrinterTypes.pas"/>
         <DCCReference Include="Unit\Utils.BinStream.pas"/>
         <DCCReference Include="Unit\TLVTags.pas"/>
-        <DCCReference Include="Unit\Parser.pas"/>
         <DCCReference Include="Unit\untUtils.pas"/>
         <DCCReference Include="Unit\FormatTLV.pas"/>
         <DCCReference Include="Unit\TLVParser.pas"/>

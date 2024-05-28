@@ -258,11 +258,6 @@ end;
 procedure TfmMain.btnPasteFromClipboardClick(Sender: TObject);
 begin
   LoadFromClipboard;
-  {memInfo.Clear;
-  Application.ProcessMessages;
-
-  FDriver.Password := FDriver.SysAdminPassword;
-  Check(FDriver.OpenSession, 'Открытие смены'); }
 end;
 
 procedure TfmMain.btnSearchClick(Sender: TObject);
@@ -444,14 +439,6 @@ procedure TfmMain.lvCommandsAdvancedCustomDrawItem(Sender: TCustomListView; Item
 begin
   if Item.StateIndex = 1 then
     Sender.Canvas.Font.Color := clRed;
-  {if (Item.SubItems[1] = 'Открыть чек') or
-  (Item.SubItems[1] = 'Операция V2') or
-  (Item.SubItems[1] = 'Закрытие чека расширенное вариант V2')
-  then
-     Sender.Canvas.Font.Style := [fsBold]
-  else
-    if Item.SubItems[1] = 'Печать строки данным шрифтом' then
-      Sender.Canvas.Font.Name := 'Courier New';}
 end;
 
 procedure TfmMain.lvCommandsAdvancedCustomDrawSubItem(Sender: TCustomListView; Item: TListItem; SubItem: Integer; State: TCustomDrawState; Stage: TCustomDrawStage; var DefaultDraw: Boolean);
@@ -646,9 +633,6 @@ begin
   else if Length(Splitted) > 2 then
     ErrorText := Splitted[3];
 
-
- // Index := StrToIntDef(Copy(AMsg, 1, Pos(' ', AMsg) - 1), 0);
-//  ErrorText := Copy(AMsg, Pos(' ', AMsg) + 1, Length(AMsg));
   if Index < 0 then
     Index := 0;
 
@@ -710,7 +694,6 @@ var
   Command: TCommand;
   i: Integer;
 begin
- // FFirstCommandIndex := lvCommands.ItemIndex;
   if FFirstCommandIndex < 0 then
     FFirstCommandIndex := 0;
   for i := 0 to FCommands.Count - 1 do
