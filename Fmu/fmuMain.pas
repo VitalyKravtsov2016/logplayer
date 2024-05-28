@@ -500,7 +500,10 @@ begin
     pProtocol2:
       protocolstr := '[Protocol v2]';
     pPlain:
-      protocolstr := '[Protocol v1 (plain)]'   else
+      protocolstr := '[Protocol v1 (plain)]';
+    pProtocolNg1:
+      protocolstr := '[Protocol v1 (NG)]';
+  else
     protocolstr := '';
   end;
   memInfo.Lines.Add(Command.Attributes + ' ' + protocolstr + ' (Line ' + Command.LineNumber.ToString + ')');
@@ -762,7 +765,7 @@ begin
   if ACycleNumber >= 0 then
     edtStatus.Text := Format('Цикл %d (%d/%d) %s', [ACycleNumber, Index + 1, FCommands.Count, FCommands[Index].CommandName])
   else
-  edtStatus.Text := Format('(%d/%d) %s', [Index + 1, FCommands.Count, FCommands[Index].CommandName]);
+    edtStatus.Text := Format('(%d/%d) %s', [Index + 1, FCommands.Count, FCommands[Index].CommandName]);
 end;
 
 procedure TfmMain.SetControlsState(AStarted: Boolean);

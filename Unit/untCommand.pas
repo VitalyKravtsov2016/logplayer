@@ -6,7 +6,7 @@ uses
    Utils.BinStream;
 
 type
-  TProtocol = (pNone, pProtocol1, pProtocol2, pPlain);
+  TProtocol = (pNone, pProtocol1, pProtocol2, pPlain, pProtocolNg1, pProtocolNg2, pPlainNg);
 
   PCommand = ^TCommand;
   TCommand = record
@@ -106,8 +106,15 @@ begin
 end;
 
 function TCommandHelper.ThreadID: AnsiString;
+var
+  k: Integer;
+  s: string;
 begin
-  Result := Copy(Attributes, Length('[08.12.2021 23:50:07.520] [ '), 8);
+  k := Pos('] [', Attributes);
+  s := Copy(Attributes, k + 3, Length(Attributes));
+  k := Pos(']', s);
+  s := Copy(s, 1, k - 1);
+  Result := s;
 end;
 
 function TCommandHelper.TimeStamp: AnsiString;

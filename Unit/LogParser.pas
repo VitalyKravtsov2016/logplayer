@@ -16,9 +16,11 @@ const
   TxSign2 = '[DEBUG] TPrinterProtocol2 -> ';
   RxSign = '[DEBUG] TPrinterProtocol <- ';
   RxSign2 = '[DEBUG] TPrinterProtocol2 <- ';
+  TxSignNg = '] [D] -> ';
+  RxSignNg = '] [D] <- ';
 
 type
-  TState = (sNone, sTransfer, sRx02, sRx, sRxp2, sRxplain, sWaitFor02);
+  TState = (sNone, sTransfer, sRx02, sRx, sRxp2, sRxplain, sWaitFor02, SWaitFor02Ng, sRxNg, sTransferNg);
 
 function IsPlain(const AStr: string): Boolean;
 begin
@@ -95,8 +97,18 @@ begin
     begin
       Protocol := pProtocol2;
       Result := Copy(AStr, k + Length(TxSign2), Length(AStr));
+    end
+    else
+    begin
+      k := Pos(TxSignNg, AStr);
+      if k > 0 then
+      begin
+        if Protocol <> pPlainNg then
+          Protocol := pProtocolNg1;
+        Result := Copy(AStr, k + Length(TxSignNg), Length(AStr));
+      end;
     end;
-  end;
+  end
 end;
 
 function GetRxBytes(const AStr: string; AProtocol: TProtocol): string;
@@ -110,6 +122,8 @@ begin
       pSign := RxSign;
     pProtocol2:
       pSign := RxSign2;
+    pProtocolNg1:
+      pSign := RxSignNg;
     pNone:
       Exit;
   end;
@@ -119,10 +133,12 @@ begin
   Result := Copy(AStr, k + Length(pSign), Length(AStr));
 end;
 
-const ErrStr = '[ERROR] TFiscalPrinter -';
+const
+  ErrStr = '[ERROR] TFiscalPrinter -';
+
 function IsDriverError(const AStr: string; var AErrorText: string): Boolean;
 var
-k: Integer;
+  k: Integer;
 begin
   Result := False;
   k := Pos(ErrStr, AStr);
@@ -195,6 +211,16 @@ begin
                   if GetRxBytes(SNext, pProtocol2) <> '' then
                     State := sRxp2;
                 end;
+              pProtocolNg1:
+              begin
+                DataStamp := Copy(S, 1, Length('[2024-05-23 14:09:56.664] [34476] [classic_fr_drv_ng               ]'));
+                if (Data <> '06') and (Data <> 'FF') then
+                begin
+                  TxData := TxData + ' ' + Data;
+                  State := SRxNg;
+                  LineNumber := i + 1;
+                end;
+              end;
             end;
           end
           else
@@ -296,7 +322,7 @@ begin
       sRxp2:
         begin
           Data := GetRxBytes(S, pProtocol2);
-          if Data <> '' then
+          if (Data <> '') and (Data <> '06') then
             RxData := RxData + ' ' + Data;
           if GetRxBytes(SNext, pProtocol2) = '' then
           begin
@@ -334,7 +360,31 @@ begin
             LineNumber := -1;
             Protocol := pNone;
           end;
-        end
+        end;
+        sRxNg:
+        begin
+          Data := GetRxBytes(S, pProtocolNg1);
+          if (Data <> 'FF') and (Data <> '06') and (Data <> '') then
+          begin
+            RxData := RxData + ' ' + Data;
+            if Protocol = pProtocolNg1 then
+            begin
+              Command.Data := Copy(TxData, 8, Length(TxData) - 10);
+              Command.AnswerData := Copy(RxData, 8, Length(RxData) - 10);
+            end;
+
+            Command.Attributes := DataStamp;
+            Command.Protocol := Protocol;
+            Command.LineNumber := LineNumber;
+            ACommandList.Add(Command);
+            Command.DriverError := '';
+            TxData := '';
+            RxData := '';
+            State := sNone;
+            LineNumber := -1;
+            protocol := pNone;
+          end;
+        end;
     end;
   end;
   if TxData <> '' then
