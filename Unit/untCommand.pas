@@ -6,7 +6,7 @@ uses
    Utils.BinStream;
 
 type
-  TProtocol = (pNone, pProtocol1, pProtocol2, pPlain, pProtocolNg1, pProtocolNg2, pPlainNg);
+  TProtocol = (pNone, pProtocol1, pProtocol2, pPlain, pProtocolNg1, pProtocolNg2, pProtocolNg1Plain);
 
   PCommand = ^TCommand;
   TCommand = record

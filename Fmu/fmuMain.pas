@@ -203,6 +203,7 @@ var
   cmd: PCommand;
 begin
   memInfo.Clear;
+  edtStatus.Text := '  Загрузка...';
   lvCommands.Clear;
   ParseLog(AStr, FCommands);
   progress.Min := 0;
@@ -220,6 +221,7 @@ begin
   finally
     lvCommands.Items.EndUpdate;
     progress.Position := 0;
+    edtStatus.Clear;
   end;
 end;
 
@@ -231,6 +233,7 @@ var
 begin
   memInfo.Clear;
   lvCommands.Clear;
+  edtStatus.Clear;
   S := TStringList.Create;
   try
     LoadFromFile2v1(AFileName, TEncoding.GetEncoding(1251), S);
@@ -423,6 +426,7 @@ procedure TfmMain.LoadFromClipboard;
 var
   S: TStringList;
 begin
+  edtStatus.Clear;
   if Clipboard.HasFormat(CF_TEXT) then
   begin
     S := TStringList.Create;
@@ -503,6 +507,8 @@ begin
       protocolstr := '[Protocol v1 (plain)]';
     pProtocolNg1:
       protocolstr := '[Protocol v1 (NG)]';
+    pProtocolNg1Plain:
+      protocolstr := '[Protocol v1 (plain) (NG)]';
   else
     protocolstr := '';
   end;

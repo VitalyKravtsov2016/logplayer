@@ -103,8 +103,8 @@ begin
       k := Pos(TxSignNg, AStr);
       if k > 0 then
       begin
-        if Protocol <> pPlainNg then
-          Protocol := pProtocolNg1;
+        if Protocol <> pProtocolNg1 then
+          Protocol := pProtocolNg1Plain;
         Result := Copy(AStr, k + Length(TxSignNg), Length(AStr));
       end;
     end;
@@ -122,7 +122,7 @@ begin
       pSign := RxSign;
     pProtocol2:
       pSign := RxSign2;
-    pProtocolNg1:
+    pProtocolNg1, pProtocolNg1Plain:
       pSign := RxSignNg;
     pNone:
       Exit;
@@ -211,14 +211,18 @@ begin
                   if GetRxBytes(SNext, pProtocol2) <> '' then
                     State := sRxp2;
                 end;
-              pProtocolNg1:
+              pProtocolNg1, pProtocolNg1Plain:
               begin
                 DataStamp := Copy(S, 1, Length('[2024-05-23 14:09:56.664] [34476] [classic_fr_drv_ng               ]'));
-                if (Data <> '06') and (Data <> 'FF') then
+                if (Data <> '06') and (Data <> 'FF') and (Data <> '05') and (Data <> '15') then
                 begin
                   TxData := TxData + ' ' + Data;
                   State := SRxNg;
                   LineNumber := i + 1;
+                end
+                else
+                begin
+                  Protocol := pProtocolNg1;
                 end;
               end;
             end;
@@ -364,6 +368,11 @@ begin
         sRxNg:
         begin
           Data := GetRxBytes(S, pProtocolNg1);
+          if (Data = 'FF') or (Data = '06')  or (Data = '05') or (Data = '15') then
+          begin
+            Protocol := pProtocolNg1;
+          end
+          else
           if (Data <> 'FF') and (Data <> '06') and (Data <> '') then
           begin
             RxData := RxData + ' ' + Data;
@@ -371,6 +380,12 @@ begin
             begin
               Command.Data := Copy(TxData, 8, Length(TxData) - 10);
               Command.AnswerData := Copy(RxData, 8, Length(RxData) - 10);
+            end
+            else
+            if Protocol = pProtocolNg1Plain then
+            begin
+              Command.Data := Copy(TxData, 4, Length(TxData));
+              Command.AnswerData := Copy(RxData, 4, Length(RxData));
             end;
 
             Command.Attributes := DataStamp;
