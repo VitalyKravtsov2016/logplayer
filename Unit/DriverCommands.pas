@@ -55,6 +55,7 @@ const
   SCommandName44 = 'Отчёт по кассирам'; { !!! }
   SCommandName45 = 'Отчёт почасовой'; { !!! }
   SCommandName46 = 'Отчёт по товарам'; { !!! }
+  SCommandName4D = 'Печать графики 512'; { !!! }
   SCommandName4E = 'Загрузка графики 512'; { !!! }
   SCommandName4F = 'Печать графики с масштабированием'; { !!! }
   SCommandName50 = 'Внесение';
@@ -288,6 +289,7 @@ begin
     $41: Result := SCommandName41;
     $42: Result := SCommandName42;
     $43: Result := SCommandName43;
+    $4D: Result := SCommandName4D;
     $4E: Result := SCommandName4E;
     $4F: Result := SCommandName4F;
     $50: Result := SCommandName50;

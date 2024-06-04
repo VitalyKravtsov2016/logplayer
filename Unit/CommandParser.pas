@@ -7,7 +7,8 @@ uses
   BinUtils, Classes, TLVParser;
 
 type
-  TFieldType = (ftByte, ftUInt32, ftUint16, ftINN, ftBarcode, ftBarcodeTLV, ftKMAnswer, ftQuantity6, ftQuantity5, ftDateTime, ftDate, ftTime, ftSum, ftString, ftString40, ftTableValue, ftFieldType, ftCheckType, ftPaymentTypeSign, ftPaymentItemSign, ftTaxValue, ftSumm1Value, ftTax, ftTLV, ftTaxType, ftTax1, ftSoftVersion, ftECRMode, ftECRAdvancedMode, ftECRFlags, ftBatteryVoltage, ftPowerSourceVoltage, ftPortNumber, ftCheckType2, ftCheckItemLocalResult, ftCheckItemLocalError, ftMarkingType2, ftItemStatus, ftBarcodeOSU, ftMarkingType, ftMarkingTypeEx, ftAcceptOrDecline, ftKMSendAnswer, ftString16, ftDateTimeDoc, ftFNSessionState, ftFNCurrentDocument, ftFNDocumentData, ftFNLifeState);
+  TFieldType = (ftByte, ftUInt32, ftUint16, ftINN, ftBarcode, ftBarcodeTLV, ftKMAnswer, ftQuantity6, ftQuantity5, ftDateTime, ftDate, ftTime, ftSum, ftString, ftString40, ftTableValue, ftFieldType, ftCheckType, ftPaymentTypeSign, ftPaymentItemSign, ftTaxValue, ftSumm1Value, ftTax, ftTLV, ftTaxType, ftTax1, ftSoftVersion, ftECRMode, ftECRAdvancedMode, ftECRFlags, ftBatteryVoltage, ftPowerSourceVoltage, ftPortNumber, ftCheckType2, ftCheckItemLocalResult, ftCheckItemLocalError, ftMarkingType2, ftItemStatus, ftBarcodeOSU, ftMarkingType, ftMarkingTypeEx, ftAcceptOrDecline, ftKMSendAnswer, ftString16, ftDateTimeDoc, ftFNSessionState, ftFNCurrentDocument, ftFNDocumentData, ftFNLifeState
+  );
 
   TParseType = (pFields, pAnswerFields, pPlayedFields);
 
@@ -523,8 +524,8 @@ begin
   begin
     OSUData := FStream.ReadByte;
     OSU := OSUData = $FF;
-    AddValue('OSU', BoolToStr(OSU, True), Source);
   end;
+  AddValue('OSU', BoolToStr(OSU, True), Source);
 end;
 
 function TParserCommand.DecodeKMAnswer(Source: TParsetype): string;

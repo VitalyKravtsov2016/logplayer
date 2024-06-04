@@ -454,7 +454,10 @@ begin
     Exit;
   end;
 
-  if (Item.SubItems[1] = 'Открыть чек') or (Item.SubItems[1] = 'Открытие смены') or (Item.SubItems[1] = 'Суточный отчет с гашением') or (Item.SubItems[1] = 'Операция V2') or (Item.SubItems[1] = 'Закрытие чека расширенное вариант V2') or (Item.SubItems[1] = 'Продажа') or (Item.SubItems[1] = 'Покупка') or (Item.SubItems[1] = 'Возврат продажи') or (Item.SubItems[1] = 'Возврат покупки') or (Item.SubItems[1] = 'Подытог чека') then
+  if (Item.SubItems[1] = 'Открыть чек') or (Item.SubItems[1] = 'Открытие смены') or (Item.SubItems[1] = 'Суточный отчет с гашением') or (Item.SubItems[1] = 'Операция V2') or
+  (Item.SubItems[1] = 'Закрытие чека расширенное вариант V2') or (Item.SubItems[1] = 'Продажа') or (Item.SubItems[1] = 'Покупка') or (Item.SubItems[1] = 'Возврат продажи') or
+  (Item.SubItems[1] = 'Возврат покупки') or (Item.SubItems[1] = 'Закрытие чека') or
+  (Item.SubItems[1] = 'Подытог чека') then
     Sender.Canvas.Font.Style := [fsBold]
   else if (SubItem = 3) and (Item.SubItems[1] = 'Печать строки данным шрифтом') then
     Sender.Canvas.Font.Name := 'Courier New'

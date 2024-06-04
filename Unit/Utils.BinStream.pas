@@ -190,7 +190,7 @@ end;
 
 function TBinStream.GetRemaining: Int64;
 begin
-  Result := Size - FStream.Position - 1;
+  Result := Size - FStream.Position;
 end;
 
 function TBinStream.ReadByte: Byte;
