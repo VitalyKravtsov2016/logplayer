@@ -1,9 +1,12 @@
 unit untCommand;
 
 interface
+
 uses
-   System.SysUtils, System.Classes, System.Generics.Collections, BinUtils,
-   Utils.BinStream;
+   // VCL
+   System.SysUtils, System.Classes, System.Generics.Collections,
+   // This
+   BinUtils,  Utils.BinStream;
 
 type
   TProtocol = (pNone, pProtocol1, pProtocol2, pPlain, pProtocolNg1, pProtocolNg2, pProtocolNg1Plain);
@@ -33,7 +36,9 @@ type
   end;
 
 implementation
+
 uses DriverCommands;
+
 { TCommandHelper }
 
 function TCommandHelper.Code: Integer;

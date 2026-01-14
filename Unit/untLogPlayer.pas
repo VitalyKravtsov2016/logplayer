@@ -3,7 +3,9 @@ unit untLogPlayer;
 interface
 
 uses
-  DrvFRLib_TLB, untCommand, System.SysUtils, Classes, EventBus, BinUtils;
+  // This
+  EventBus,
+  DrvFRLib_TLB, untCommand, System.SysUtils, Classes, BinUtils;
 
 type
   TPlayMode = (pmPlay, pmStop, pmContinue, pmNone);

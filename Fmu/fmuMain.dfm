@@ -436,6 +436,7 @@ object fmMain: TfmMain
       end>
     Left = 208
     Top = 168
+    Bitmap = {}
   end
   object pngmglstButtons: TPngImageList
     PngImages = <
@@ -537,6 +538,7 @@ object fmMain: TfmMain
       end>
     Left = 264
     Top = 168
+    Bitmap = {}
   end
   object pmMain: TPopupMenu
     Left = 336

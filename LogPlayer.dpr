@@ -57,6 +57,6 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TfmMain, fmMain);
-  Application.Run;
+  AApplication.CreateForm(TfmMain, fmMain);
+  pplication.Run;
 end.
