@@ -241,6 +241,9 @@ const
   SCommandNameFF73 = 'Подтвердить выгрузку уведомления'; // FF73H
   SCommandNameFF74 = 'Запрос исполнения ФН'; // FF74H
   SCommandNameFF75 = 'Запрос размера данных документа в ФН'; // FF73H
+  SCommandNameFF76 = 'Закрытие чека расширенное вариант V3'; // FF76H
+  SCommandNameFF77 = 'Сформировать чек коррекции V3'; // FF77H
+  SCommandNameFF78 = 'Закрытие чека расширенное вариант V4'; // FF76H
 
 function GetCommandName(Command: Word): string; overload;
 var
@@ -476,6 +479,9 @@ begin
     $FF73: Result := SCommandNameFF73;
     $FF74: Result := SCommandNameFF74;
     $FF75: Result := SCommandNameFF75;
+    $FF76: Result := SCommandNameFF76;
+    $FF77: Result := SCommandNameFF77;
+    $FF78: Result := SCommandNameFF78;
   else
     Result := 'Неизвестная команда';
   end;
