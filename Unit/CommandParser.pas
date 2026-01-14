@@ -3,11 +3,23 @@ unit CommandParser;
 interface
 
 uses
-  System.SysUtils, untCommand, System.Generics.Collections, Utils.BinStream,
-  BinUtils, Classes, TLVParser;
+  // VCL
+  Classes, SysUtils, System.Generics.Collections,
+  // This
+  untCommand, Utils.BinStream, BinUtils, TLVParser;
 
 type
-  TFieldType = (ftByte, ftUInt32, ftUint16, ftINN, ftBarcode, ftBarcodeTLV, ftKMAnswer, ftQuantity6, ftQuantity5, ftDateTime, ftDate, ftTime, ftSum, ftString, ftString40, ftTableValue, ftFieldType, ftCheckType, ftPaymentTypeSign, ftPaymentItemSign, ftTaxValue, ftSumm1Value, ftTax, ftTLV, ftTaxType, ftTax1, ftSoftVersion, ftECRMode, ftECRAdvancedMode, ftECRFlags, ftBatteryVoltage, ftPowerSourceVoltage, ftPortNumber, ftCheckType2, ftCheckItemLocalResult, ftCheckItemLocalError, ftMarkingType2, ftItemStatus, ftBarcodeOSU, ftMarkingType, ftMarkingTypeEx, ftAcceptOrDecline, ftKMSendAnswer, ftString16, ftDateTimeDoc, ftFNSessionState, ftFNCurrentDocument, ftFNDocumentData, ftFNLifeState
+  TFieldType = (
+    ftByte, ftUInt32, ftUint16, ftINN, ftBarcode, ftBarcodeTLV, ftKMAnswer,
+    ftQuantity6, ftQuantity5, ftDateTime, ftDate, ftTime, ftSum, ftString,
+    ftString40, ftTableValue, ftFieldType, ftCheckType, ftPaymentTypeSign,
+    ftPaymentItemSign, ftTaxValue, ftSumm1Value, ftTax, ftTLV, ftTaxType,
+    ftTax1, ftSoftVersion, ftECRMode, ftECRAdvancedMode, ftECRFlags,
+    ftBatteryVoltage, ftPowerSourceVoltage, ftPortNumber, ftCheckType2,
+    ftCheckItemLocalResult, ftCheckItemLocalError, ftMarkingType2, ftItemStatus,
+    ftBarcodeOSU, ftMarkingType, ftMarkingTypeEx, ftAcceptOrDecline,
+    ftKMSendAnswer, ftString16, ftDateTimeDoc, ftFNSessionState,
+    ftFNCurrentDocument, ftFNDocumentData, ftFNLifeState
   );
 
   TParseType = (pFields, pAnswerFields, pPlayedFields);
@@ -78,7 +90,10 @@ uses
   ParserCommand2D, ParserCommand2E, ParserCommand6B, ParserCommand80,
   ParserCommand81, ParserCommand82, ParserCommand83, ParserCommand85,
   ParserCommand89, ParserCommand8E, ParserCommandFF01, ParserCommandFF61,
-  ParserCommandFF67, ParserCommandFF69;
+  ParserCommandFF67, ParserCommandFF69, ParserCommandFF70,
+  ParserCommandFF71, ParserCommandFF72, ParserCommandFF73,
+  ParserCommandFF74, ParserCommandFF75, ParserCommandFF76,
+  ParserCommandFF78;
 
 const
   VALUE_NOT_VISIBLE = '###logplayer_not_visible_value###';
@@ -1229,6 +1244,15 @@ begin
   AddCommand($FF61, TParserCommandFF61);
   AddCommand($FF67, TParserCommandFF67);
   AddCommand($FF69, TParserCommandFF69);
+  AddCommand($FF70, TParserCommandFF70);
+  AddCommand($FF71, TParserCommandFF71);
+  AddCommand($FF72, TParserCommandFF72);
+  AddCommand($FF73, TParserCommandFF73);
+  AddCommand($FF74, TParserCommandFF74);
+  AddCommand($FF75, TParserCommandFF75);
+  AddCommand($FF76, TParserCommandFF76);
+  AddCommand($FF78, TParserCommandFF78);
+
   AddCommand($10, TParserCommand10);
   AddCommand($11, TParserCommand11);
   AddCommand($17, TParserCommand17);

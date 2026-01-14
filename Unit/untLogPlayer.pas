@@ -36,6 +36,7 @@ implementation
 var
   FStopFlag: Boolean = False;
 
+
 procedure StopPlaying;
 begin
   FStopFlag := True;
@@ -44,15 +45,15 @@ end;
 function PlayableCommand(const ACommand: TCommand; const ExceptList: TStrings): Boolean;
 var
   S: AnsiString;
-  Cmd: TCommand;
+  CmdCode: Integer;
 begin
   Result := True;
   if ExceptList = nil then
     Exit;
   for S in ExceptList do
   begin
-    Cmd.Data := S;
-    if ACommand.Code = Cmd.Code then
+    CmdCode := TCommand.GetCode(S);
+    if ACommand.Code = CmdCode then
     begin
       Result := False;
       Exit;
@@ -109,18 +110,20 @@ begin
             ErrorAnswer := ErrorAnswer + Data[2] + Chr(Res)
           else
             ErrorAnswer := ErrorAnswer + Chr(Res);
-          PCommand(@Commands.List[Index])^.PlayedAnswerData := StrToHex(ErrorAnswer);
+
+          Commands[Index].PlayedAnswerData := StrToHex(ErrorAnswer);
         end
         else
-          PCommand(@Commands.List[Index])^.PlayedAnswerData := '';
+          Commands[Index].PlayedAnswerData := '';
       end
       else
-        PCommand(@Commands.List[Index])^.PlayedAnswerData := Drv.TransferBytes;
+        Commands[Index].PlayedAnswerData := Drv.TransferBytes;
 
-      PCommand(@Commands.List[Index])^.Played := True;
+      Commands[Index].Played := True;
       if Res <> 0 then
         raise Exception.CreateFmt('%d, %s', [Drv.ResultCode, Drv.ResultCodeDescription]);
-      if Pos('FF 45', Command.Data) > 0 then
+
+      if Command.IsPrintCommand then
       begin
         Drv.WaitForPrinting;
       end;
@@ -177,7 +180,13 @@ begin
   FPlayMode := pmStop;
 end;
 
-procedure TLogPlayer.PlayLog(Drv: TDrvFR; Commands: TCommandList; ExceptList: TStrings; AResetECR: Boolean; AFirstCommandIndex, ACount: Integer; AInfinitePlay: Boolean);
+procedure TLogPlayer.PlayLog(
+  Drv: TDrvFR;
+  Commands: TCommandList;
+  ExceptList: TStrings;
+  AResetECR: Boolean;
+  AFirstCommandIndex, ACount: Integer;
+  AInfinitePlay: Boolean);
 var
   Command: TCommand;
   Cmd: AnsiString;
@@ -239,18 +248,19 @@ begin
                 ErrorAnswer := ErrorAnswer + Data[2] + Chr(Res)
               else
                 ErrorAnswer := ErrorAnswer + Chr(Res);
-              PCommand(@Commands.List[Index])^.PlayedAnswerData := StrToHex(ErrorAnswer);
+              Commands[Index].PlayedAnswerData := StrToHex(ErrorAnswer);
             end
             else
-              PCommand(@Commands.List[Index])^.PlayedAnswerData := '';
+              Commands[Index].PlayedAnswerData := '';
           end
           else
-            PCommand(@Commands.List[Index])^.PlayedAnswerData := Drv.TransferBytes;
+            Commands[Index].PlayedAnswerData := Drv.TransferBytes;
 
-          PCommand(@Commands.List[Index])^.Played := True;
+          Commands[Index].Played := True;
           if Res <> 0 then
             raise Exception.CreateFmt('%d, %s', [Drv.ResultCode, Drv.ResultCodeDescription]);
-          if Pos('FF 45', Command.Data) > 0 then
+
+          if Command.IsPrintCommand then
           begin
             Drv.WaitForPrinting;
           end;

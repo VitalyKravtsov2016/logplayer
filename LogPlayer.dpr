@@ -18,7 +18,6 @@ uses
   untUtils in 'Unit\untUtils.pas',
   FormatTLV in 'Unit\FormatTLV.pas',
   TLVParser in 'Unit\TLVParser.pas',
-  ParserCommandFF45 in 'Unit\Commands\ParserCommandFF45.pas',
   ParserCommandFF46 in 'Unit\Commands\ParserCommandFF46.pas',
   ParserCommandFF0C in 'Unit\Commands\ParserCommandFF0C.pas',
   ParserCommand17 in 'Unit\Commands\ParserCommand17.pas',
@@ -30,6 +29,8 @@ uses
   TextEncoding in 'Unit\TextEncoding.pas',
   LangUtils in 'Unit\LangUtils.pas',
   FileUtils in 'Unit\FileUtils.pas',
+  LogFile in 'Unit\LogFile.pas',
+  untFileUtil in 'Unit\untFileUtil.pas',
   ParserCommand10 in 'Unit\Commands\ParserCommand10.pas',
   ParserCommandFC in 'Unit\Commands\ParserCommandFC.pas',
   ParserCommand8D in 'Unit\Commands\ParserCommand8D.pas',
@@ -45,12 +46,19 @@ uses
   ParserCommand85 in 'Unit\Commands\ParserCommand85.pas',
   ParserCommand89 in 'Unit\Commands\ParserCommand89.pas',
   ParserCommand8E in 'Unit\Commands\ParserCommand8E.pas',
-  ParserCommandFF67 in 'Unit\Commands\ParserCommandFF67.pas',
   ParserCommandFF61 in 'Unit\Commands\ParserCommandFF61.pas',
   ParserCommandFF69 in 'Unit\Commands\ParserCommandFF69.pas',
-  LogFile in 'Unit\LogFile.pas',
-  untFileUtil in 'Unit\untFileUtil.pas',
-  ParserCommandFF01 in 'Unit\Commands\ParserCommandFF01.pas';
+  ParserCommandFF01 in 'Unit\Commands\ParserCommandFF01.pas',
+  ParserCommandFF67 in 'Unit\Commands\ParserCommandFF67.pas',
+  ParserCommandFF73 in 'Unit\Commands\ParserCommandFF73.pas',
+  ParserCommandFF70 in 'Unit\Commands\ParserCommandFF70.pas',
+  ParserCommandFF71 in 'Unit\Commands\ParserCommandFF71.pas',
+  ParserCommandFF75 in 'Unit\Commands\ParserCommandFF75.pas',
+  ParserCommandFF72 in 'Unit\Commands\ParserCommandFF72.pas',
+  ParserCommandFF74 in 'Unit\Commands\ParserCommandFF74.pas',
+  ParserCommandFF45 in 'Unit\Commands\ParserCommandFF45.pas',
+  ParserCommandFF78 in 'Unit\Commands\ParserCommandFF78.pas',
+  ParserCommandFF76 in 'Unit\Commands\ParserCommandFF76.pas';
 
 {$R *.res}
 

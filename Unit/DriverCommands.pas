@@ -212,7 +212,7 @@ const
   SCommandNameFF41 = 'Начать открытие смены'; // FF41H	11
   SCommandNameFF42 = 'Начать закрытие смены'; // FF42H	11
   SCommandNameFF43 = 'Закрыть смену в ФН'; // FF43H	11
-  SCommandNameFF45 = 'Закрытие чека расширенное вариант V2'; // FF45H	12
+   SCommandNameFF45 = 'Закрытие чека расширенное вариант V2'; // FF45H	12
   SCommandNameFF46 = 'Операция V2'; // FF46H	13
   SCommandNameFF47 = 'Дополнительный реквизит ФНС'; // FF47H	14
   SCommandNameFF48 = 'Скидки и надбавки в операции'; // FF48H	14

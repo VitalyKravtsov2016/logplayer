@@ -1,7 +1,5 @@
 unit fmuMain;
-
 interface
-
 uses
   // VCL
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
@@ -117,17 +115,12 @@ type
   protected
     procedure WMDropFiles(var Msg: TMessage); message WM_DROPFILES;
   end;
-
 var
   fmMain: TfmMain;
-
 implementation
-
 {$R *.dfm}
-
 uses
   ShellAPI;
-
 procedure TfmMain.AddCommand(ACommand: TCommand);
 var
   Item: TListItem;
@@ -137,19 +130,17 @@ begin
   Item.SubItems.Add(ACommand.ThreadID);
   Item.SubItems.Add(ACommand.CommandName);
   Item.SubItems.Add(GetCommandShortValue(ACommand){ACommand.Data});
+  Item.Data := ACommand;
   if ACommand.HasError then
     Item.StateIndex := 1;
 end;
-
 procedure TfmMain.btnCloseSessionClick(Sender: TObject);
 begin
   memInfo.Clear;
   Application.ProcessMessages;
-
   FDriver.Password := FDriver.SysAdminPassword;
   Check(FDriver.PrintReportWithCleaning, 'Закрытие смены');
 end;
-
 procedure TfmMain.btnFindErrorClick(Sender: TObject);
 var
   i: Integer;
@@ -165,7 +156,6 @@ begin
       Inc(current);
     if current = (FCommands.Count - 1) then
       Exit;
-
     for i := current to FCommands.Count - 1 do
     begin
       if FCommands[i].HasError then
@@ -186,7 +176,6 @@ begin
       Break
   until False;
 end;
-
 procedure TfmMain.btnGetStatusClick(Sender: TObject);
 var
   Res: Integer;
@@ -201,11 +190,9 @@ begin
   memInfo.Lines.Add(Format('Режим   : %d, %s', [FDriver.ECRMode, FDriver.ECRModeDescription]));
   memInfo.Lines.Add(Format('Подрежим: %d, %s', [FDriver.ECRAdvancedMode, FDriver.ECRAdvancedModeDescription]));
 end;
-
 procedure TfmMain.OpenFromText(const AStr: TStringList);
 var
   Command: TCommand;
-  cmd: PCommand;
 begin
   memInfo.Clear;
   edtStatus.Text := '  Загрузка...';
@@ -229,12 +216,10 @@ begin
     edtStatus.Clear;
   end;
 end;
-
 procedure TfmMain.OpenFromFile(const AFileName: string);
 var
   S: TStringList;
   Command: TCommand;
-  cmd: PCommand;
 begin
   memInfo.Clear;
   lvCommands.Clear;
@@ -250,10 +235,6 @@ begin
 end;
 
 procedure TfmMain.btnOpenClick(Sender: TObject);
-var
-  S: TStringList;
-  Command: TCommand;
-  cmd: PCommand;
 begin
   if not dlgOpen.Execute then
     Exit;
@@ -264,7 +245,6 @@ procedure TfmMain.btnPasteFromClipboardClick(Sender: TObject);
 begin
   LoadFromClipboard;
 end;
-
 procedure TfmMain.btnSearchClick(Sender: TObject);
 var
   i: Integer;
@@ -280,7 +260,6 @@ begin
       Inc(current);
     if current = (FCommands.Count - 1) then
       Exit;
-
     for i := current to FCommands.Count - 1 do
     begin
       if FCommands[i].HasData(edtSearch.Text) or (Pos(LowerCase(edtSearch.Text, loUserLocale), LowerCase(lvCommands.Items[i].SubItems[2], loUserLocale)) > 0) then
@@ -301,12 +280,10 @@ begin
       Break
   until False;
 end;
-
 procedure TfmMain.btnSettingsClick(Sender: TObject);
 begin
   FDriver.ShowProperties;
 end;
-
 procedure TfmMain.btnStartClick(Sender: TObject);
 begin
   SetControlsState(True);
@@ -316,7 +293,6 @@ begin
   SelectAll;
   AsyncAwait2(Play, OnFinished);
 end;
-
 procedure TfmMain.btnStartCurrentLineClick(Sender: TObject);
 begin
   SetControlsState(True);
@@ -328,7 +304,6 @@ begin
   SelectAll;
   AsyncAwait2(Play, OnFinished);
 end;
-
 procedure TfmMain.btnStartFromPositionClick(Sender: TObject);
 begin
   SetControlsState(True);
@@ -340,7 +315,6 @@ begin
   SelectAll;
   AsyncAwait2(Play, OnFinished);
 end;
-
 procedure TfmMain.btnStartSelectedClick(Sender: TObject);
 begin
   SetControlsState(True);
@@ -350,12 +324,10 @@ begin
   SelectSelected;
   AsyncAwait2(Play, OnFinished);
 end;
-
 procedure TfmMain.btnStopClick(Sender: TObject);
 begin
   Stop;
 end;
-
 procedure TfmMain.Check(ACode: Integer; const ACmd: string);
 begin
   if ACode <> 0 then
@@ -363,7 +335,6 @@ begin
   else
     memInfo.Text := Format('%s: Успешно', [ACmd]);
 end;
-
 procedure TfmMain.ContinuePlay;
 begin
   repeat
@@ -377,24 +348,21 @@ begin
     FFirstCommandIndex := 0;
   AsyncAwait2(Play, OnFinished);
 end;
-
 procedure TfmMain.edtSearchChange(Sender: TObject);
 begin
   btnOpen.Default := False;
   btnSearch.Default := True;
 end;
-
 procedure TfmMain.edtSearchClick(Sender: TObject);
 begin
   edtSearchChange(Self);
 end;
-
 procedure TfmMain.FormCreate(Sender: TObject);
 var
   Edit: TEdit;
 begin
   Caption := 'TorgBalance: Log player & analyzer v.' + GetFileVersionInfoStr;
-  FCommands := TCommandList.Create;
+  FCommands := TCommandList.Create(True);
   FDriver := TDrvFR.Create(nil);
   DragAcceptFiles(Handle, True);
   ChangeWindowMessageFilter(WM_DROPFILES, MSGFLT_ADD);
@@ -406,7 +374,6 @@ begin
   FLastStateIndex := -1;
   FLastIndex := 0;
 end;
-
 procedure TfmMain.FormDestroy(Sender: TObject);
 begin
   Stop;
@@ -415,13 +382,11 @@ begin
   FDriver.Free;
   FPlayer.Free;
 end;
-
 procedure TfmMain.formStorageAfterRestorePlacement(Sender: TObject);
 begin
   Resize;
   Repaint;
 end;
-
 procedure TfmMain.LoadFromClipboard;
 var
   S: TStringList;
@@ -439,37 +404,49 @@ begin
     end;
   end;
 end;
-
 procedure TfmMain.lvCommandsAdvancedCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState; Stage: TCustomDrawStage; var DefaultDraw: Boolean);
 begin
   if Item.StateIndex = 1 then
     Sender.Canvas.Font.Color := clRed;
 end;
-
-procedure TfmMain.lvCommandsAdvancedCustomDrawSubItem(Sender: TCustomListView; Item: TListItem; SubItem: Integer; State: TCustomDrawState; Stage: TCustomDrawStage; var DefaultDraw: Boolean);
+procedure TfmMain.lvCommandsAdvancedCustomDrawSubItem(Sender: TCustomListView;
+  Item: TListItem; SubItem: Integer; State: TCustomDrawState;
+  Stage: TCustomDrawStage; var DefaultDraw: Boolean);
+var
+  Command: TCommand;
 begin
+  Command := TCommand(Item.Data);
+  if Command = nil then Exit;
+
   if Item.StateIndex = 1 then
     Sender.Canvas.Font.Color := clRed;
   if SubItem <= 1 then
     Exit;
-
   if Pos('[ERROR]', Item.SubItems[2]) > 0 then
   begin
     Sender.Canvas.Font.Color := clRed;
     Exit;
   end;
-
-  if (Item.SubItems[1] = 'Открыть чек') or (Item.SubItems[1] = 'Открытие смены') or (Item.SubItems[1] = 'Суточный отчет с гашением') or (Item.SubItems[1] = 'Операция V2') or
-  (Item.SubItems[1] = 'Закрытие чека расширенное вариант V2') or (Item.SubItems[1] = 'Продажа') or (Item.SubItems[1] = 'Покупка') or (Item.SubItems[1] = 'Возврат продажи') or
-  (Item.SubItems[1] = 'Возврат покупки') or (Item.SubItems[1] = 'Закрытие чека') or
-  (Item.SubItems[1] = 'Подытог чека') then
+  if Command.IsRecRepCommand then
+  begin
     Sender.Canvas.Font.Style := [fsBold]
-  else if (SubItem = 3) and (Item.SubItems[1] = 'Печать строки данным шрифтом') then
-    Sender.Canvas.Font.Name := 'Courier New'
-  else if (SubItem = 3) and ((Item.SubItems[1] = 'Запрос состояния') or (Item.SubItems[1] = 'Короткий запрос состояния')) then
-    Sender.Canvas.Font.Color := clPurple
-  else if (SubItem = 3) and (Item.SubItems[1] = 'Запрос описания ошибки') then
-    Sender.Canvas.Font.Color := clRed;
+  end else
+  begin
+    if (SubItem = 3) then
+    begin
+      // Печать строки данным шрифтом
+      if Command.Code = $2F then
+        Sender.Canvas.Font.Name := 'Courier New';
+
+      // Запрос состояния
+      if Command.IsStatusCommand then
+        Sender.Canvas.Font.Color := clPurple;
+
+      // Запрос описания ошибки
+      if Command.Code = $6B then
+        Sender.Canvas.Font.Color := clRed;
+    end;
+  end;
 end;
 
 procedure TfmMain.lvCommandsSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
@@ -490,23 +467,13 @@ begin
   Index := lvCommands.Items.IndexOf(Item);
   if Index > (FCommands.Count - 1) then
     Exit;
-
   Command := FCommands[Index];
   memInfo.Clear;
-  case Command.Protocol of
-    pProtocol1:
-      protocolstr := '[Protocol v1]';
-    pProtocol2:
-      protocolstr := '[Protocol v2]';
-    pPlain:
-      protocolstr := '[Protocol v1 (plain)]';
-    pProtocolNg1:
-      protocolstr := '[Protocol v1 (NG)]';
-    pProtocolNg1Plain:
-      protocolstr := '[Protocol v1 (plain) (NG)]';
-  else
-    protocolstr := '';
-  end;
+
+  protocolstr := ProtocolToStr(Command.Protocol);
+  if protocolstr <> '' then
+    protocolstr := Format('[%s]', [protocolstr]);
+
   memInfo.Lines.Add(Command.Attributes + ' ' + protocolstr + ' (Line ' + Command.LineNumber.ToString + ')');
   memInfo.Lines.Add(Command.CommandName);
   memInfo.Lines.Add('Передано     : ' + Command.Data);
@@ -526,7 +493,6 @@ begin
   memInfo.SelStart := 0;
   memInfo.SelLength := 0;
 end;
-
 procedure TfmMain.N2Click(Sender: TObject);
 var
   F: TFileStream;
@@ -543,7 +509,6 @@ begin
       s := Format('[%s] [%s] [%s]'#13#10, [Command.TimeStamp, Command.ThreadID, Command.CommandName]);
       Bytes := TEncoding.ANSI.GetBytes(s);
       F.Write(Bytes, Length(Bytes));
-
       s := Format('[%s] [%s] -> %s'#13#10, [Command.TimeStamp, Command.ThreadID, Command.Data]);
       Bytes := TEncoding.ANSI.GetBytes(s);
       F.Write(Bytes, Length(Bytes));
@@ -558,17 +523,14 @@ begin
     F.Free;
   end;
 end;
-
 procedure TfmMain.N3Click(Sender: TObject);
 begin
   btnStartSelectedClick(Sender);
 end;
-
 procedure TfmMain.N5Click(Sender: TObject);
 begin
   LoadFromClipboard;
 end;
-
 procedure TfmMain.N7Click(Sender: TObject);
 var
   i: Integer;
@@ -586,7 +548,6 @@ begin
     Inc(i);
   until i >= (lvCommands.Items.Count - 1);
      // lvCommands.DeleteSelected;
-
   for i := 0 to lvCommands.Items.Count - 1 do
   begin
     memInfo.Lines.Add('lv ' + i.ToString + ' ' + lvCommands.Items[i].Caption);
@@ -594,7 +555,6 @@ begin
     memInfo.Lines.Add('');
   end;
 end;
-
 procedure TfmMain.OnCommandRun(AMsg: string);
 var
   Line: Integer;
@@ -604,18 +564,15 @@ begin
   Splitted := AMsg.Split([' ']);
   if Length(Splitted) = 0 then
     Exit;
-
   Line := Splitted[0].ToInteger;
   if Line > 0 then
     lvCommands.Items[Line - 1].Selected := False;
-
   if Length(Splitted) > 1 then
     CycleNumber := Splitted[1].ToInteger
   else
     CycleNumber := -1;
   SelLine(Line, CycleNumber);
 end;
-
 procedure TfmMain.OnError(AMsg: string);
 var
   ErrorText: string;
@@ -628,9 +585,7 @@ begin
   Splitted := AMsg.Split([' ']);
   if Length(Splitted) = 0 then
     Exit;
-
   Index := Splitted[0].ToInteger;
-
   if Length(Splitted) > 2 then
     CycleNumber := Splitted[1].ToInteger
   else
@@ -640,10 +595,8 @@ begin
     ErrorText := Splitted[2]
   else if Length(Splitted) > 2 then
     ErrorText := Splitted[3];
-
   if Index < 0 then
     Index := 0;
-
   SelLine(Index, -1);
   lvCommands.Items.BeginUpdate;
   lvCommands.Items[Index].StateIndex := 2;
@@ -654,7 +607,6 @@ begin
   else
     edtStatus.Text := Format('(%d/%d) %s: Ошибка: %s', [Index + 1, FCommands.Count, FCommands[Index].CommandName, ErrorText]);
 end;
-
 function ExtractErrorCode(const AMsg: string): Integer;
 var
   k: Integer;
@@ -668,7 +620,6 @@ begin
     Result := -1;
   end;
 end;
-
 procedure TfmMain.OnErrorQuery(AMsg: string);
 begin
   if (chkIngoreKKTErrors.Checked) and (ExtractErrorCode(AMsg) > 0) then
@@ -676,7 +627,6 @@ begin
     FPlayer.PlayMode := pmContinue;
     Exit;
   end;
-
   if Application.MessageBox(PWideChar('Ошибка: ' + AMsg + #13#10 + 'Продолжить?'), 'Ошибка', MB_YESNO + MB_ICONSTOP) = IDYES then
   begin
     FPlayer.PlayMode := pmContinue;
@@ -684,19 +634,16 @@ begin
   else
     FPlayer.PlayMode := pmStop
 end;
-
 procedure TfmMain.OnFinished(Sender: TObject);
 begin
   SetControlsState(False);
   FFinished := True;
   lvCommandsSelectItem(Self, lvCommands.Selected, True);
 end;
-
 procedure TfmMain.Pfdfa1Click(Sender: TObject);
 begin
   btnStartCurrentLineClick(Sender);
 end;
-
 procedure TfmMain.Play(Sender: TObject);
 var
   Command: TCommand;
@@ -706,42 +653,36 @@ begin
     FFirstCommandIndex := 0;
   for i := 0 to FCommands.Count - 1 do
   begin
-    PCommand(@FCommands.List[i])^.PlayedAnswerData := '';
-    PCommand(@FCommands.List[i])^.Played := False;
+    FCommands[i].PlayedAnswerData := '';
+    FCommands[i].Played := False;
   end;
-
   FPlayer.PlayLog(FDriver, FCommands, memCommandExceptions.Lines, True, FFirstCommandIndex, FPlayCommandCount, chkInfinitePlay.Checked);
 end;
-
 procedure TfmMain.pmMain1Click(Sender: TObject);
 begin
   btnStartFromPositionClick(Sender);
 end;
-
 procedure TfmMain.SelectAll;
 var
   i: Integer;
 begin
   for i := 0 to FCommands.Count - 1 do
-    PCommand(@FCommands.List[i])^.Selected := True;
+    FCommands[i].Selected := True;
 end;
-
 procedure TfmMain.SelectNone;
 var
   i: Integer;
 begin
   for i := 0 to FCommands.Count - 1 do
-    PCommand(@FCommands.List[i])^.Selected := False;
+    FCommands[i].Selected := False;
 end;
-
 procedure TfmMain.SelectSelected;
 var
   i: Integer;
 begin
   for i := 0 to lvCommands.Items.Count - 1 do
-    PCommand(@FCommands.List[i])^.Selected := lvCommands.Items[i].Selected;
+    FCommands[i].Selected := lvCommands.Items[i].Selected;
 end;
-
 procedure TfmMain.SelLine(Index: integer; ACycleNumber: Integer);
 begin
   if (FLastIndex >= 0) {and (FLastIndex < lvCommands.Items.Count)} then
@@ -764,7 +705,6 @@ begin
   else
     edtStatus.Text := Format('(%d/%d) %s', [Index + 1, FCommands.Count, FCommands[Index].CommandName]);
 end;
-
 procedure TfmMain.SetControlsState(AStarted: Boolean);
 var
   i: Integer;
@@ -797,7 +737,6 @@ begin
   chkIngoreKKTErrors.Enabled := not AStarted;
   memInfo.Clear;
 end;
-
 procedure TfmMain.Stop;
 begin
   FPlayer.StopPlaying;
@@ -805,7 +744,6 @@ begin
     Application.ProcessMessages;
   until FFinished;
 end;
-
 procedure TfmMain.WMDropFiles(var Msg: TMessage);
 var
   hDrop: THandle;
@@ -830,4 +768,3 @@ begin
 end;
 
 end.
-

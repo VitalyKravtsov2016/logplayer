@@ -159,7 +159,7 @@ var
   RxData: string;
   Data: string;
   DataStamp: string;
-  Command: TCommand;
+  Command: TCommandRec;
   Protocol: TProtocol;
   LineNumber: Integer;
   mDriverError: string;
@@ -276,7 +276,8 @@ begin
             Command.Attributes := DataStamp;
             Command.Protocol := Protocol;
             Command.LineNumber := LineNumber;
-            ACommandList.Add(Command);
+            ACommandList.Add(TCommand.Create(Command));
+
             Command.DriverError := '';
             TxData := '';
             State := sNone;
@@ -306,10 +307,10 @@ begin
             begin
               if ACommandList.Count > 0 then
               begin
-                Command := ACommandList[ACommandList.Count - 1];
+                Command := ACommandList[ACommandList.Count - 1].CmdData;
                 Command.AnswerData := Copy(RxData, 1, Length(RxData) - 2);
                 Command.Protocol := pProtocol1;
-                ACommandList[ACommandList.Count - 1] := Command;
+                ACommandList[ACommandList.Count - 1].CmdData := Command;
               end;
               RxData := '';
               State := sNone;
@@ -335,7 +336,7 @@ begin
             Command.Attributes := DataStamp;
             Command.Protocol := pProtocol2;
             Command.LineNumber := LineNumber;
-            ACommandList.Add(Command);
+            ACommandList.Add(TCommand.Create(Command));
             Command.DriverError := '';
             TxData := '';
             RxData := '';
@@ -353,10 +354,10 @@ begin
           begin
             if ACommandList.Count > 0 then
             begin
-              Command := ACommandList[ACommandList.Count - 1];
+              Command := ACommandList[ACommandList.Count - 1].CmdData;
               Command.AnswerData := Copy(RxData, 2, Length(RxData));
               Command.Protocol := pPlain;
-              ACommandList[ACommandList.Count - 1] := Command;
+              ACommandList[ACommandList.Count - 1].CmdData := Command;
             end;
             TxData := '';
             RxData := '';
@@ -391,7 +392,7 @@ begin
             Command.Attributes := DataStamp;
             Command.Protocol := Protocol;
             Command.LineNumber := LineNumber;
-            ACommandList.Add(Command);
+            ACommandList.Add(TCommand.Create(Command));
             Command.DriverError := '';
             TxData := '';
             RxData := '';
@@ -408,7 +409,7 @@ begin
     Command.Attributes := DataStamp;
     Command.Protocol := Protocol;
     Command.LineNumber := LineNumber;
-    ACommandList.Add(Command);
+    ACommandList.Add(TCommand.Create(Command));
     Command.DriverError := '';
   end;
 end;

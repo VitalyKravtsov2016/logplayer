@@ -133,7 +133,6 @@
         <DCCReference Include="Unit\untUtils.pas"/>
         <DCCReference Include="Unit\FormatTLV.pas"/>
         <DCCReference Include="Unit\TLVParser.pas"/>
-        <DCCReference Include="Unit\Commands\ParserCommandFF45.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommandFF46.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommandFF0C.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand17.pas"/>
@@ -145,6 +144,8 @@
         <DCCReference Include="Unit\TextEncoding.pas"/>
         <DCCReference Include="Unit\LangUtils.pas"/>
         <DCCReference Include="Unit\FileUtils.pas"/>
+        <DCCReference Include="Unit\LogFile.pas"/>
+        <DCCReference Include="Unit\untFileUtil.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand10.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommandFC.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand8D.pas"/>
@@ -160,12 +161,19 @@
         <DCCReference Include="Unit\Commands\ParserCommand85.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand89.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand8E.pas"/>
-        <DCCReference Include="Unit\Commands\ParserCommandFF67.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommandFF61.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommandFF69.pas"/>
-        <DCCReference Include="Unit\LogFile.pas"/>
-        <DCCReference Include="Unit\untFileUtil.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommandFF01.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF67.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF73.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF70.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF71.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF75.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF72.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF74.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF45.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF78.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFF76.pas"/>
         <None Include="LogPlayer.todo"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
