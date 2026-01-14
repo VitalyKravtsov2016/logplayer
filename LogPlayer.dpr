@@ -24,12 +24,12 @@ uses
   ParserCommand17 in 'Unit\Commands\ParserCommand17.pas',
   ParserCommand2F in 'Unit\Commands\ParserCommand2F.pas',
   ParserCommand11 in 'Unit\Commands\ParserCommand11.pas',
-  PrinterTypes in '..\drvfr5\Source\DrvFR\Units\PrinterTypes.pas',
-  DriverTypes in '..\drvfr5\Source\Shared\DriverTypes.pas',
-  GlobalConst in '..\drvfr5\Source\Shared\GlobalConst.pas',
-  TextEncoding in '..\drvfr5\Source\DrvFR\Units\TextEncoding.pas',
-  LangUtils in '..\drvfr5\Source\DrvFRTst\Units\LangUtils.pas',
-  FileUtils in '..\drvfr5\Source\Shared\FileUtils.pas',
+  PrinterTypes in 'Unit\PrinterTypes.pas',
+  DriverTypes in 'Unit\DriverTypes.pas',
+  GlobalConst in 'Unit\GlobalConst.pas',
+  TextEncoding in 'Unit\TextEncoding.pas',
+  LangUtils in 'Unit\LangUtils.pas',
+  FileUtils in 'Unit\FileUtils.pas',
   ParserCommand10 in 'Unit\Commands\ParserCommand10.pas',
   ParserCommandFC in 'Unit\Commands\ParserCommandFC.pas',
   ParserCommand8D in 'Unit\Commands\ParserCommand8D.pas',
@@ -48,7 +48,7 @@ uses
   ParserCommandFF67 in 'Unit\Commands\ParserCommandFF67.pas',
   ParserCommandFF61 in 'Unit\Commands\ParserCommandFF61.pas',
   ParserCommandFF69 in 'Unit\Commands\ParserCommandFF69.pas',
-  LogFile in '..\drvfr5\Source\Shared\LogFile.pas',
+  LogFile in 'Unit\LogFile.pas',
   untFileUtil in 'Unit\untFileUtil.pas',
   ParserCommandFF01 in 'Unit\Commands\ParserCommandFF01.pas';
 
@@ -57,6 +57,6 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  AApplication.CreateForm(TfmMain, fmMain);
-  pplication.Run;
+  Application.CreateForm(TfmMain, fmMain);
+  Application.Run;
 end.

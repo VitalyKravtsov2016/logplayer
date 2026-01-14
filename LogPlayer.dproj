@@ -139,12 +139,12 @@
         <DCCReference Include="Unit\Commands\ParserCommand17.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand2F.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand11.pas"/>
-        <DCCReference Include="..\drvfr5\Source\DrvFR\Units\PrinterTypes.pas"/>
-        <DCCReference Include="..\drvfr5\Source\Shared\DriverTypes.pas"/>
-        <DCCReference Include="..\drvfr5\Source\Shared\GlobalConst.pas"/>
-        <DCCReference Include="..\drvfr5\Source\DrvFR\Units\TextEncoding.pas"/>
-        <DCCReference Include="..\drvfr5\Source\DrvFRTst\Units\LangUtils.pas"/>
-        <DCCReference Include="..\drvfr5\Source\Shared\FileUtils.pas"/>
+        <DCCReference Include="Unit\PrinterTypes.pas"/>
+        <DCCReference Include="Unit\DriverTypes.pas"/>
+        <DCCReference Include="Unit\GlobalConst.pas"/>
+        <DCCReference Include="Unit\TextEncoding.pas"/>
+        <DCCReference Include="Unit\LangUtils.pas"/>
+        <DCCReference Include="Unit\FileUtils.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand10.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommandFC.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand8D.pas"/>
@@ -163,7 +163,7 @@
         <DCCReference Include="Unit\Commands\ParserCommandFF67.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommandFF61.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommandFF69.pas"/>
-        <DCCReference Include="..\drvfr5\Source\Shared\LogFile.pas"/>
+        <DCCReference Include="Unit\LogFile.pas"/>
         <DCCReference Include="Unit\untFileUtil.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommandFF01.pas"/>
         <None Include="LogPlayer.todo"/>

@@ -393,7 +393,7 @@ procedure TfmMain.FormCreate(Sender: TObject);
 var
   Edit: TEdit;
 begin
-  Caption := 'SHTRIH-M: Log player & analyzer v.' + GetFileVersionInfoStr;
+  Caption := 'TorgBalance: Log player & analyzer v.' + GetFileVersionInfoStr;
   FCommands := TCommandList.Create;
   FDriver := TDrvFR.Create(nil);
   DragAcceptFiles(Handle, True);
