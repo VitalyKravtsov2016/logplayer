@@ -5,53 +5,55 @@ uses
    System.SysUtils, System.Classes, System.Generics.Collections,
    // This
    BinUtils,  Utils.BinStream;
+
 type
   TProtocol = (pNone,
-    pProtocol1, pProtocol2, pPlain,
+    pProtocol1, pProtocol2, pProtocol3, pPlain,
     pProtocolNg1, pProtocolNg2, pProtocolNg1Plain);
 
   { TCommandRec }
 
   TCommandRec = record
-    Data: AnsiString;
+    Code: Integer;
+    ResCode: Integer;
     Attributes: string;
+    TxData: AnsiString;
     AnswerData: AnsiString;
-    PlayedAnswerData: AnsiString;
-    Played: Boolean;
-    Selected: Boolean;
     Protocol: TProtocol;
     LineNumber: Integer;
-    DriverError: string;
   end;
 
   { TCommand }
+
   TCommand = class
   private
     FData: TCommandRec;
   public
+    Played: Boolean;
+    Selected: Boolean;
+    PlayedAnswerData: AnsiString;
+
     constructor Create(const AData: TCommandRec);
+
     function TimeStamp: AnsiString;
     function ThreadID: AnsiString;
     function CommandName: string;
-    function Code: Integer;
     class function GetCode(const Data: string): Integer;
+    class function GetResCode(const Data: string): Integer; static;
     function HasError: Boolean;
-    function ErrorCode: Integer;
     function HasData(const AData: string): Boolean;
     function IsPrintCommand: Boolean;
     function IsStatusCommand: Boolean;
     function IsRecRepCommand: Boolean;
 
-    property Data: AnsiString read FData.Data;
+    property CmdData: TCommandRec read FData;
+    property Code: Integer read FData.Code;
+    property TxData: AnsiString read FData.TxData;
     property Attributes: string read FData.Attributes;
-    property AnswerData: AnsiString read FData.AnswerData;
     property Protocol: TProtocol read FData.Protocol;
     property LineNumber: Integer read FData.LineNumber;
-    property CmdData: TCommandRec read FData write FData; // !!!
-    property PlayedAnswerData: AnsiString read FData.PlayedAnswerData write FData.PlayedAnswerData;
-    property Played: Boolean read FData.Played write FData.Played; // !!!
-    property Selected: Boolean read FData.Selected write FData.Selected;
-    property DriverError: string read FData.DriverError write FData.DriverError; // !!!
+    property ResCode: Integer read FData.ResCode write FData.ResCode;
+    property AnswerData: AnsiString read FData.AnswerData write FData.AnswerData;
   end;
   TCommandList = TObjectList<TCommand>;
 
@@ -66,6 +68,7 @@ begin
   case Protocol of
     pProtocol1: Result := 'Protocol v1';
     pProtocol2: Result := 'Protocol v2';
+    pProtocol3: Result := 'Protocol v3';
     pPlain: Result := 'Protocol v1 (plain)';
     pProtocolNg1: Result := 'Protocol v1 (NG)';
     pProtocolNg1Plain: Result := 'Protocol v1 (plain) (NG)';
@@ -85,36 +88,34 @@ end;
 class function TCommand.GetCode(const Data: string): Integer;
 var
   Cmd: Word;
+  BinData: AnsiString;
 begin
-  Cmd := BinToInt(HexToStr(Data), 1, 1);
+  BinData := HexToStr(Data);
+  Cmd := BinToInt(BinData, 1, 1);
   if (Cmd = $FF) or (Cmd = $FE) then
-    Cmd := (Cmd shl 8) or (BinToInt(HexToStr(Data), 2, 1));
+    Cmd := (Cmd shl 8) or (BinToInt(BinData, 2, 1));
   Result := Cmd;
 end;
-function TCommand.Code: Integer;
-begin
-  Result := GetCode(Data);
-end;
+
 function TCommand.CommandName: string;
 begin
-  if (Protocol = pProtocol2) and (Data = '') then
+  if (Protocol = pProtocol2) and (TxData = '') then
+  begin
     Result := 'Sync'
-  else
-    Result := GetCommandName(Data);
+  end else
+  begin
+    Result := Format('%.2X, %s', [Code, GetCommandName(Code)]);
+  end;
 end;
-function TCommand.ErrorCode: Integer;
+
+class function TCommand.GetResCode(const Data: string): Integer;
 var
   Stream: IBinStream;
   b: Byte;
 begin
-  Result := -1;
-  if AnswerData = '' then
-  begin
-    Result := -1;
-    Exit;
-  end;
+  Result := 0;
   Stream := TBinStream.Create([]);
-  Stream.WriteBytes(HexToBytes(AnswerData));
+  Stream.WriteBytes(HexToBytes(Data));
   Stream.Stream.Position := 0;
   if Stream.Size < 2 then Exit;
   b := Stream.ReadByte;
@@ -123,33 +124,14 @@ begin
   b := Stream.ReadByte;
   Result := b;
 end;
+
 function TCommand.HasData(const AData: string): Boolean;
 begin
   Result := (Pos(LowerCase(AData, loUserLocale), LowerCase(Attributes, loUserLocale)) > 0) or
             (Pos(LowerCase(AData, loUserLocale), LowerCase(TimeStamp, loUserLocale)) > 0) or
             (Pos(LowerCase(AData, loUserLocale), LowerCase(CommandName, loUserLocale)) > 0);
 end;
-function TCommand.HasError: Boolean;
-var
-  Stream: IBinStream;
-  b: Byte;
-begin
-  Result := False;
-  if AnswerData = '' then
-  begin
-    Result := True;
-    Exit;
-  end;
-  Stream := TBinStream.Create([]);
-  Stream.WriteBytes(HexToBytes(AnswerData));
-  Stream.Stream.Position := 0;
-  if Stream.Size < 2 then Exit;
-  b := Stream.ReadByte;
-  if b = $FF then
-    Stream.ReadByte;
-  b := Stream.ReadByte;
-  Result := b <> 0;
-end;
+
 function TCommand.ThreadID: AnsiString;
 var
   k: Integer;
@@ -165,6 +147,11 @@ end;
 function TCommand.TimeStamp: AnsiString;
 begin
   Result := Copy(Attributes, 2, Length('08.12.2021 23:50:07.520'));
+end;
+
+function TCommand.HasError: Boolean;
+begin
+  Result := (ResCode <> 0)or((AnswerData = '')and(TxData <> '')); // !!!
 end;
 
 function TCommand.IsPrintCommand: Boolean;

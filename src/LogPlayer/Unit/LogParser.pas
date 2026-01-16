@@ -3,9 +3,13 @@ unit LogParser;
 interface
 
 uses
-  System.Classes, System.SysUtils, untCommand, BinUtils;
+  // VCL
+  System.Classes, System.SysUtils,
+  // This
+  untCommand, BinUtils;
 
-procedure ParseLog(SL: TStringList; ACommandList: TCommandList);
+
+procedure ParseLog(SL: TStrings; ACommandList: TCommandList);
 
 // function GetTransferBytes(const AStr: string): string;
 
@@ -14,13 +18,20 @@ implementation
 const
   TxSign = '[DEBUG] TPrinterProtocol -> ';
   TxSign2 = '[DEBUG] TPrinterProtocol2 -> ';
+  TxSign3 = '[DEBUG] TPrinterProtocol3 -> ';
+
   RxSign = '[DEBUG] TPrinterProtocol <- ';
   RxSign2 = '[DEBUG] TPrinterProtocol2 <- ';
+  RxSign3 = '[DEBUG] TPrinterProtocol3 <- ';
+
   TxSignNg = '] [D] -> ';
   RxSignNg = '] [D] <- ';
 
+  ProtocolAttributes = '[07.12.2021 18:30:04.598] [00002108]';
+
 type
-  TState = (sNone, sTransfer, sRx02, sRx, sRxp2, sRxplain, sWaitFor02, SWaitFor02Ng, sRxNg, sTransferNg);
+  TState = (sNone, sTransfer, sRx02, sRx, sRxp2, sRxplain, sWaitFor02,
+    SWaitFor02Ng, sRxNg, sTransferNg);
 
 function IsPlain(const AStr: string): Boolean;
 begin
@@ -78,37 +89,45 @@ begin
   Result := StrToHex(Copy(Data, 5, Length(Data) - 6));
 end;
 
-function GetTransferBytes(const AStr: string; var Protocol: TProtocol): string;
+function GetTransferBytes(const Line: string; var Protocol: TProtocol): string;
 var
-  k: Integer;
+  P: Integer;
 begin
   Result := '';
-  k := Pos(TxSign, AStr);
-  if k > 0 then
+  // Protocol1
+  P := Pos(TxSign, Line);
+  if P > 0 then
   begin
-    if Protocol <> pPlain then
-      Protocol := pProtocol1;
-    Result := Copy(AStr, k + Length(TxSign), Length(AStr));
-  end
-  else
+    Protocol := pProtocol1;
+    Result := Copy(Line, P + Length(TxSign), Length(Line));
+    Exit;
+  end;
+  // Protocol2
+  P := Pos(TxSign2, Line);
+  if P > 0 then
   begin
-    k := Pos(TxSign2, AStr);
-    if k > 0 then
-    begin
-      Protocol := pProtocol2;
-      Result := Copy(AStr, k + Length(TxSign2), Length(AStr));
-    end
-    else
-    begin
-      k := Pos(TxSignNg, AStr);
-      if k > 0 then
-      begin
-        if Protocol <> pProtocolNg1 then
-          Protocol := pProtocolNg1Plain;
-        Result := Copy(AStr, k + Length(TxSignNg), Length(AStr));
-      end;
-    end;
-  end
+    Protocol := pProtocol2;
+    Result := Copy(Line, P + Length(TxSign2), Length(Line));
+    Exit;
+  end;
+  // Protocol3
+  // [14.01.2026 13:47:03.929] [00002852] [DEBUG] TPrinterProtocol -> 02 05 11 1E 00 00 00 0A
+  P := Pos(TxSign3, Line);
+  if P > 0 then
+  begin
+    Protocol := pProtocol3;
+    Result := Copy(Line, P + Length(TxSign3), Length(Line));
+    Exit;
+  end;
+
+  P := Pos(TxSignNg, Line);
+  if P > 0 then
+  begin
+    if Protocol <> pProtocolNg1 then // !!!
+      Protocol := pProtocolNg1Plain;
+    Result := Copy(Line, P + Length(TxSignNg), Length(Line));
+    Exit;
+  end;
 end;
 
 function GetRxBytes(const AStr: string; AProtocol: TProtocol): string;
@@ -122,6 +141,8 @@ begin
       pSign := RxSign;
     pProtocol2:
       pSign := RxSign2;
+    pProtocol3:
+      pSign := RxSign3;
     pProtocolNg1, pProtocolNg1Plain:
       pSign := RxSignNg;
     pNone:
@@ -148,7 +169,7 @@ begin
   AErrorText := Copy(AStr, k + Length(ErrStr), Length(AStr));
 end;
 
-procedure ParseLog(SL: TStringList; ACommandList: TCommandList);
+procedure ParseLog(SL: TStrings; ACommandList: TCommandList);
 var
   i: Integer;
   S: string;
@@ -198,7 +219,7 @@ begin
                   DataStamp := Copy(S, 1, Length('[07.12.2021 18:30:04.598] [00002108]'));
                   TxData := TxData + Data;
                   State := sTransfer;
-                  Protocol := pPlain;
+                  //Protocol := pPlain; !!!
                   if LineNumber < 0 then
                     LineNumber := i + 1;
                 end;
@@ -211,6 +232,16 @@ begin
                   if GetRxBytes(SNext, pProtocol2) <> '' then
                     State := sRxp2;
                 end;
+              pProtocol3:
+                begin
+                  DataStamp := Copy(S, 1, Length('[07.12.2021 18:30:04.598] [00002108]'));
+                  TxData := TxData + ' ' + Data;
+                  if LineNumber < 0 then
+                    LineNumber := i + 1;
+                  if GetRxBytes(SNext, pProtocol3) <> '' then
+                    State := sRxp2;
+                end;
+
               pProtocolNg1, pProtocolNg1Plain:
               begin
                 DataStamp := Copy(S, 1, Length('[2024-05-23 14:09:56.664] [34476] [classic_fr_drv_ng               ]'));
@@ -243,6 +274,12 @@ begin
                   if GetRxBytes(SNext, pProtocol2) <> '' then
                     State := sRxp2;
                 end;
+              pProtocol3:
+                begin
+                  if GetRxBytes(SNext, pProtocol3) <> '' then
+                    State := sRxp2;
+                end;
+
               pPlain:
                 begin
                   if GetRxBytes(S, pProtocol1) <> '' then
@@ -270,9 +307,9 @@ begin
           if Data = '' then
           begin
             if Protocol = pPlain then
-              Command.Data := Copy(TxData, 4, Length(TxData))
+              Command.TxData := Copy(TxData, 4, Length(TxData))
             else
-              Command.Data := Copy(TxData, 7, Length(TxData) - 9);
+              Command.TxData := Copy(TxData, 7, Length(TxData) - 9);
             Command.Attributes := DataStamp;
             Command.Protocol := Protocol;
             Command.LineNumber := LineNumber;
@@ -331,7 +368,7 @@ begin
             RxData := RxData + ' ' + Data;
           if GetRxBytes(SNext, pProtocol2) = '' then
           begin
-            Command.Data := GetCommandDatap2(TxData);
+            Command.TxData := GetCommandDatap2(TxData);
             Command.AnswerData := GetCommandDatap2(RxData); // Copy(TxData, 16, Length(TxData) - 7 - 5);
             Command.Attributes := DataStamp;
             Command.Protocol := pProtocol2;
@@ -379,13 +416,13 @@ begin
             RxData := RxData + ' ' + Data;
             if Protocol = pProtocolNg1 then
             begin
-              Command.Data := Copy(TxData, 8, Length(TxData) - 10);
+              Command.TxData := Copy(TxData, 8, Length(TxData) - 10);
               Command.AnswerData := Copy(RxData, 8, Length(RxData) - 10);
             end
             else
             if Protocol = pProtocolNg1Plain then
             begin
-              Command.Data := Copy(TxData, 4, Length(TxData));
+              Command.TxData := Copy(TxData, 4, Length(TxData));
               Command.AnswerData := Copy(RxData, 4, Length(RxData));
             end;
 
@@ -405,7 +442,7 @@ begin
   end;
   if TxData <> '' then
   begin
-    Command.Data := Copy(TxData, 7, Length(TxData) - 9);
+    Command.TxData := Copy(TxData, 7, Length(TxData) - 9);
     Command.Attributes := DataStamp;
     Command.Protocol := Protocol;
     Command.LineNumber := LineNumber;

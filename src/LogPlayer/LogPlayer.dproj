@@ -104,7 +104,6 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Build>20</VerInfo_Build>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=ТОРГОВЫЙ БАЛАНС М;FileDescription=LogPlayer;FileVersion=1.2.0.20;InternalName=LogPlayer;LegalCopyright=ТОРГОВЫЙ БАЛАНС М;LegalTrademarks=;OriginalFilename=LogPlayer.exe;ProgramID=LogPlayer;ProductName=LogPlayer;ProductVersion=1.0.0.0;Comments=https://torgbalance.com/</VerInfo_Keys>
         <DCC_ExeOutput>Bin\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_DcuOutput>Dcu\$(Platform)\$(Config)</DCC_DcuOutput>
         <Icon_MainIcon>LogPlayer_Icon.ico</Icon_MainIcon>
@@ -121,7 +120,6 @@
         <DCCReference Include="Unit\untLogPlayer.pas"/>
         <DCCReference Include="Unit\DrvFRLib_TLB.pas"/>
         <DCCReference Include="Unit\untCommand.pas"/>
-        <DCCReference Include="Unit\LogParser.pas"/>
         <DCCReference Include="Unit\DriverCommands.pas"/>
         <DCCReference Include="Unit\BinUtils.pas"/>
         <DCCReference Include="Unit\NotifyThread.pas"/>
@@ -174,6 +172,9 @@
         <DCCReference Include="Unit\Commands\ParserCommandFF45.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommandFF78.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommandFF76.pas"/>
+        <DCCReference Include="Unit\LogParser2.pas"/>
+        <DCCReference Include="Unit\ShtrihProtocol2.pas"/>
+        <DCCReference Include="Unit\ShtrihProtocol1.pas"/>
         <None Include="LogPlayer.todo"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
@@ -196,7 +197,6 @@
                     <Source Name="MainSource">LogPlayer.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclDataSnapNativeServer270.bpl">Embarcadero DBExpress DataSnap Native Server Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k270.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp270.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>

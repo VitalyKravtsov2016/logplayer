@@ -4,7 +4,6 @@ interface
 uses
   BinUtils;
 
-function GetCommandName(Command: AnsiString): string; overload;
 function GetCommandName(Command: Word): string; overload;
 
 implementation
@@ -486,16 +485,5 @@ begin
     Result := 'Неизвестная команда';
   end;
 end;
-
-function GetCommandName(Command: AnsiString): string; overload;
-var
-  Cmd: Word;
-begin
-  Cmd := BinToInt(HexToStr(Command), 1, 1);
-  if (Cmd = $FF) or (Cmd = $FE) then
-    Cmd := (Cmd shl 8) or (BinToInt(HexToStr(Command), 2, 1));
-  Result := GetCommandName(Cmd);
-end;
-
 
 end.

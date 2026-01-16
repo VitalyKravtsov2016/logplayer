@@ -127,9 +127,18 @@ begin
     Command.Parse(ACmd, pFields);
     Command.Parse(ACmd, pAnswerFields);
     Result := Command.GetShortValue;
-    ErrorCode := ACmd.ErrorCode;
-    if ErrorCode <> 0 then
-      Result := Result + ' [ERROR] ' + ErrorCode.ToString + ' (0x' + IntToHex(ErrorCode, 2) + ') ' + TPrinterError.GetDescription(ErrorCode, True)
+    ErrorCode := ACmd.ResCode;
+    if (ACmd.AnswerData = '')and(ACmd.TxData <> '') then
+    begin
+      Result := Result + ' Нет ответа на команду';
+    end else
+    begin
+      if ErrorCode <> 0 then
+      begin
+        Result := Format(' [ERROR] %d (0x%.2X) %s', [
+          ErrorCode, ErrorCode, TPrinterError.GetDescription(ErrorCode, True)]);
+      end;
+    end;
   finally
     Command.Free;
     Commands.Free;
@@ -1157,7 +1166,7 @@ end;
 
 procedure TParserCommand.Start(const ACmd: TCommand);
 begin
-  FStream := TBinStream.Create(StringToBytes(HexToStr(ACmd.Data)));
+  FStream := TBinStream.Create(StringToBytes(HexToStr(ACmd.TxData)));
 end;
 
 procedure TParserCommand.StartAnswer(const ACmd: TCommand);

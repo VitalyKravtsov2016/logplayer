@@ -172,7 +172,65 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\untLogPlayer.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\DrvFRLib_TLB.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\untCommand.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\DriverCommands.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\BinUtils.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\NotifyThread.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\VersionInfo.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\CommandParser.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Fp.PrinterTypes.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Utils.BinStream.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\TLVTags.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\untUtils.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\FormatTLV.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\TLVParser.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF46.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF0C.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand17.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand2F.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand11.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\PrinterTypes.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\DriverTypes.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\GlobalConst.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\TextEncoding.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\LangUtils.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\FileUtils.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\LogFile.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\untFileUtil.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand10.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFC.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand8D.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand1E.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand1F.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand2D.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand2E.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand6B.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand80.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand81.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand82.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand83.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand85.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand89.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommand8E.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF61.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF69.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF01.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF67.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF73.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF70.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF71.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF75.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF72.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF74.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF45.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF78.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\Commands\ParserCommandFF76.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\LogParser2.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\ShtrihProtocol1.pas"/>
         <DCCReference Include="Units\duLogParser.pas"/>
+        <DCCReference Include="..\..\src\LogPlayer\Unit\ShtrihProtocol2.pas"/>
         <None Include="LogPlayerTst.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
@@ -213,20 +271,8 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="DrvFRTst.todo" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="Bin\LogPlayerTst.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Bin\LogPlayerTst.rsm" Configuration="Debug" Class="DebugSymbols">
-                    <Platform Name="Win32">
-                        <RemoteName>LogPlayerTst.rsm</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="..\..\Bin\Win64\Debug\LogPlayerTst.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win64">
                         <RemoteName>LogPlayerTst.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
@@ -234,6 +280,18 @@
                 <DeployFile LocalName="DrvFRTst.todo" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\Bin\Win64\Release\LogPlayerTst.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win64">
+                        <RemoteName>LogPlayerTst.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Bin\LogPlayerTst.rsm" Configuration="Debug" Class="DebugSymbols">
+                    <Platform Name="Win32">
+                        <RemoteName>LogPlayerTst.rsm</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -249,21 +307,21 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\..\Bin\Win64\Release\LogPlayerTst.exe" Configuration="Release" Class="ProjectOutput">
+                <DeployFile LocalName="..\..\Bin\Win64\Debug\LogPlayerTst.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win64">
                         <RemoteName>LogPlayerTst.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="DrvFRTst.todo" Configuration="Release" Class="ProjectFile">
-                    <Platform Name="Win64">
+                    <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Bin\LogPlayerTst.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>LogPlayerTst.exe</RemoteName>
+                <DeployFile LocalName="DrvFRTst.todo" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win64">
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

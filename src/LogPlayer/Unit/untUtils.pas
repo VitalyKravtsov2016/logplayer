@@ -12,7 +12,7 @@ type
     ProductBuild: WORD;
   end;
 
-function HexToStr(const Data: Ansistring): AnsiString;
+function HexToStr(const Data: string): AnsiString;
 function GetFileVersionInfo: TVersionInfo;
 function GetFileVersionInfoStr: string;
 function ReadFileData(const FileName: string): AnsiString;
@@ -21,9 +21,9 @@ function BinToInt(const S: AnsiString; Index, Count: Integer): Int64;
 
 implementation
 
-function HexToStr(const Data: Ansistring): AnsiString;
+function HexToStr(const Data: string): AnsiString;
 var
-  S: Ansistring;
+  S: string;
   i: Integer;
   V, Code: Integer;
 begin
@@ -45,7 +45,7 @@ begin
   begin
     Val('$' + S, V, Code);
     if Code <> 0 then Exit;
-    Result := Result + Chr(V);
+    Result := Result + AnsiChar(V);
   end;
 end;
 

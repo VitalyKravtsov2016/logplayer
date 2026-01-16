@@ -1,12 +1,10 @@
 program LogPlayer;
-
 uses
   Vcl.Forms,
   fmuMain in 'Fmu\fmuMain.pas' {fmMain},
   untLogPlayer in 'Unit\untLogPlayer.pas',
   DrvFRLib_TLB in 'Unit\DrvFRLib_TLB.pas',
   untCommand in 'Unit\untCommand.pas',
-  LogParser in 'Unit\LogParser.pas',
   DriverCommands in 'Unit\DriverCommands.pas',
   BinUtils in 'Unit\BinUtils.pas',
   NotifyThread in 'Unit\NotifyThread.pas',
@@ -58,10 +56,12 @@ uses
   ParserCommandFF74 in 'Unit\Commands\ParserCommandFF74.pas',
   ParserCommandFF45 in 'Unit\Commands\ParserCommandFF45.pas',
   ParserCommandFF78 in 'Unit\Commands\ParserCommandFF78.pas',
-  ParserCommandFF76 in 'Unit\Commands\ParserCommandFF76.pas';
+  ParserCommandFF76 in 'Unit\Commands\ParserCommandFF76.pas',
+  LogParser2 in 'Unit\LogParser2.pas',
+  ShtrihProtocol2 in 'Unit\ShtrihProtocol2.pas',
+  ShtrihProtocol1 in 'Unit\ShtrihProtocol1.pas';
 
 {$R *.res}
-
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;

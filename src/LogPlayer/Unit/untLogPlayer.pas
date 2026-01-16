@@ -93,7 +93,7 @@ begin
       GlobalEventBus.Post('CommandRun', Index.ToString);
 
       Drv.BinaryConversion := BINARY_CONVERSION_HEX;
-      Drv.TransferBytes := Command.Data;
+      Drv.TransferBytes := Command.TxData;
       repeat
         Res := Drv.ExchangeBytes;
         Inc(RepCount);
@@ -102,9 +102,9 @@ begin
       until ((Res <> $50) and (Res <> $4B)) or (RepCount >= 5);
       if Res > 0 then
       begin
-        if Length(Command.Data) >= 2 then
+        if Length(Command.TxData) >= 2 then
         begin
-          Data := HexToStr(Command.Data);
+          Data := HexToStr(Command.TxData);
           ErrorAnswer := (Data[1]);
           if Data[1] = #$FF then
             ErrorAnswer := ErrorAnswer + Data[2] + Chr(Res)
@@ -231,7 +231,7 @@ begin
             GlobalEventBus.Post('CommandRun', Index.ToString);
 
           Drv.BinaryConversion := BINARY_CONVERSION_HEX;
-          Drv.TransferBytes := Command.Data;
+          Drv.TransferBytes := Command.TxData;
           repeat
             Res := Drv.ExchangeBytes;
             Inc(RepCount);
@@ -240,9 +240,9 @@ begin
           until ((Res <> $50) and (Res <> $4B)) or (RepCount >= 5);
           if Res > 0 then
           begin
-            if Length(Command.Data) >= 2 then
+            if Length(Command.TxData) >= 2 then
             begin
-              Data := HexToStr(Command.Data);
+              Data := HexToStr(Command.TxData);
               ErrorAnswer := (Data[1]);
               if Data[1] = #$FF then
                 ErrorAnswer := ErrorAnswer + Data[2] + Chr(Res)

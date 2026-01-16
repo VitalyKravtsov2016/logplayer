@@ -10,7 +10,7 @@ function Round2(Value: Double): Int64;
 function ExRound(const N: double; const APrecisionRound: double): double;
 function Min(V1, V2: Integer): Integer;
 function DecToStr(Value: AnsiString): AnsiString;
-function StrToHex(const S: AnsiString): AnsiString;
+function StrToHex(const S: AnsiString): string;
 function StrToHex2(const S: AnsiString): AnsiString;
 function HexToStr(const Data: AnsiString): AnsiString;
 procedure SetBit(var Value: Byte; Bit: Byte);
@@ -274,7 +274,7 @@ begin
     Result := Result + AnsiChar(SwapByte(Ord(S[i])));
 end;
 
-function StrToHex(const S: AnsiString): AnsiString;
+function StrToHex(const S: AnsiString): string;
 var
   i: Integer;
 begin

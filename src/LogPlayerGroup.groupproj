@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{D890184F-AD3B-4306-9DE3-24D3291D515B}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="LogPlayer\LogPlayer.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\test\LogPlayerTst\LogPlayerTst.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="LogPlayer">
+        <MSBuild Projects="LogPlayer\LogPlayer.dproj"/>
+    </Target>
+    <Target Name="LogPlayer:Clean">
+        <MSBuild Projects="LogPlayer\LogPlayer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="LogPlayer:Make">
+        <MSBuild Projects="LogPlayer\LogPlayer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="LogPlayerTst">
+        <MSBuild Projects="..\test\LogPlayerTst\LogPlayerTst.dproj"/>
+    </Target>
+    <Target Name="LogPlayerTst:Clean">
+        <MSBuild Projects="..\test\LogPlayerTst\LogPlayerTst.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="LogPlayerTst:Make">
+        <MSBuild Projects="..\test\LogPlayerTst\LogPlayerTst.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="LogPlayer;LogPlayerTst"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="LogPlayer:Clean;LogPlayerTst:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="LogPlayer:Make;LogPlayerTst:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
