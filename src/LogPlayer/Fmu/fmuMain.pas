@@ -7,7 +7,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.Menus, System.ImageList,
-  Vcl.ImgList, Clipbrd,
+  Vcl.ImgList, Clipbrd, ShellAPI,
   // 3'd
   JvAppStorage, JvAppXMLStorage, JvComponentBase, JvFormPlacement,
   EventBus,
@@ -112,6 +112,9 @@ type
     procedure OpenFromText(const AStr: TStringList);
     procedure OpenFromFile(const AFileName: string);
     procedure LoadFromClipboard;
+    function GetDriver: TDrvFR;
+
+    property Driver: TDrvFR read GetDriver;
   public
     [Channel('CommandRun')]
     procedure OnCommandRun(AMsg: string);
@@ -130,8 +133,14 @@ implementation
 
 {$R *.dfm}
 
-uses
-  ShellAPI;
+{ TfmMain }
+
+function TfmMain.GetDriver: TDrvFR;
+begin
+  if FDriver = nil then
+    FDriver := TDrvFR.Create(nil);
+  Result := FDriver;
+end;
 
 procedure TfmMain.AddCommand(ACommand: TCommand);
 var
@@ -151,8 +160,8 @@ procedure TfmMain.btnCloseSessionClick(Sender: TObject);
 begin
   memInfo.Clear;
   Application.ProcessMessages;
-  FDriver.Password := FDriver.SysAdminPassword;
-  Check(FDriver.PrintReportWithCleaning, 'Закрытие смены');
+  Driver.Password := Driver.SysAdminPassword;
+  Check(Driver.PrintReportWithCleaning, 'Закрытие смены');
 end;
 
 procedure TfmMain.btnFindErrorClick(Sender: TObject);
@@ -195,15 +204,15 @@ begin
   begin
     memInfo.Clear;
     Application.ProcessMessages;
-    FDriver.Password := FDriver.SysAdminPassword;
-    Res := FDriver.GetECRStatus;
+    Driver.Password := Driver.SysAdminPassword;
+    Res := Driver.GetECRStatus;
     Check(Res, 'Запрос состояния');
     if Res <> 0 then
       Exit;
-    memInfo.Lines.Add(Format('Режим   : %d, %s', [FDriver.ECRMode,
-      FDriver.ECRModeDescription]));
-    memInfo.Lines.Add(Format('Подрежим: %d, %s', [FDriver.ECRAdvancedMode,
-      FDriver.ECRAdvancedModeDescription]));
+    memInfo.Lines.Add(Format('Режим   : %d, %s', [Driver.ECRMode,
+      Driver.ECRModeDescription]));
+    memInfo.Lines.Add(Format('Подрежим: %d, %s', [Driver.ECRAdvancedMode,
+      Driver.ECRAdvancedModeDescription]));
   end;
 
   procedure TfmMain.OpenFromText(const AStr: TStringList);
@@ -306,7 +315,7 @@ begin
 
     procedure TfmMain.btnSettingsClick(Sender: TObject);
     begin
-      FDriver.ShowProperties;
+      Driver.ShowProperties;
     end;
 
     procedure TfmMain.btnStartClick(Sender: TObject);
@@ -362,7 +371,7 @@ begin
     begin
       if ACode <> 0 then
         memInfo.Text := Format('%s: Ошибка: %d, %s',
-          [ACmd, ACode, FDriver.ResultCodeDescription])
+          [ACmd, ACode, Driver.ResultCodeDescription])
       else
         memInfo.Text := Format('%s: Успешно', [ACmd]);
     end;
@@ -399,7 +408,6 @@ begin
       Caption := 'TorgBalance: Log player & analyzer v.' +
         GetFileVersionInfoStr;
       FCommands := TCommandList.Create(True);
-      FDriver := TDrvFR.Create(nil);
       DragAcceptFiles(Handle, True);
       ChangeWindowMessageFilter(WM_DROPFILES, MSGFLT_ADD);
       ChangeWindowMessageFilter(WM_COPYDATA, MSGFLT_ADD);
@@ -426,7 +434,7 @@ begin
       Repaint;
     end;
 
-    procedure TfmMain.LoadFromClipboard;
+procedure TfmMain.LoadFromClipboard;
     var
       S: TStringList;
     begin
@@ -725,7 +733,7 @@ begin
         FCommands[i].PlayedAnswerData := '';
         FCommands[i].Played := False;
       end;
-      FPlayer.PlayLog(FDriver, FCommands, memCommandExceptions.Lines, True,
+      FPlayer.PlayLog(Driver, FCommands, memCommandExceptions.Lines, True,
         FFirstCommandIndex, FPlayCommandCount, chkInfinitePlay.Checked);
     end;
 
