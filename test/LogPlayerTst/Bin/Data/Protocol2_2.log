@@ -1,0 +1,4 @@
+[15.01.2026 16:07:26.516] [00018280] [DEBUG] Purge
+[15.01.2026 16:07:26.516] [00018280] [DEBUG] TPrinterProtocol2 -> 8F 00 00 0F 1D
+[15.01.2026 16:07:27.729] [00018280] [DEBUG] Error reading byte from socket: Read timed out.
+[15.01.2026 16:07:27.729] [00018280] [ERROR] TFiscalPrinter Handle Exception Нет связи

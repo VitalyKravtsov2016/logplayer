@@ -1,0 +1,706 @@
+[15.01.2026 14:16:44.808] [00014872] [DEBUG] TLogicDevice LoadParams
+[15.01.2026 14:16:44.808] [00014872] [DEBUG] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:44.808] [00014872] [DEBUG] TFiscalPrinter LOG START
+[15.01.2026 14:16:44.808] [00014872] [DEBUG] TFiscalPrinter Драйвер ФР. ШТРИХ-М. Версия файла: 5.25.0.2096
+[15.01.2026 14:16:44.808] [00014872] [DEBUG] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:44.808] [00014872] [DEBUG] CommandRetryCount=3
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] ComLogFile=C:\ProgramData\TorgBalance\DrvFR\Logs\DrvFR.log
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] LogOn=True
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] BaudRate=6
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] ComNumber=4
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] Timeout=1200
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] PlainTransferMode=0
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] TLSMode=0
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] ConnectionTimeout=0
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] TCPConnectionTimeout=10000
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] SyncTimeout=0
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] ComputerName='192.168.137.111'
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] LDIndex=0
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] LockTimeout=10000
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] TCPPort=7778
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] IPAddress='192.168.137.111'
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] UseIPAddress=True
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] ConnectionType=0
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] EscapeIP=127.0.0.1
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] EscapePort=1000
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] EscapeTimeout=1000
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] SysAdminPassword=30
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] CardPayType=2
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] CardPayEnabled=False
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] LogCommands=False
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] LogMethods=False
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] SaleError=False
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] MobilePayEnabled=False
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] PayDepartment=15
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] ParamsPageIndex=2
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] RealPayDepartment=1
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] WaitForPrintingDelay=300
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] BufferingType=0
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] FeedAfterCut=False
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] FeedLineCount=3
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] StatusCommand=0
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] MaxAnsCount=4
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] LogMaxFileSize=10
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] LogMaxFileCount=10
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] CodePage=1
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] PrintJournalBeforeZReport=False
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] TranslationEnabled=False
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] AdjustRITimeout=False
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] ReconnectPort=False
+[15.01.2026 14:16:44.809] [00014872] [DEBUG] DoNotSendENQ=False
+[15.01.2026 14:16:44.813] [00014872] [DEBUG] TDrvFR Get_MCScannerComNumber
+[15.01.2026 14:16:44.813] [00014872] [DEBUG] TDrvFR Get_MCScannerComNumber: 1
+[15.01.2026 14:16:45.386] [00014872] [DEBUG] TDrvFR Set_Password
+[15.01.2026 14:16:45.386] [00014872] [DEBUG] TDrvFR Set_Password: 30
+[15.01.2026 14:16:45.392] [00014872] [DEBUG] TDrvFR Get_ConnectionType
+[15.01.2026 14:16:45.392] [00014872] [DEBUG] TDrvFR Get_ConnectionType: 0
+[15.01.2026 14:16:45.392] [00014872] [DEBUG] TDrvFR Get_ComNumber
+[15.01.2026 14:16:45.392] [00014872] [DEBUG] TDrvFR Get_ComNumber: 4
+[15.01.2026 14:16:45.392] [00014872] [DEBUG] TDrvFR Get_BaudRate
+[15.01.2026 14:16:45.392] [00014872] [DEBUG] TDrvFR Get_BaudRate: 6
+[15.01.2026 14:16:45.392] [00014872] [DEBUG] TDrvFR Get_Password
+[15.01.2026 14:16:45.392] [00014872] [DEBUG] TDrvFR Get_Password: 30
+[15.01.2026 14:16:48.339] [00014872] [DEBUG] TDrvFR GetECRStatus
+[15.01.2026 14:16:48.339] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:48.339] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[15.01.2026 14:16:48.339] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.339] [00014872] [DEBUG] TFiscalPrinter DoSend
+[15.01.2026 14:16:48.339] [00014872] [DEBUG] TFiscalPrinter Data = 11 1E 00 00 00
+[15.01.2026 14:16:48.339] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.339] [00014872] [DEBUG] TFiscalPrinter CommandCode=0011
+[15.01.2026 14:16:48.339] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[15.01.2026 14:16:48.339] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.339] [00014872] [DEBUG] TFiscalPrinter DoSend
+[15.01.2026 14:16:48.339] [00014872] [DEBUG] TFiscalPrinter Data = FC
+[15.01.2026 14:16:48.339] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.339] [00014872] [DEBUG] TFiscalPrinter CommandCode=00FC
+[15.01.2026 14:16:48.339] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.339] [00014872] [DEBUG] TFiscalPrinter Команда: FCh, Получить тип устройства
+[15.01.2026 14:16:48.340] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.340] [00014872] [DEBUG] TOFDYaSlipSender Start
+[15.01.2026 14:16:48.340] [00014872] [DEBUG] TFiscalPrinter OpenPort
+[15.01.2026 14:16:48.340] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:48.340] [00014872] [DEBUG] TFiscalPrinter CreateDriver: 0
+[15.01.2026 14:16:48.342] [00014872] [DEBUG] TComPort Open COM4
+[15.01.2026 14:16:48.342] [00014872] [DEBUG] TComPort CreateHandle \\.\COM4
+[15.01.2026 14:16:48.347] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:48.347] [00014872] [DEBUG] TComPort Purge
+[15.01.2026 14:16:48.347] [00014872] [DEBUG] TComPort SetCmdTimeout 1200
+[15.01.2026 14:16:48.347] [00014872] [DEBUG] TPrinterProtocol2 -> 8F 00 00 0F 1D
+[15.01.2026 14:16:48.347] [00014872] [DEBUG] TComPort Write
+[15.01.2026 14:16:48.347] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TPrinterProtocol2 <- 8F
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TPrinterProtocol2 <- 02
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TPrinterProtocol2 <- A8
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TPrinterProtocol2 <- 69
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TPrinterProtocol2 -> 8F 03 00 01 00 FC 7D E6
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TComPort Write
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TComPort SetCmdTimeout 30000
+[15.01.2026 14:16:48.349] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.352] [00014872] [DEBUG] TPrinterProtocol2 <- 8F
+[15.01.2026 14:16:48.352] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.352] [00014872] [DEBUG] TPrinterProtocol2 <- 16
+[15.01.2026 14:16:48.352] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.352] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:48.352] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.352] [00014872] [DEBUG] TPrinterProtocol2 <- 01
+[15.01.2026 14:16:48.352] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.352] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:48.352] [00014872] [DEBUG] TComPort Read
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TPrinterProtocol2 <- FC 00 00 00 01 0E 98 00 D8 D2 D0 C8 D5 2D CD C0 CD CE 2D D4
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TPrinterProtocol2 <- CA
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TPrinterProtocol2 <- 9F
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TPrinterProtocol2 <- 81
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TPrinterProtocol2 <- 81
+[15.01.2026 14:16:48.354] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TFiscalPrinter Decode FC
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TFiscalPrinter Data = 00 00 01 0E 98 00 D8 D2 D0 C8 D5 2D CD C0 CD CE 2D D4
+[15.01.2026 14:16:48.354] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TFiscalPrinter Translate ШТРИХ-НАНО-Ф
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TFiscalPrinter Decode FC.end
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[15.01.2026 14:16:48.354] [00014872] [DEBUG] TFiscalPrinter DoSend.end
+[15.01.2026 14:16:48.361] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[15.01.2026 14:16:48.361] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.361] [00014872] [DEBUG] TFiscalPrinter DoSend
+[15.01.2026 14:16:48.361] [00014872] [DEBUG] TFiscalPrinter Data = F7 01
+[15.01.2026 14:16:48.361] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.361] [00014872] [DEBUG] TFiscalPrinter CommandCode=00F7
+[15.01.2026 14:16:48.361] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.361] [00014872] [DEBUG] TFiscalPrinter Команда: F7h, Запрос параметров модели
+[15.01.2026 14:16:48.361] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.361] [00014872] [DEBUG] TFiscalPrinter OpenPort
+[15.01.2026 14:16:48.361] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:48.361] [00014872] [DEBUG] TComPort Open COM4
+[15.01.2026 14:16:48.361] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:48.362] [00014872] [DEBUG] TComPort Purge
+[15.01.2026 14:16:48.362] [00014872] [DEBUG] TComPort SetCmdTimeout 1200
+[15.01.2026 14:16:48.362] [00014872] [DEBUG] TPrinterProtocol2 -> 8F 04 00 02 00 F7 01 AE 7F
+[15.01.2026 14:16:48.362] [00014872] [DEBUG] TComPort Write
+[15.01.2026 14:16:48.362] [00014872] [DEBUG] TComPort SetCmdTimeout 30000
+[15.01.2026 14:16:48.362] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.365] [00014872] [DEBUG] TPrinterProtocol2 <- 8F
+[15.01.2026 14:16:48.365] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.365] [00014872] [DEBUG] TPrinterProtocol2 <- 29
+[15.01.2026 14:16:48.365] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.365] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:48.365] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.365] [00014872] [DEBUG] TPrinterProtocol2 <- 02
+[15.01.2026 14:16:48.365] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.365] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:48.365] [00014872] [DEBUG] TComPort Read
+[15.01.2026 14:16:48.368] [00014872] [DEBUG] TPrinterProtocol2 <- F7 00 08 00 40 13 20 EC 01 00 0C 18 01 0C 10 00 00 00 00 00
+[15.01.2026 14:16:48.368] [00014872] [DEBUG] TPrinterProtocol2 <- 00 1E 00 00 00 00 06 FF 00 30 40 19 01 12 13 18 11 11 19
+[15.01.2026 14:16:48.368] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.368] [00014872] [DEBUG] TPrinterProtocol2 <- 0F
+[15.01.2026 14:16:48.368] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.368] [00014872] [DEBUG] TPrinterProtocol2 <- 95
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TFiscalPrinter DoSend.end
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TFiscalPrinter ШТРИХ-М: Драйвер ФР v5.25.0.2096
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TFiscalPrinter Модель : 152, ШТРИХ-НАНО-Ф 
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.371] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TFiscalPrinter Команда: 11h, Запрос состояния
+[15.01.2026 14:16:48.371] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TFiscalPrinter OpenPort
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TComPort Open COM4
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TComPort Purge
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TComPort SetCmdTimeout 1200
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TPrinterProtocol2 -> 8F 07 00 03 00 11 1E 00 00 00 AD 66
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TComPort Write
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TComPort SetCmdTimeout 5000
+[15.01.2026 14:16:48.371] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.374] [00014872] [DEBUG] TPrinterProtocol2 <- 8F
+[15.01.2026 14:16:48.374] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.375] [00014872] [DEBUG] TPrinterProtocol2 <- 32
+[15.01.2026 14:16:48.375] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.375] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:48.375] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.375] [00014872] [DEBUG] TPrinterProtocol2 <- 03
+[15.01.2026 14:16:48.375] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.375] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:48.375] [00014872] [DEBUG] TComPort Read
+[15.01.2026 14:16:48.379] [00014872] [DEBUG] TPrinterProtocol2 <- 11 00 1E 43 33 45 02 1A 08 19 01 5F 00 92 0A 04 00 00 4E 41
+[15.01.2026 14:16:48.379] [00014872] [DEBUG] TPrinterProtocol2 <- 00 00 01 01 10 0F 01 1A 0E 11 15 00 65 BD 00 00 00 00 00 00
+[15.01.2026 14:16:48.379] [00014872] [DEBUG] TPrinterProtocol2 <- 00 00 12 8C 86 42 02 00
+[15.01.2026 14:16:48.379] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.379] [00014872] [DEBUG] TPrinterProtocol2 <- 47
+[15.01.2026 14:16:48.379] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.379] [00014872] [DEBUG] TPrinterProtocol2 <- 06
+[15.01.2026 14:16:48.379] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[15.01.2026 14:16:48.379] [00014872] [DEBUG] TFiscalPrinter DoSend.end
+[15.01.2026 14:16:48.379] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:48.379] [00014872] [DEBUG] TDrvFR GetECRStatus: 0
+[15.01.2026 14:16:48.381] [00014872] [DEBUG] TDrvFR Get_ECRMode
+[15.01.2026 14:16:48.381] [00014872] [DEBUG] TDrvFR Get_ECRMode: 4
+[15.01.2026 14:16:48.381] [00014872] [DEBUG] TDrvFR Get_ECRModeDescription
+[15.01.2026 14:16:48.381] [00014872] [DEBUG] TDrvFR Get_ECRModeDescription: Закрытая смена
+[15.01.2026 14:16:48.381] [00014872] [DEBUG] TDrvFR Get_ECRSoftVersion
+[15.01.2026 14:16:48.381] [00014872] [DEBUG] TDrvFR Get_ECRSoftVersion: C.3
+[15.01.2026 14:16:48.382] [00014872] [DEBUG] TDrvFR Get_ECRBuild
+[15.01.2026 14:16:48.382] [00014872] [DEBUG] TDrvFR Get_ECRBuild: 581
+[15.01.2026 14:16:48.382] [00014872] [DEBUG] TDrvFR Get_ECRSoftDate
+[15.01.2026 14:16:48.382] [00014872] [DEBUG] TDrvFR Get_ECRSoftDate: 26.08.2025
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_FMSoftVersion
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_FMSoftVersion: N.A
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_FMSoftVersion
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_FMSoftVersion: N.A
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_FMSoftVersion
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_FMSoftVersion: N.A
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_FMSoftVersion
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_FMSoftVersion: N.A
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber: 71
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR ReadModelParamValue
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR ReadModelParamValue: 0
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_ModelParamValue
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_ModelParamValue: True
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_ECRAdvancedMode
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_ECRAdvancedMode: 0
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_ECRAdvancedModeDescription
+[15.01.2026 14:16:48.383] [00014872] [DEBUG] TDrvFR Get_ECRAdvancedModeDescription: Бумага присутствует
+[15.01.2026 14:16:48.384] [00014872] [DEBUG] TDrvFR Get_ECRModeStatus
+[15.01.2026 14:16:48.384] [00014872] [DEBUG] TDrvFR Get_ECRModeStatus: 0
+[15.01.2026 14:16:48.384] [00014872] [DEBUG] TDrvFR Get_LogicalNumber
+[15.01.2026 14:16:48.384] [00014872] [DEBUG] TDrvFR Get_LogicalNumber: 1
+[15.01.2026 14:16:48.384] [00014872] [DEBUG] TDrvFR Get_OpenDocumentNumber
+[15.01.2026 14:16:48.384] [00014872] [DEBUG] TDrvFR Get_OpenDocumentNumber: 95
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Get_PortNumber
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Get_PortNumber: 0
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Get_PortNumber
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Get_PortNumber: 0
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber: 71
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR ReadModelParamValue
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR ReadModelParamValue: 0
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Get_ModelParamValue
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Get_ModelParamValue: True
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Get_SessionNumber
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Get_SessionNumber: 0
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber: 71
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR ReadModelParamValue
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR ReadModelParamValue: 0
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Get_ModelParamValue
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Get_ModelParamValue: True
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Get_Date
+[15.01.2026 14:16:48.385] [00014872] [DEBUG] TDrvFR Get_Date: 15.01.2026
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TDrvFR Get_Time
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TDrvFR Get_Time: 14:17:21
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TDrvFR Set_TableNumber
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TDrvFR Set_TableNumber: 18
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TDrvFR Set_RowNumber
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TDrvFR Set_RowNumber: 1
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TDrvFR Set_FieldNumber
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TDrvFR Set_FieldNumber: 1
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TDrvFR ReadTable
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[15.01.2026 14:16:48.386] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TFiscalPrinter DoSend
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TFiscalPrinter Data = 2E 1E 00 00 00 12 01
+[15.01.2026 14:16:48.386] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TFiscalPrinter CommandCode=002E
+[15.01.2026 14:16:48.386] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TFiscalPrinter Команда: 2Eh, Запрос структуры поля
+[15.01.2026 14:16:48.386] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TFiscalPrinter OpenPort
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TComPort Open COM4
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TComPort Purge
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TComPort SetCmdTimeout 1200
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TPrinterProtocol2 -> 8F 09 00 04 00 2E 1E 00 00 00 12 01 4E 81
+[15.01.2026 14:16:48.386] [00014872] [DEBUG] TComPort Write
+[15.01.2026 14:16:48.387] [00014872] [DEBUG] TComPort SetCmdTimeout 30000
+[15.01.2026 14:16:48.387] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.390] [00014872] [DEBUG] TPrinterProtocol2 <- 8F
+[15.01.2026 14:16:48.390] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.390] [00014872] [DEBUG] TPrinterProtocol2 <- 30
+[15.01.2026 14:16:48.390] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.390] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:48.390] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.390] [00014872] [DEBUG] TPrinterProtocol2 <- 04
+[15.01.2026 14:16:48.390] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.390] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:48.390] [00014872] [DEBUG] TComPort Read
+[15.01.2026 14:16:48.393] [00014872] [DEBUG] TPrinterProtocol2 <- 2E 00 53 45 52 49 41 4C 20 4E 55 4D 42 45 52 00 00 00 00 00
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TPrinterProtocol2 <- 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TPrinterProtocol2 <- 00 00 01 15 00 00
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TPrinterProtocol2 <- A3
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TPrinterProtocol2 <- FA
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter Translate SERIAL NUMBER
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter Struct Cached: 18, 1 SERIAL NUMBER, min= 0, max=0, size=21, type=True
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter DoSend.end
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter ReadTable T=18, R=1, F=1
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[15.01.2026 14:16:48.394] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter DoSend
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter Data = 1F 1E 00 00 00 12 01 00 01
+[15.01.2026 14:16:48.394] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter CommandCode=001F
+[15.01.2026 14:16:48.394] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter Команда: 1Fh, Чтение таблицы
+[15.01.2026 14:16:48.394] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter OpenPort
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TComPort Open COM4
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TComPort Purge
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TComPort SetCmdTimeout 1200
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TPrinterProtocol2 -> 8F 0B 00 05 00 1F 1E 00 00 00 12 01 00 01 2C DC
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TComPort Write
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TComPort SetCmdTimeout 30000
+[15.01.2026 14:16:48.394] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.397] [00014872] [DEBUG] TPrinterProtocol2 <- 8F
+[15.01.2026 14:16:48.397] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.397] [00014872] [DEBUG] TPrinterProtocol2 <- 19
+[15.01.2026 14:16:48.397] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.397] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:48.397] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.398] [00014872] [DEBUG] TPrinterProtocol2 <- 05
+[15.01.2026 14:16:48.398] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.398] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:48.398] [00014872] [DEBUG] TComPort Read
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TPrinterProtocol2 <- 1F 00 30 33 38 30 34 39 30 30 34 31 30 34 38 34 38 35 00 30
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TPrinterProtocol2 <- 30 30 00
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TPrinterProtocol2 <- 44
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TPrinterProtocol2 <- 17
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TFiscalPrinter ValueOfFieldString.s = (0380490041048485) 30 33 38 30 34 39 30 30 34 31 30 34 38 34 38 35
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TFiscalPrinter DoSend.end
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TDrvFR ReadTable: 0
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TDrvFR Get_ValueOfFieldString
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TDrvFR Get_ValueOfFieldString: 0380490041048485
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TDrvFR Get_INN
+[15.01.2026 14:16:48.400] [00014872] [DEBUG] TDrvFR Get_INN: 009706048530
+[15.01.2026 14:16:48.401] [00014872] [DEBUG] TDrvFR Get_ECRFlags
+[15.01.2026 14:16:48.401] [00014872] [DEBUG] TDrvFR Get_ECRFlags: 2706
+[15.01.2026 14:16:48.401] [00014872] [DEBUG] TDrvFR Get_ECRFlags
+[15.01.2026 14:16:48.401] [00014872] [DEBUG] TDrvFR Get_ECRFlags: 2706
+[15.01.2026 14:16:48.401] [00014872] [DEBUG] TDrvFR Get_QuantityPointPosition
+[15.01.2026 14:16:48.401] [00014872] [DEBUG] TDrvFR Get_QuantityPointPosition: False
+[15.01.2026 14:16:48.402] [00014872] [DEBUG] TDrvFR Get_PresenterOut
+[15.01.2026 14:16:48.402] [00014872] [DEBUG] TDrvFR Get_PresenterOut: False
+[15.01.2026 14:16:48.402] [00014872] [DEBUG] TDrvFR Get_PresenterIn
+[15.01.2026 14:16:48.402] [00014872] [DEBUG] TDrvFR Get_PresenterIn: False
+[15.01.2026 14:16:48.402] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber
+[15.01.2026 14:16:48.402] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber: 71
+[15.01.2026 14:16:48.402] [00014872] [DEBUG] TDrvFR ReadModelParamValue
+[15.01.2026 14:16:48.402] [00014872] [DEBUG] TDrvFR ReadModelParamValue: 0
+[15.01.2026 14:16:48.402] [00014872] [DEBUG] TDrvFR Get_ModelParamValue
+[15.01.2026 14:16:48.402] [00014872] [DEBUG] TDrvFR Get_ModelParamValue: True
+[15.01.2026 14:16:48.402] [00014872] [DEBUG] TDrvFR Get_IsDrawerOpen
+[15.01.2026 14:16:48.402] [00014872] [DEBUG] TDrvFR Get_IsDrawerOpen: True
+[15.01.2026 14:16:48.403] [00014872] [DEBUG] TDrvFR Get_LidPositionSensor
+[15.01.2026 14:16:48.403] [00014872] [DEBUG] TDrvFR Get_LidPositionSensor: False
+[15.01.2026 14:16:48.403] [00014872] [DEBUG] TDrvFR Get_ReceiptRibbonLever
+[15.01.2026 14:16:48.403] [00014872] [DEBUG] TDrvFR Get_ReceiptRibbonLever: True
+[15.01.2026 14:16:48.403] [00014872] [DEBUG] TDrvFR Get_JournalRibbonLever
+[15.01.2026 14:16:48.403] [00014872] [DEBUG] TDrvFR Get_JournalRibbonLever: True
+[15.01.2026 14:16:48.403] [00014872] [DEBUG] TDrvFR Get_ReceiptRibbonOpticalSensor
+[15.01.2026 14:16:48.403] [00014872] [DEBUG] TDrvFR Get_ReceiptRibbonOpticalSensor: True
+[15.01.2026 14:16:48.404] [00014872] [DEBUG] TDrvFR Get_JournalRibbonOpticalSensor
+[15.01.2026 14:16:48.404] [00014872] [DEBUG] TDrvFR Get_JournalRibbonOpticalSensor: True
+[15.01.2026 14:16:48.404] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber
+[15.01.2026 14:16:48.404] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber: 71
+[15.01.2026 14:16:48.404] [00014872] [DEBUG] TDrvFR ReadModelParamValue
+[15.01.2026 14:16:48.404] [00014872] [DEBUG] TDrvFR ReadModelParamValue: 0
+[15.01.2026 14:16:48.404] [00014872] [DEBUG] TDrvFR Get_ModelParamValue
+[15.01.2026 14:16:48.404] [00014872] [DEBUG] TDrvFR Get_ModelParamValue: True
+[15.01.2026 14:16:48.404] [00014872] [DEBUG] TDrvFR Get_PointPosition
+[15.01.2026 14:16:48.404] [00014872] [DEBUG] TDrvFR Get_PointPosition: True
+[15.01.2026 14:16:48.404] [00014872] [DEBUG] TDrvFR Get_SlipDocumentIsPresent
+[15.01.2026 14:16:48.404] [00014872] [DEBUG] TDrvFR Get_SlipDocumentIsPresent: True
+[15.01.2026 14:16:48.405] [00014872] [DEBUG] TDrvFR Get_SlipDocumentIsMoving
+[15.01.2026 14:16:48.405] [00014872] [DEBUG] TDrvFR Get_SlipDocumentIsMoving: True
+[15.01.2026 14:16:48.405] [00014872] [DEBUG] TDrvFR Get_ReceiptRibbonIsPresent
+[15.01.2026 14:16:48.405] [00014872] [DEBUG] TDrvFR Get_ReceiptRibbonIsPresent: True
+[15.01.2026 14:16:48.405] [00014872] [DEBUG] TDrvFR Get_JournalRibbonIsPresent
+[15.01.2026 14:16:48.405] [00014872] [DEBUG] TDrvFR Get_JournalRibbonIsPresent: True
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber: 71
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR ReadModelParamValue
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR ReadModelParamValue: 0
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Get_ModelParamValue
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Get_ModelParamValue: True
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber: 71
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR ReadModelParamValue
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR ReadModelParamValue: 0
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Get_ModelParamValue
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Get_ModelParamValue: True
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber: 28
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR ReadModelParamValue
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR ReadModelParamValue: 0
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Get_ModelParamValue
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Get_ModelParamValue: False
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Set_ModelParamNumber: 57
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR ReadModelParamValue
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR ReadModelParamValue: 0
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Get_ModelParamValue
+[15.01.2026 14:16:48.406] [00014872] [DEBUG] TDrvFR Get_ModelParamValue: False
+[15.01.2026 14:16:48.410] [00014872] [DEBUG] TDrvFR Get_ResultCode
+[15.01.2026 14:16:48.410] [00014872] [DEBUG] TDrvFR Get_ResultCode: 0
+[15.01.2026 14:16:48.410] [00014872] [DEBUG] TDrvFR Get_ResultCodeDescription
+[15.01.2026 14:16:48.410] [00014872] [DEBUG] TDrvFR Get_ResultCodeDescription: Ошибок нет
+[15.01.2026 14:16:48.410] [00014872] [DEBUG] TDrvFR Get_ECRInput
+[15.01.2026 14:16:48.410] [00014872] [DEBUG] TDrvFR Get_ECRInput: 8F 0B 00 05 00 1F 1E 00 00 00 12 01 00 01 2C DC 
+[15.01.2026 14:16:48.410] [00014872] [DEBUG] TDrvFR Get_ECROutput
+[15.01.2026 14:16:48.410] [00014872] [DEBUG] TDrvFR Get_ECROutput: 8F | 19 | 00 | 05 | 00 1F 00 30 33 38 30 34 39 30 30 34 31 30 34 38 34 38 35 00 30 30 30 00 44 | 17
+[15.01.2026 14:16:48.410] [00014872] [DEBUG] TDrvFR Get_OperatorNumber
+[15.01.2026 14:16:48.411] [00014872] [DEBUG] TDrvFR Get_OperatorNumber: 30
+[15.01.2026 14:16:48.411] [00014872] [DEBUG] TDrvFR Get_ConnectionType
+[15.01.2026 14:16:48.411] [00014872] [DEBUG] TDrvFR Get_ConnectionType: 0
+[15.01.2026 14:16:48.411] [00014872] [DEBUG] TDrvFR Get_ComNumber
+[15.01.2026 14:16:48.411] [00014872] [DEBUG] TDrvFR Get_ComNumber: 4
+[15.01.2026 14:16:48.411] [00014872] [DEBUG] TDrvFR Get_BaudRate
+[15.01.2026 14:16:48.411] [00014872] [DEBUG] TDrvFR Get_BaudRate: 6
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TDrvFR Set_CheckType
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TDrvFR Set_CheckType: 2
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TDrvFR OpenCheck
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[15.01.2026 14:16:53.426] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TFiscalPrinter DoSend
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TFiscalPrinter Data = 10 1E 00 00 00
+[15.01.2026 14:16:53.426] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TFiscalPrinter CommandCode=0010
+[15.01.2026 14:16:53.426] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TFiscalPrinter Команда: 10h, Короткий запрос состояния
+[15.01.2026 14:16:53.426] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TFiscalPrinter OpenPort
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TComPort Open COM4
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TComPort Purge
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TComPort SetCmdTimeout 1200
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TPrinterProtocol2 -> 8F 07 00 06 00 10 1E 00 00 00 5B B5
+[15.01.2026 14:16:53.426] [00014872] [DEBUG] TComPort Write
+[15.01.2026 14:16:53.427] [00014872] [DEBUG] TComPort SetCmdTimeout 5000
+[15.01.2026 14:16:53.427] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.430] [00014872] [DEBUG] TPrinterProtocol2 <- 8F
+[15.01.2026 14:16:53.430] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.430] [00014872] [DEBUG] TPrinterProtocol2 <- 12
+[15.01.2026 14:16:53.430] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.430] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:53.430] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.430] [00014872] [DEBUG] TPrinterProtocol2 <- 06
+[15.01.2026 14:16:53.430] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.430] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:53.430] [00014872] [DEBUG] TComPort Read
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TPrinterProtocol2 <- 10 00 1E 92 0A 04 00 00 CB 24 00 FE 00 00 06 00
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TPrinterProtocol2 <- D9
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TPrinterProtocol2 <- BE
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter DoSend.end
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter Автоматическое открытие смены по настройке
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter FWUpdateFFDParams is off
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] IsModelType2 0 False
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[15.01.2026 14:16:53.431] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter DoSend
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter Data = 2E 1E 00 00 00 19 01
+[15.01.2026 14:16:53.431] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter CommandCode=002E
+[15.01.2026 14:16:53.431] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter Команда: 2Eh, Запрос структуры поля
+[15.01.2026 14:16:53.431] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter OpenPort
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TComPort Open COM4
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:53.431] [00014872] [DEBUG] TComPort Purge
+[15.01.2026 14:16:53.432] [00014872] [DEBUG] TComPort SetCmdTimeout 1200
+[15.01.2026 14:16:53.432] [00014872] [DEBUG] TPrinterProtocol2 -> 8F 09 00 07 00 2E 1E 00 00 00 19 01 F0 70
+[15.01.2026 14:16:53.432] [00014872] [DEBUG] TComPort Write
+[15.01.2026 14:16:53.432] [00014872] [DEBUG] TComPort SetCmdTimeout 30000
+[15.01.2026 14:16:53.432] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.435] [00014872] [DEBUG] TPrinterProtocol2 <- 8F
+[15.01.2026 14:16:53.435] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.435] [00014872] [DEBUG] TPrinterProtocol2 <- 30
+[15.01.2026 14:16:53.435] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.435] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:53.435] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.435] [00014872] [DEBUG] TPrinterProtocol2 <- 07
+[15.01.2026 14:16:53.435] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.435] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:53.435] [00014872] [DEBUG] TComPort Read
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TPrinterProtocol2 <- 2E 00 31 30 34 38 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TPrinterProtocol2 <- 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TPrinterProtocol2 <- 00 00 01 80 00 00
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TPrinterProtocol2 <- 10
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TPrinterProtocol2 <- 2A
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter Translate 1048
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter Struct Cached: 25, 1 1048, min= 0, max=0, size=128, type=True
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter DoSend.end
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[15.01.2026 14:16:53.439] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter DoSend
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter Data = 1E 1E 00 00 00 19 01 00 01 64 72 76 66 72 20 35 2E 32 35 2E
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter Data = 30 2E 32 30 39 36 20 32 30 32 36 2D 30 31 2D 31 35 54 31 31
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter Data = 3A 31 36 3A 35 33 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter Data = 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter Data = 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter Data = 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[15.01.2026 14:16:53.439] [00014872] [DEBUG] TFiscalPrinter Data = 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[15.01.2026 14:16:53.439] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TFiscalPrinter CommandCode=001E
+[15.01.2026 14:16:53.440] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TFiscalPrinter Команда: 1Eh, Запись таблицы
+[15.01.2026 14:16:53.440] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TFiscalPrinter OpenPort
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TComPort Open COM4
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TComPort Purge
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TComPort SetCmdTimeout 1200
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TPrinterProtocol2 -> 8F 8B 00 08 00 1E 1E 00 00 00 19 01 00 01 64 72 76 66 72 20
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TPrinterProtocol2 -> 35 2E 32 35 2E 30 2E 32 30 39 36 20 32 30 32 36 2D 30 31 2D
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TPrinterProtocol2 -> 31 35 54 31 31 3A 31 36 3A 35 33 00 00 00 00 00 00 00 00 00
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TPrinterProtocol2 -> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TPrinterProtocol2 -> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TPrinterProtocol2 -> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TPrinterProtocol2 -> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TPrinterProtocol2 -> 00 00 59 ED
+[15.01.2026 14:16:53.440] [00014872] [DEBUG] TComPort Write
+[15.01.2026 14:16:53.446] [00014872] [DEBUG] TComPort SetCmdTimeout 30000
+[15.01.2026 14:16:53.446] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.458] [00014872] [DEBUG] TPrinterProtocol2 <- 8F
+[15.01.2026 14:16:53.458] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.458] [00014872] [DEBUG] TPrinterProtocol2 <- 04
+[15.01.2026 14:16:53.458] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.458] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:53.458] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.458] [00014872] [DEBUG] TPrinterProtocol2 <- 08
+[15.01.2026 14:16:53.458] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TComPort Read
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TPrinterProtocol2 <- 1E 00
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TPrinterProtocol2 <- 0E
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TPrinterProtocol2 <- AD
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TFiscalPrinter DoSend.end
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[15.01.2026 14:16:53.459] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TFiscalPrinter DoSend
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TFiscalPrinter Data = E0 1E 00 00 00
+[15.01.2026 14:16:53.459] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TFiscalPrinter CommandCode=00E0
+[15.01.2026 14:16:53.459] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TFiscalPrinter Команда: E0h, Открытие смены
+[15.01.2026 14:16:53.459] [00014872] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TFiscalPrinter OpenPort
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TComPort Open COM4
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TComPort Purge
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TComPort SetCmdTimeout 1200
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TPrinterProtocol2 -> 8F 07 00 09 00 E0 1E 00 00 00 E4 00
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TComPort Write
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TComPort SetCmdTimeout 40000
+[15.01.2026 14:16:53.459] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:54.671] [00014872] [DEBUG] TComPort Purge
+[15.01.2026 14:16:54.671] [00014872] [DEBUG] TComPort SetCmdTimeout 1200
+[15.01.2026 14:16:54.671] [00014872] [DEBUG] TPrinterProtocol2 -> 8F 07 00 09 00 E0 1E 00 00 00 E4 00
+[15.01.2026 14:16:54.671] [00014872] [DEBUG] TComPort Write
+[15.01.2026 14:16:54.672] [00014872] [DEBUG] TComPort SetCmdTimeout 40000
+[15.01.2026 14:16:54.672] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TPrinterProtocol2 <- 8F
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TPrinterProtocol2 <- 04
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TPrinterProtocol2 <- 09
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TPrinterProtocol2 <- 00
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TComPort Read
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TPrinterProtocol2 <- E0 30
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TPrinterProtocol2 <- 27
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TComPort ReadChar
+[15.01.2026 14:16:54.897] [00014872] [DEBUG] TPrinterProtocol2 <- DD
+[15.01.2026 14:16:54.897] [00014872] [ERROR] TFiscalPrinter (48, 30h) ФН не отвечает
+[15.01.2026 14:16:54.898] [00014872] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[15.01.2026 14:16:54.898] [00014872] [DEBUG] TFiscalPrinter DoSend.end
+[15.01.2026 14:16:54.898] [00014872] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 14:16:54.898] [00014872] [DEBUG] TDrvFR OpenCheck: 48
+[15.01.2026 14:16:54.898] [00014872] [DEBUG] TDrvFR Get_ResultCode
+[15.01.2026 14:16:54.898] [00014872] [DEBUG] TDrvFR Get_ResultCode: 48
+[15.01.2026 14:16:54.898] [00014872] [DEBUG] TDrvFR Get_ResultCodeDescription
+[15.01.2026 14:16:54.898] [00014872] [DEBUG] TDrvFR Get_ResultCodeDescription: ФН не отвечает
+[15.01.2026 14:16:54.898] [00014872] [DEBUG] TDrvFR Get_ECRInput
+[15.01.2026 14:16:54.898] [00014872] [DEBUG] TDrvFR Get_ECRInput: 8F 07 00 09 00 E0 1E 00 00 00 E4 00 
+[15.01.2026 14:16:54.899] [00014872] [DEBUG] TDrvFR Get_ECROutput
+[15.01.2026 14:16:54.899] [00014872] [DEBUG] TDrvFR Get_ECROutput: 8F | 04 | 00 | 09 | 00 E0 30 27 | DD
+[15.01.2026 14:16:54.901] [00014872] [DEBUG] TDrvFR Get_OperatorNumber
+[15.01.2026 14:16:54.901] [00014872] [DEBUG] TDrvFR Get_OperatorNumber: 30
+[15.01.2026 14:16:54.902] [00014872] [DEBUG] TDrvFR Get_ConnectionType
+[15.01.2026 14:16:54.902] [00014872] [DEBUG] TDrvFR Get_ConnectionType: 0
+[15.01.2026 14:16:54.902] [00014872] [DEBUG] TDrvFR Get_ComNumber
+[15.01.2026 14:16:54.902] [00014872] [DEBUG] TDrvFR Get_ComNumber: 4
+[15.01.2026 14:16:54.902] [00014872] [DEBUG] TDrvFR Get_BaudRate
+[15.01.2026 14:16:54.902] [00014872] [DEBUG] TDrvFR Get_BaudRate: 6
+[15.01.2026 14:17:02.773] [00014872] [DEBUG] TFiscalPrinter Disconnect
+[15.01.2026 14:17:02.773] [00014872] [DEBUG] IsModelType2 152 False
+[15.01.2026 14:17:02.773] [00014872] [DEBUG] TFiscalPrinter ServerDisconnect
+[15.01.2026 14:17:02.773] [00014872] [DEBUG] TComPort Close
+[15.01.2026 14:17:02.773] [00014872] [DEBUG] TComPort Close.1
+[15.01.2026 14:17:02.773] [00014872] [DEBUG] TComPort Close.2
+[15.01.2026 14:17:02.774] [00014872] [DEBUG] TComPort Close.3
+[15.01.2026 14:17:02.776] [00014872] [DEBUG] TOFDYaSlipSender Stop
+[15.01.2026 14:17:02.776] [00014872] [DEBUG] TOFDYaSlipSender Stop
+[15.01.2026 14:17:02.782] [00014872] [DEBUG] TDrvFR Destroy
+[15.01.2026 14:19:32.753] [00009776] [DEBUG] TLogicDevice LoadParams
+[15.01.2026 14:19:32.753] [00009776] [DEBUG] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:19:32.753] [00009776] [DEBUG] TFiscalPrinter LOG START
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] TFiscalPrinter Драйвер ФР. ШТРИХ-М. Версия файла: 5.25.0.2096
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] CommandRetryCount=3
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] ComLogFile=C:\ProgramData\TorgBalance\DrvFR\Logs\DrvFR.log
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] LogOn=True
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] BaudRate=6
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] ComNumber=4
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] Timeout=1200
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] PlainTransferMode=0
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] TLSMode=0
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] ConnectionTimeout=0
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] TCPConnectionTimeout=10000
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] SyncTimeout=0
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] ComputerName='192.168.137.111'
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] LDIndex=0
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] LockTimeout=10000
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] TCPPort=7778
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] IPAddress='192.168.137.111'
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] UseIPAddress=True
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] ConnectionType=0
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] EscapeIP=127.0.0.1
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] EscapePort=1000
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] EscapeTimeout=1000
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] SysAdminPassword=30
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] CardPayType=2
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] CardPayEnabled=False
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] LogCommands=False
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] LogMethods=False
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] SaleError=False
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] MobilePayEnabled=False
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] PayDepartment=15
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] ParamsPageIndex=2
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] RealPayDepartment=1
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] WaitForPrintingDelay=300
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] BufferingType=0
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] FeedAfterCut=False
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] FeedLineCount=3
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] StatusCommand=0
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] MaxAnsCount=4
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] LogMaxFileSize=10
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] LogMaxFileCount=10
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] CodePage=1
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] PrintJournalBeforeZReport=False
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] TranslationEnabled=False
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] AdjustRITimeout=False
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] ReconnectPort=False
+[15.01.2026 14:19:32.754] [00009776] [DEBUG] DoNotSendENQ=False
+[15.01.2026 14:19:34.426] [00009776] [DEBUG] TFiscalPrinter Disconnect
+[15.01.2026 14:19:34.426] [00009776] [DEBUG] TFiscalPrinter ServerDisconnect
+[15.01.2026 14:19:34.429] [00009776] [DEBUG] TDrvFR Destroy

@@ -1,0 +1,138 @@
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] Purge
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol SetCmdTimeout: 1200
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol -> 05
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol ReadAckChar try
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol <- 15
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] Purge
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol -> 02 01 FC FD
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol ReadAckChar try
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol <- 06
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol SetCmdTimeout: 30000
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol <- 02
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol <- 16
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol SetCmdTimeout: 1200
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol <- FC 00 00 00 01 0E FC 00 D8 D2 D0 C8 D5 2D CB C0 C9 D2 2D 30
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol <- 32 D4 18
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol -> 06
+[15.01.2026 16:07:41.275] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Decode FC
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Data = 00 00 01 0E FC 00 D8 D2 D0 C8 D5 2D CB C0 C9 D2 2D 30 32 D4
+[15.01.2026 16:07:41.275] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Translate ШТРИХ-ЛАЙТ-02Ф
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Decode FC.end
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter DoSend.end
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[15.01.2026 16:07:41.275] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter DoSend
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Data = 11 1E 00 00 00
+[15.01.2026 16:07:41.275] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter CommandCode=0011
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[15.01.2026 16:07:41.275] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter DoSend
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Data = FC
+[15.01.2026 16:07:41.275] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter CommandCode=00FC
+[15.01.2026 16:07:41.275] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Команда: FCh, Получить тип устройства
+[15.01.2026 16:07:41.275] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter OpenPort
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TTCPSocketDriver.OpenPort 192.168.137.111:7778 1200
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] Check for socket opened
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] Check for socket opened
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] Purge
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol SetCmdTimeout: 1200
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol -> 05
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol ReadAckChar try
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol <- 15
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] Purge
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol -> 02 01 FC FD
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol ReadAckChar try
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol <- 06
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol SetCmdTimeout: 30000
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol <- 02
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol <- 16
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol SetCmdTimeout: 1200
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol <- FC 00 00 00 01 0E FC 00 D8 D2 D0 C8 D5 2D CB C0 C9 D2 2D 30
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol <- 32 D4 18
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TPrinterProtocol -> 06
+[15.01.2026 16:07:41.275] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Decode FC
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Data = 00 00 01 0E FC 00 D8 D2 D0 C8 D5 2D CB C0 C9 D2 2D 30 32 D4
+[15.01.2026 16:07:41.275] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Translate ШТРИХ-ЛАЙТ-02Ф
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter Decode FC.end
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[15.01.2026 16:07:41.275] [00018280] [DEBUG] TFiscalPrinter DoSend.end
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[15.01.2026 16:07:41.291] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter DoSend
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter Data = F7 01
+[15.01.2026 16:07:41.291] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter CommandCode=00F7
+[15.01.2026 16:07:41.291] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter Команда: F7h, Запрос параметров модели
+[15.01.2026 16:07:41.291] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter OpenPort
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TTCPSocketDriver.OpenPort 192.168.137.111:7778 1200
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] Check for socket opened
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] Check for socket opened
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] Purge
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol SetCmdTimeout: 1200
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol -> 05
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol ReadAckChar try
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol <- 15
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] Purge
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol -> 02 02 F7 01 F4
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol ReadAckChar try
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol <- 06
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol SetCmdTimeout: 30000
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol <- 02
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol <- 27
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol SetCmdTimeout: 1200
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol <- F7 00 5A A0 40 03 20 EC 31 00 0C 18 01 0C 10 00 00 00 00 00
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol <- 00 1E 00 00 00 00 06 FF 00 30 40 B6 03 12 13 18 11 11 19 BF
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol -> 06
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter DoSend.end
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter ШТРИХ-М: Драйвер ФР v5.25.0.2096
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter Модель : 252, ШТРИХ-ЛАЙТ-02Ф 
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.291] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter Команда: 11h, Запрос состояния
+[15.01.2026 16:07:41.291] [00018280] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter OpenPort
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter Lock
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TTCPSocketDriver.OpenPort 192.168.137.111:7778 1200
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] Check for socket opened
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] Check for socket opened
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] Purge
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol SetCmdTimeout: 1200
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol -> 05
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol ReadAckChar try
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol <- 15
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] Purge
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol -> 02 05 11 1E 00 00 00 0A
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol ReadAckChar try
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol <- 06
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol SetCmdTimeout: 5000
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol <- 02
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol <- 30
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol SetCmdTimeout: 1200
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol <- 11 00 1E 54 33 1C 1C 11 0C 19 01 DF 00 92 02 04 00 02 57 41
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol <- 00 00 01 01 10 0F 01 1A 10 07 28 00 86 45 00 00 5A 00 00 00
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol <- 00 00 12 8C 86 42 02 00 F8
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TPrinterProtocol -> 06
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter DoSend.end
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter Unlock
+[15.01.2026 16:07:41.291] [00018280] [DEBUG] TFiscalPrinter Connected
