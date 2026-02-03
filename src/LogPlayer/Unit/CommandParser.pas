@@ -19,7 +19,7 @@ type
     ftCheckItemLocalResult, ftCheckItemLocalError, ftMarkingType2, ftItemStatus,
     ftBarcodeOSU, ftMarkingType, ftMarkingTypeEx, ftAcceptOrDecline,
     ftKMSendAnswer, ftString16, ftDateTimeDoc, ftFNSessionState,
-    ftFNCurrentDocument, ftFNDocumentData, ftFNLifeState
+    ftFNCurrentDocument, ftFNDocumentData, ftFNLifeState, ftServiceCmd
   );
 
   TParseType = (pFields, pAnswerFields, pPlayedFields);
@@ -93,12 +93,13 @@ uses
   ParserCommandFF67, ParserCommandFF69, ParserCommandFF70,
   ParserCommandFF71, ParserCommandFF72, ParserCommandFF73,
   ParserCommandFF74, ParserCommandFF75, ParserCommandFF76,
-  ParserCommandFF78;
+  ParserCommandFF78, ParserCommandFE;
 
 const
   VALUE_NOT_VISIBLE = '###logplayer_not_visible_value###';
 
-procedure ParseCommand(const ACmd: TCommand; var Fields: string; var AnswerFields: string; var PlayedFields: string);
+procedure ParseCommand(const ACmd: TCommand; var Fields: string;
+  var AnswerFields: string; var PlayedFields: string);
 var
   Commands: TParserCommands;
   Command: TParserCommand;
@@ -144,6 +145,133 @@ begin
     Commands.Free;
   end;
 end;
+
+function GetServiceCodeName(Code: Integer): string;
+begin
+  case Code of
+    $00: Result := 'SERVICE_CMD_1_DIR_FM_WRITE';
+    $01: Result := 'SERVICE_CMD_1_DIR_FM_READ';
+    $02: Result := 'SERVICE_CMD_1_DIR_PB_READ';
+    $03: Result := 'SERVICE_CMD_1_DIR_CUSTOM_FONT_WRITE';
+    $04: Result := 'SERVICE_CMD_1_DIR_SD_FORMAT_REQUEST';
+    $05: Result := 'SERVICE_CMD_1_DIR_ENABLE_PLAIN_PROTOCOL';
+    $06: Result := 'SERVICE_CMD_1_DIR_DISABLE_PLAIN_PROTOCOL';
+    $07: Result := 'SERVICE_CMD_1_DIR_START_BLOCKING_MODE';
+    $08: Result := 'SERVICE_CMD_1_DIR_FINISH_BLOCKING_MODE';
+    $09: Result := 'SERVICE_CMD_1_DIR_CUSTOM_FONT_SHA256';
+    $0A: Result := 'SERVICE_CMD_1_DIR_CUSTOM_FONT_CLEAR';
+    $0B: Result := 'SERVICE_CMD_1_DIR_GET_LAST_KM_STATUS';
+    $0C: Result := 'SERVICE_CMD_1_DIR_SCANNER_KEY_AGREEMENT';
+    $0D: Result := 'SERVICE_CMD_1_DIR_IF_TEST';
+    $0E: Result := 'SERVICE_CMD_1_DIR_HDW_PARAM_SET';
+    $0F: Result := 'SERVICE_CMD_1_DIR_HDW_PARAM_GET';
+    $10: Result := 'SERVICE_CMD_1_DIR_SW_PARAM_GET';
+    $11: Result := 'SERVICE_CMD_1_DIR_REMOVE_MONO_CHECKS';
+    $12: Result := 'SERVICE_CMD_1_DIR_FORCE_SAVE_TABLES';
+    $13: Result := 'SERVICE_CMD_1_DIR_VIF_SKIP_PASSWORD_CHK';
+
+    $D0: Result := 'SERVICE_CMD_1_DIR_ACTIVATION_DATA_GEN';
+    $D1: Result := 'SERVICE_CMD_1_DIR_ACTIVATION_DATA_READ';
+    $D2: Result := 'SERVICE_CMD_1_DIR_SESSION_KEY_AGREEMENT';
+
+    $E0: Result := 'SERVICE_CMD_1_DIR_REVERSE';
+    $E1: Result := 'SERVICE_CMD_1_DIR_FORCE_FS_KEY_UPDATE';
+    $E2: Result := 'SERVICE_CMD_1_DIR_SYNC_FS_DATE_TIME';
+    $E3: Result := 'SERVICE_CMD_1_DIR_RESET_STAT_COUNTERS';
+    $E4: Result := 'SERVICE_CMD_1_DIR_CHANGE_MAC';
+    $E5: Result := 'SERVICE_CMD_1_DIR_FS_CLOSE';
+    $E6: Result := 'SERVICE_CMD_1_DIR_PROG_FEATURE_LIC';
+    $E7: Result := 'SERVICE_CMD_1_DIR_READ_FEATURE_LIC';
+    $E8: Result := 'SERVICE_CMD_1_DIR_RESET_CHALLENGE_KEY';
+    $E9: Result := 'SERVICE_CMD_1_DIR_SET_CHALLENGE_KEY';
+    $EA: Result := 'SERVICE_CMD_1_DIR_ENABLE_DOWNGRADE';
+    $EB: Result := 'SERVICE_CMD_1_DIR_GET_PRN_VER';
+    $EC: Result := 'SERVICE_CMD_1_DIR_GET_BL_VER';
+    $ED: Result := 'SERVICE_CMD_1_DIR_DFU_REBOOT';
+    $EE: Result := 'SERVICE_CMD_1_DIR_PROG_LIC_DEPRECATED';
+    $EF: Result := 'SERVICE_CMD_1_DIR_READ_LIC_DEPRECATED';
+    $F0: Result := 'SERVICE_CMD_1_DIR_READ_MCU_UID';
+    $F1: Result := 'SERVICE_CMD_1_DIR_SERIALNUMBER_REPLACE';
+    $F2: Result := 'SERVICE_CMD_1_DIR_PING';
+    $F3: Result := 'SERVICE_CMD_1_DIR_REBOOT';
+    $F4: Result := 'SERVICE_CMD_1_DIR_GLOBALSUMM_GET';
+    $F5: Result := 'SERVICE_CMD_1_DIR_SERIALNUMBER_PROG';
+    $F6: Result := 'SERVICE_CMD_1_DIR_FLASHKEY_PROG';
+    $F7: Result := 'SERVICE_CMD_1_DIR_SET_MODEL';
+    $F8: Result := 'SERVICE_CMD_1_DIR_MASS_ERASE';
+    $F9: Result := 'SERVICE_CMD_1_DIR_SESSIONKEY_PROG';
+    $FA: Result := 'SERVICE_CMD_1_DIR_MASTERKEY_PROG';
+    $FB: Result := 'SERVICE_CMD_1_DIR_WIFI_PROG';
+    $FC: Result := 'SERVICE_CMD_1_DIR_PRINTER_INIT';
+    $FD: Result := 'SERVICE_CMD_1_DIR_FM_PROG';
+    $FE: Result := 'SERVICE_CMD_1_DIR_GRAPH_OFF';
+    $FF: Result := 'SERVICE_CMD_1_DIR_GRAPH_ON';
+  else
+    Result := 'Неизвестный код';
+  end;
+end;
+
+function GetServiceCodeDisplayText(Code: Integer): string;
+begin
+  case Code of
+    $00: Result := 'Запись данных ФП';
+    $01: Result := 'Чтение данных ФП';
+    $02: Result := 'Чтение PB';
+    $03: Result := 'Загрузка пользовательского шрифта';
+    $04: Result := 'Форматирвоание SD карты';
+    $05: Result := 'Включение простого протокола';
+    $06: Result := 'Отключение простого протокола';
+    $07: Result := 'Включение режима блокировки';
+    $08: Result := 'Отключение режима блокировки';
+    $09: Result := 'Подпись пользовательского шрифта';
+    $0A: Result := 'Удаление пользовательского шрифта';
+    $0B: Result := 'Получение состояния последнего КМ';
+    $0C: Result := 'SERVICE_CMD_1_DIR_SCANNER_KEY_AGREEMENT';
+    $0D: Result := 'Проверка интерфейса';
+    $0E: Result := 'Запись параметров оборудования';
+    $0F: Result := 'Чтение параметров оборудования';
+    $10: Result := 'Запрос параметра ПО';
+    $11: Result := 'Удаление mono';
+    $12: Result := 'Запись таблиц';
+    $13: Result := 'Отмена проверки пароля';
+
+    $E0: Result := 'Добавление в буфер команды обратной печати';
+    $E1: Result := 'Выполнить обновление ключей ФН';
+    $E2: Result := 'Синхронизация даты ККТ с датой последнего ФД';
+    $E3: Result := 'Сброс внутренних счетчиков';
+    $E4: Result := 'Изменение MAC адреса';
+    $E5: Result := 'Закрытие фискального режима ФН';
+    $E6: Result := 'Запись функциональных лицензий';
+    $E7: Result := 'Чтение функциональных лицензий';
+    $E8: Result := 'Удаление ключа авторизации';
+    $E9: Result := 'Запись ключа авторизации';
+    $EA: Result := 'Разрешение загрузки ранней версии ПО';
+    $EB: Result := 'Запрос версии ПО принтера';
+    $EC: Result := 'Запрос версии загрузчика';
+    $ED: Result := 'Переход в режим DFU';
+    $EE: Result := 'Запись лицензии (устаревшая)';
+    $EF: Result := 'Чтение лицензии (устаревшая)';
+    $F0: Result := 'Чтение UID процессора';
+    $F1: Result := 'Смена заводского номера';
+    $F2: Result := 'Проверка связи с сервером (PING)';
+    $F3: Result := 'Перезапуск кассы';
+    $F4: Result := 'Запрос необнуляемых сумм';
+    $F5: Result := 'Запись заводского номера';
+    $F6: Result := 'Запись ключа доступа к FLASH памяти';
+    $F7: Result := 'Запись кода модели';
+    $F8: Result := 'Полная очистка базы данных';
+    $F9: Result := 'Запись сессионного ключа';
+    $FA: Result := 'Запись мастер ключа';
+    $FB: Result := 'Перевод ККТ в состояние обновления модуля WIFI';
+    $FC: Result := 'Инициализация ФП';
+    $FD: Result := 'Запись ФП';
+    $FE: Result := 'Отключение печати графики';
+    $FF: Result := 'Включение печати графики';
+  else
+    Result := 'Неизвестный код';
+  end;
+end;
+
 
 { TParserCommand }
 
@@ -1051,6 +1179,12 @@ begin
             IntValue := FStream.ReadByte;
             FieldValue := Format('%d [%s]', [IntValue, FNLifeStateToStr(IntValue)]);
           end;
+        ftServiceCmd:
+          begin
+            IntValue := FStream.ReadByte;
+            FieldValue := Format('0x%.2X (%s, %s)', [IntValue,
+              GetServiceCodeDisplayText(IntValue), GetServiceCodeName(IntValue)]);
+          end;
       end;
       Value := Value + FieldValue;
       if FieldValue <> VALUE_NOT_VISIBLE then
@@ -1279,6 +1413,7 @@ begin
   AddCommand($89, TParserCommand89);
   AddCommand($8D, TParserCommand8D);
   AddCommand($FC, TParserCommandFC);
+  AddCommand($FE, TParserCommandFE);
 end;
 
 destructor TParserCommands.Destroy;

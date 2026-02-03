@@ -30,7 +30,6 @@ uses
   LogFile in 'Unit\LogFile.pas',
   untFileUtil in 'Unit\untFileUtil.pas',
   ParserCommand10 in 'Unit\Commands\ParserCommand10.pas',
-  ParserCommandFC in 'Unit\Commands\ParserCommandFC.pas',
   ParserCommand8D in 'Unit\Commands\ParserCommand8D.pas',
   ParserCommand1E in 'Unit\Commands\ParserCommand1E.pas',
   ParserCommand1F in 'Unit\Commands\ParserCommand1F.pas',
@@ -59,7 +58,9 @@ uses
   ParserCommandFF76 in 'Unit\Commands\ParserCommandFF76.pas',
   LogParser2 in 'Unit\LogParser2.pas',
   ShtrihProtocol2 in 'Unit\ShtrihProtocol2.pas',
-  ShtrihProtocol1 in 'Unit\ShtrihProtocol1.pas';
+  ShtrihProtocol1 in 'Unit\ShtrihProtocol1.pas',
+  ParserCommandFE in 'Unit\Commands\ParserCommandFE.pas',
+  ParserCommandFC in 'Unit\Commands\ParserCommandFC.pas';
 
 {$R *.res}
 begin

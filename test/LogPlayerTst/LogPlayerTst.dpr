@@ -31,7 +31,7 @@ uses
   LogFile in '..\..\src\LogPlayer\Unit\LogFile.pas',
   untFileUtil in '..\..\src\LogPlayer\Unit\untFileUtil.pas',
   ParserCommand10 in '..\..\src\LogPlayer\Unit\Commands\ParserCommand10.pas',
-  ParserCommandFC in '..\..\src\LogPlayer\Unit\Commands\ParserCommandFC.pas',
+  ParserCommandFE in '..\..\src\LogPlayer\Unit\Commands\ParserCommandFE.pas',
   ParserCommand8D in '..\..\src\LogPlayer\Unit\Commands\ParserCommand8D.pas',
   ParserCommand1E in '..\..\src\LogPlayer\Unit\Commands\ParserCommand1E.pas',
   ParserCommand1F in '..\..\src\LogPlayer\Unit\Commands\ParserCommand1F.pas',
@@ -61,7 +61,8 @@ uses
   LogParser2 in '..\..\src\LogPlayer\Unit\LogParser2.pas',
   ShtrihProtocol1 in '..\..\src\LogPlayer\Unit\ShtrihProtocol1.pas',
   duLogParser in 'Units\duLogParser.pas',
-  ShtrihProtocol2 in '..\..\src\LogPlayer\Unit\ShtrihProtocol2.pas';
+  ShtrihProtocol2 in '..\..\src\LogPlayer\Unit\ShtrihProtocol2.pas',
+  ParserCommandFC in '..\..\src\LogPlayer\Unit\Commands\ParserCommandFC.pas';
 
 {$R *.RES}
 

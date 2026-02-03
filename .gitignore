@@ -3,7 +3,6 @@
 *.rsm
 *.dsm
 *.map
-*.log
 *.ddp
 *.identcache
 *.local

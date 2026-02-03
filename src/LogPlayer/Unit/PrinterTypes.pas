@@ -1685,7 +1685,6 @@ resourcestring
   SCommandName53 = 'Завершение документа и печать клише'; { !!! }
   SCommandName54 = 'Печать рекламного текста'; { !!! }
 
-  SCommandNameFE03 = 'Загрузка символа шрифта'; { !!! }
   SCommandNameC5 = 'Печать графической линии'; { !!! }
 
   SCommandNameFF01 = 'Запрос статуса ФН';
@@ -3166,8 +3165,6 @@ begin
     $FC: Res := @SCommandNameFC;
     $FD: Res := @SCommandNameFD;
     $FE: Res := @SCommandNameFE;
-//    $FE03: Res := @SCommandNameFE03;
-
 
     $FF01: Res := @SCommandNameFF01;
     $FF02: Res := @SCommandNameFF02;

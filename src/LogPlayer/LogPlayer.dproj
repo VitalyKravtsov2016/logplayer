@@ -5,7 +5,7 @@
         <FrameworkType>VCL</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Application</AppType>
         <MainSource>LogPlayer.dpr</MainSource>
@@ -128,7 +128,10 @@
         <DCC_ExeOutput>Bin\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_DcuOutput>Dcu\$(Platform)\$(Config)</DCC_DcuOutput>
         <Icon_MainIcon>LogPlayer_Icon.ico</Icon_MainIcon>
-        <VerInfo_Keys>CompanyName=ТОРГОВЫЙ БАЛАНС М;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=ТОРГОВЫЙ БАЛАНС М;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=https://torgbalance.com/</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=ТОРГОВЫЙ БАЛАНС М;FileDescription=$(MSBuildProjectName);FileVersion=1.1.12.0;InternalName=;LegalCopyright=ТОРГОВЫЙ БАЛАНС М;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=https://torgbalance.com/</VerInfo_Keys>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_Release>12</VerInfo_Release>
+        <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
@@ -175,7 +178,6 @@
         <DCCReference Include="Unit\LogFile.pas"/>
         <DCCReference Include="Unit\untFileUtil.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand10.pas"/>
-        <DCCReference Include="Unit\Commands\ParserCommandFC.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand8D.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand1E.pas"/>
         <DCCReference Include="Unit\Commands\ParserCommand1F.pas"/>
@@ -205,6 +207,8 @@
         <DCCReference Include="Unit\LogParser2.pas"/>
         <DCCReference Include="Unit\ShtrihProtocol2.pas"/>
         <DCCReference Include="Unit\ShtrihProtocol1.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFE.pas"/>
+        <DCCReference Include="Unit\Commands\ParserCommandFC.pas"/>
         <None Include="LogPlayer.todo"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
@@ -232,9 +236,9 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="LogPlayer.todo" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="Bin\Win32\Release\LogPlayer.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
+                        <RemoteName>LogPlayer.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -244,9 +248,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Bin\Win32\Release\LogPlayer.exe" Configuration="Release" Class="ProjectOutput">
+                <DeployFile LocalName="LogPlayer.todo" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win32">
-                        <RemoteName>LogPlayer.exe</RemoteName>
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

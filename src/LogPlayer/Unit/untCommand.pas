@@ -92,7 +92,7 @@ var
 begin
   BinData := HexToStr(Data);
   Cmd := BinToInt(BinData, 1, 1);
-  if (Cmd = $FF) or (Cmd = $FE) then
+  if Cmd = $FF then
     Cmd := (Cmd shl 8) or (BinToInt(BinData, 2, 1));
   Result := Cmd;
 end;
