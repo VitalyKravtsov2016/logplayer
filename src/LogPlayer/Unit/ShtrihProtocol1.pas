@@ -53,6 +53,9 @@ begin
   if not Result then Exit;
 
   DataLen := Ord(Frame[2]);
+  Result := Length(Frame) >= (DataLen + 3);
+  if not Result then Exit;
+
   Data := Copy(Frame, 2, DataLen + 1);
   CRC := GetCRC(Data);
   Result := CRC = Ord(Frame[DataLen + 3]);

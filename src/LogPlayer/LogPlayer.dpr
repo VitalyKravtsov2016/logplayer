@@ -58,9 +58,10 @@ uses
   ParserCommandFF76 in 'Unit\Commands\ParserCommandFF76.pas',
   LogParser2 in 'Unit\LogParser2.pas',
   ShtrihProtocol2 in 'Unit\ShtrihProtocol2.pas',
-  ShtrihProtocol1 in 'Unit\ShtrihProtocol1.pas',
+  ShtrihProtocol3 in 'Unit\ShtrihProtocol3.pas',
   ParserCommandFE in 'Unit\Commands\ParserCommandFE.pas',
-  ParserCommandFC in 'Unit\Commands\ParserCommandFC.pas';
+  ParserCommandFC in 'Unit\Commands\ParserCommandFC.pas',
+  ShtrihProtocol1 in 'Unit\ShtrihProtocol1.pas';
 
 {$R *.res}
 begin

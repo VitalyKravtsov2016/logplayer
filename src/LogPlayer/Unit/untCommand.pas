@@ -55,7 +55,14 @@ type
     property ResCode: Integer read FData.ResCode write FData.ResCode;
     property AnswerData: AnsiString read FData.AnswerData write FData.AnswerData;
   end;
-  TCommandList = TObjectList<TCommand>;
+
+  { TCommandList }
+
+  TCommandList = class(TObjectList<TCommand>)
+  public
+    function ItemByAttributes(const Text: string): TCommand;
+    function ItemsByAttributes(const Text: string): TCommandList;
+  end;
 
 function ProtocolToStr(Protocol: TProtocol): string;
 
@@ -254,6 +261,37 @@ begin
   begin
     Result := Code = StatusCommandCodes[i];
     if Result then Break;
+  end;
+end;
+
+{ TCommandList }
+
+function TCommandList.ItemByAttributes(const Text: string): TCommand;
+var
+  Item: TCommand;
+begin
+  Result := nil;
+  for Item in Self do
+  begin
+    if Pos(Text, Item.Attributes) <> 0 then
+    begin
+      Result := Item;
+      Break;
+    end;
+  end;
+end;
+
+function TCommandList.ItemsByAttributes(const Text: string): TCommandList;
+var
+  Item: TCommand;
+begin
+  Result := TCommandList.Create(False);
+  for Item in Self do
+  begin
+    if Pos(Text, Item.Attributes) <> 0 then
+    begin
+      Result.Add(Item);
+    end;
   end;
 end;
 

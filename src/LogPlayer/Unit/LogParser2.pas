@@ -6,7 +6,7 @@ uses
   // VCL
   System.Classes, System.SysUtils,
   // This
-  untCommand, BinUtils, ShtrihProtocol1, ShtrihProtocol2;
+  untCommand, BinUtils, ShtrihProtocol1, ShtrihProtocol2, ShtrihProtocol3;
 
 procedure ParseLog2(Lines: TStrings; Commands: TCommandList);
 
@@ -22,7 +22,6 @@ const
   TxSignNg = '] [D] -> ';
   RxSignNg = '] [D] <- ';
   ProtocolAttributes = '[07.12.2021 18:30:04.598] [00002108]';
-
 
 function DeStuffing(const AStr: AnsiString; var IsFinalEsc: Boolean): AnsiString;
 const
@@ -50,20 +49,18 @@ begin
       begin
         Result := Result + STX;
         Inc(i);
-      end
-      else if AStr[i + 1] = TESC then
+      end else if AStr[i + 1] = TESC then
       begin
         Result := Result + ESC;
         Inc(i);
-      end
-      else
+      end else
         raise Exception.Create(IncorrectPacketFormat);
-    end
-    else
+    end else
       Result := Result + AStr[i];
     Inc(i);
   end;
 end;
+
 function GetCommandDatap2(const AData: string): string;
 var
   Data: AnsiString;
@@ -78,14 +75,16 @@ end;
 // pProtocol1 - 02 05 11 1E 00 00 00 0A
 // pProtocol3 - 82 00 05 05 00 11 1E 00 00 00 BC 1A
 
-
 function GetFrame(const HexData: string; Protocol: TProtocol): string;
 begin
   Result := HexData;
   case Protocol of
-    pProtocol1: Result := Copy(HexData, 7, Length(HexData)-9);
-    pProtocol3: Result := Copy(HexData, 16, Length(HexData)-21);
-    pProtocol2: Result := GetCommandDatap2(HexData);
+    pProtocol1:
+      Result := Copy(HexData, 7, Length(HexData) - 9);
+    pProtocol3:
+      Result := Copy(HexData, 16, Length(HexData) - 21);
+    pProtocol2:
+      Result := GetCommandDatap2(HexData);
   end;
 end;
 
@@ -93,9 +92,12 @@ function GetRxFrame(const HexData: string; Protocol: TProtocol): string;
 begin
   Result := HexData;
   case Protocol of
-    pProtocol1: Result := Copy(HexData, 1, Length(HexData)-3);
-    pProtocol2: Result := Copy(HexData, 1, Length(HexData));
-    pProtocol3: Result := Copy(HexData, 1, Length(HexData)-6);
+    pProtocol1:
+      Result := Copy(HexData, 1, Length(HexData) - 3);
+    pProtocol2:
+      Result := Copy(HexData, 1, Length(HexData));
+    pProtocol3:
+      Result := Copy(HexData, 1, Length(HexData) - 6);
   end;
 end;
 
@@ -117,13 +119,25 @@ begin
   Result := TShtrihProtocol2.Decode(Data, Frame);
 end;
 
+function IsFrameProtocol3(const HexData: string): Boolean;
+var
+  Data: AnsiString;
+  Frame: TShtrihFrame3;
+begin
+  Data := HexToStr(HexData);
+  Result := TShtrihProtocol3.Decode(Data, Frame);
+end;
+
 function IsFrame(const HexData: string; Protocol: TProtocol): Boolean;
 begin
   Result := False;
   case Protocol of
-    pProtocol1: Result := IsFrameProtocol1(HexData);
-    pProtocol2: Result := IsFrameProtocol2(HexData);
-    //pProtocol3: Result := Copy(HexData, 16, Length(HexData)-21);
+    pProtocol1:
+      Result := IsFrameProtocol1(HexData);
+    pProtocol2:
+      Result := IsFrameProtocol2(HexData);
+    pProtocol3:
+      Result := IsFrameProtocol3(HexData);
   end;
 end;
 
@@ -164,6 +178,7 @@ begin
     Exit;
   end;
 end;
+
 function GetRxBytes(const Line: string; Protocol: TProtocol): string;
 var
   P: Integer;
@@ -171,17 +186,23 @@ var
 begin
   Result := '';
   case Protocol of
-    pProtocol1: pSign := RxSign;
-    pProtocol2: pSign := RxSign2;
-    pProtocol3: pSign := RxSign3;
-    pProtocolNg1,
-    pProtocolNg1Plain: pSign := RxSignNg;
-    pNone: Exit;
+    pProtocol1:
+      pSign := RxSign;
+    pProtocol2:
+      pSign := RxSign2;
+    pProtocol3:
+      pSign := RxSign3;
+    pProtocolNg1, pProtocolNg1Plain:
+      pSign := RxSignNg;
+    pNone:
+      Exit;
   end;
   P := Pos(pSign, Line);
-  if P = 0 then Exit;
+  if P = 0 then
+    Exit;
   Result := Copy(Line, P + Length(pSign), Length(Line));
 end;
+
 procedure ParseLog2(Lines: TStrings; Commands: TCommandList);
 var
   i: Integer;
@@ -201,7 +222,7 @@ begin
   LineNumber := 0;
   Protocol := pNone;
   Commands.Clear;
-  for i := 0 to Lines.Count-1 do
+  for i := 0 to Lines.Count - 1 do
   begin
     Line := Lines[i];
     // Tx data
@@ -211,12 +232,15 @@ begin
       if TxData = '' then
       begin
         TxLine := Line;
-        LineNumber := i+1;
+        LineNumber := i + 1;
+      end else
+      begin
+        TxData := TrimRight(TxData) + ' ';
       end;
       TxData := TxData + Data;
-      if (Length(RxData) > 2)and(Commands.Count > 0) then
+      if (Length(RxData) > 2) and (Commands.Count > 0) then
       begin
-        Command := Commands[Commands.Count-1];
+        Command := Commands[Commands.Count - 1];
         Command.AnswerData := GetFrame(RxData, Protocol);
         Command.ResCode := TCommand.GetResCode(Command.AnswerData);
       end;
@@ -238,32 +262,22 @@ begin
     P := Pos('<- ', Line);
     if P <> 0 then
     begin
-      if Length(TxData) > 6 then
-      begin
-        CommandRec.ResCode := -1;
-        CommandRec.AnswerData := '';
-        CommandRec.Protocol := Protocol;
-        CommandRec.LineNumber := LineNumber;
-        CommandRec.TxData := GetFrame(TxData, Protocol);
-        CommandRec.Code := TCommand.GetCode(CommandRec.TxData);
-        CommandRec.Attributes := Copy(TxLine, 1, Length(ProtocolAttributes));
-        Commands.Add(TCommand.Create(CommandRec));
-      end;
       TxData := '';
       Data := Copy(Line, P + 3, Length(Line));
 
       if RxData <> '' then
         RxData := RxData + ' ';
       RxData := RxData + Trim(Data);
-      if (RxData = '06')and (Protocol in [pProtocol1, pProtocol3]) then
+      if (RxData = '06') and (Protocol in [pProtocol1, pProtocol3]) then
       begin
         RxData := '';
       end;
+
     end;
   end;
-  if (RxData <> '')and(Commands.Count > 0) then
+  if (RxData <> '') and (Commands.Count > 0) then
   begin
-    Command := Commands[Commands.Count-1];
+    Command := Commands[Commands.Count - 1];
     Command.AnswerData := GetFrame(RxData, Protocol);
     Command.ResCode := TCommand.GetResCode(Command.AnswerData);
     RxData := '';
@@ -271,3 +285,4 @@ begin
 end;
 
 end.
+

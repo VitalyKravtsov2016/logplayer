@@ -10,7 +10,7 @@ uses
   // This
   //LogParser,
   LogParser2, untCommand, BinUtils,
-  ShtrihProtocol1, ShtrihProtocol2;
+  ShtrihProtocol1, ShtrihProtocol2, ShtrihProtocol3;
 
 type
   { TLogParserTest }
@@ -22,6 +22,7 @@ type
   published
     procedure TestShtrihProtocol1;
     procedure TestShtrihProtocol2;
+    procedure TestShtrihProtocol3;
 
     procedure TestParseProtocol1;
     procedure TestParseProtocol2;
@@ -31,6 +32,8 @@ type
     procedure TestParseProtocol1_2;
 
     procedure TestParseProtocol3;
+    procedure TestCommand2F;
+    procedure TestUnknownCommandLog;
   end;
 
 implementation
@@ -272,6 +275,82 @@ begin
   CheckEquals('', Frame.Data, 'Frame.Data');
   CheckEquals($1D0F, Frame.Number, 'Frame.Number');
 end;
+
+procedure TLogParserTest.TestShtrihProtocol3;
+var
+  Data: AnsiString;
+  Frame: TShtrihFrame3;
+begin
+  Frame.Data := #$FC;
+  Frame.Number := 23;
+
+  Data := TShtrihProtocol3.Encode(Frame);
+  CheckEquals('82 00 17 01 00 FC 1A 0A', StrToHex(Data), 'TShtrihProtocol3.Encode');
+
+  Check(TShtrihProtocol3.Decode(Data, Frame));
+  CheckEquals(#$FC, Frame.Data, 'Frame.Data');
+  CheckEquals(23, Frame.Number, 'Frame.Number');
+
+  Data := HexToStr('82 00 05 05 00 11 1E 00 00 00 BC 1A');
+  Check(TShtrihProtocol3.Decode(Data, Frame));
+  CheckEquals('11 1E 00 00 00', StrToHex(Frame.Data), 'Frame.Data');
+  CheckEquals(5, Frame.Number, 'Frame.Number');
+end;
+
+procedure TLogParserTest.TestCommand2F;
+var
+  Lines: TStrings;
+  Command: TCommand;
+  Commands: TCommandList;
+begin
+  Lines := TStringList.Create;
+  Commands := TCommandList.Create(True);
+  try
+    Lines.LoadFromFile('Data\Command2F.log');
+    Check(Lines.Count > 0, 'Lines.Count <= 0');
+    ParseLog2(Lines, Commands);
+    CheckEquals(1, Commands.Count, 'Commands.Count <> 1');
+
+    Command := Commands[0];
+    CheckEquals('2F 1E 00 00 00 02 01 D1 EA E8 E4 EA E0 20 33 35 2E 37 31 25 2E 2E 2E 2E 2E 2E 2E 2E 2E 2E 2E 2E 34 32 31 38 2E 37 38 00 00 00 00 00 00 00 00', Command.TxData, 'Command.TxData');
+    CheckEquals('2F 00 1E', Command.AnswerData, 'Command.AnswerData');
+    CheckEquals($2F, Command.Code, 'Command.Code');
+    CheckEquals(0, Command.ResCode, 'Command.ResCode');
+    CheckEquals(False, Command.HasError, 'Command.HasError');
+
+  finally
+    Lines.Free;
+    Commands.Free;
+  end;
+end;
+
+procedure TLogParserTest.TestUnknownCommandLog;
+var
+  Index: Integer;
+  Lines: TStrings;
+  Command: TCommand;
+  Commands: TCommandList;
+begin
+  Lines := TStringList.Create;
+  Commands := TCommandList.Create(True);
+  try
+    Lines.LoadFromFile('Data\UnknownCommand.log');
+    Check(Lines.Count > 0, 'Lines.Count <= 0');
+    ParseLog2(Lines, Commands);
+    CheckEquals(2, Commands.Count, 'Commands.Count <> 2');
+
+    Command := Commands[1];
+    CheckEquals('2F 1E 00 00 00 02 01 D1 EA E8 E4 EA E0 20 33 35 2E 37 31 25 2E 2E 2E 2E 2E 2E 2E 2E 2E 2E 2E 2E 34 32 31 38 2E 37 38 00 00 00 00 00 00 00 00', Command.TxData, 'Command.TxData');
+    CheckEquals('2F 00 1E', Command.AnswerData, 'Command.AnswerData');
+    CheckEquals($2F, Command.Code, 'Command.Code');
+    CheckEquals(0, Command.ResCode, 'Command.ResCode');
+    CheckEquals(False, Command.HasError, 'Command.HasError');
+  finally
+    Lines.Free;
+    Commands.Free;
+  end;
+end;
+
 
 initialization
   RegisterTest('', TLogParserTest.Suite);

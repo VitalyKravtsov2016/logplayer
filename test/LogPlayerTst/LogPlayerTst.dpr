@@ -59,10 +59,11 @@ uses
   ParserCommandFF78 in '..\..\src\LogPlayer\Unit\Commands\ParserCommandFF78.pas',
   ParserCommandFF76 in '..\..\src\LogPlayer\Unit\Commands\ParserCommandFF76.pas',
   LogParser2 in '..\..\src\LogPlayer\Unit\LogParser2.pas',
-  ShtrihProtocol1 in '..\..\src\LogPlayer\Unit\ShtrihProtocol1.pas',
   duLogParser in 'Units\duLogParser.pas',
   ShtrihProtocol2 in '..\..\src\LogPlayer\Unit\ShtrihProtocol2.pas',
-  ParserCommandFC in '..\..\src\LogPlayer\Unit\Commands\ParserCommandFC.pas';
+  ParserCommandFC in '..\..\src\LogPlayer\Unit\Commands\ParserCommandFC.pas',
+  ShtrihProtocol3 in '..\..\src\LogPlayer\Unit\ShtrihProtocol3.pas',
+  ShtrihProtocol1 in '..\..\src\LogPlayer\Unit\ShtrihProtocol1.pas';
 
 {$R *.RES}
 

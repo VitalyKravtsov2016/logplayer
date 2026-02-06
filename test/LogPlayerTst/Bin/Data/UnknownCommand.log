@@ -1,0 +1,128 @@
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR GetActiveLD
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR GetActiveLD: 0
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Get_LDNumber
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Get_LDNumber: 1
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR GetActiveLD
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR GetActiveLD: 0
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Get_LDNumber
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Get_LDNumber: 1
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_Password
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_Password: 30
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_UseReceiptRibbon
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_UseReceiptRibbon: True
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_UseJournalRibbon
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_UseJournalRibbon: False
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_StringForPrinting
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_StringForPrinting: ================================
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_FontType
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_FontType: 1
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR PrintStringWithFont
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Lock
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[03.02.2026 15:07:40.392] [00001884] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter DoSend
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Data = 2F 1E 00 00 00 02 01 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Data = 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 00
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Data = 00 00 00 00 00 00 00
+[03.02.2026 15:07:40.392] [00001884] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter CommandCode=002F
+[03.02.2026 15:07:40.392] [00001884] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Команда: 2Fh, Печать строки данным шрифтом
+[03.02.2026 15:07:40.392] [00001884] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter OpenPort
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Lock
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Open COM5
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Unlock
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Purge
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol SetCmdTimeout: 3000
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort SetCmdTimeout 3000
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol -> 05
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Write
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol ReadAckChar try
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort ReadChar
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol <- 15
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Purge
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol -> 02 2F 2F 1E 00 00 00 02 01 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol -> 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D 3D
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol -> 3D 00 00 00 00 00 00 00 00 1D
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Write
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol ReadAckChar try
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort ReadChar
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol <- 06
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol SetCmdTimeout: 30000
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort SetCmdTimeout 30000
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort ReadChar
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol <- 02
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort ReadChar
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol <- 03
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol SetCmdTimeout: 3000
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort SetCmdTimeout 3000
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Read
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol <- 2F 00 1E 32
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol -> 06
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Write
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter DoSend.end
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Unlock
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR PrintStringWithFont: 0
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Get_ResultCode
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Get_ResultCode: 0
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Get_ResultCodeDescription
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Get_ResultCodeDescription: Ошибок нет
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_StringForPrinting
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_StringForPrinting: Скидка 35.71%............4218.78
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_FontType
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Set_FontType: 1
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR PrintStringWithFont
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Lock
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = True
+[03.02.2026 15:07:40.392] [00001884] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter DoSend
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Data = 2F 1E 00 00 00 02 01 D1 EA E8 E4 EA E0 20 33 35 2E 37 31 25
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Data = 2E 2E 2E 2E 2E 2E 2E 2E 2E 2E 2E 2E 34 32 31 38 2E 37 38 00
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Data = 00 00 00 00 00 00 00
+[03.02.2026 15:07:40.392] [00001884] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter CommandCode=002F
+[03.02.2026 15:07:40.392] [00001884] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Команда: 2Fh, Печать строки данным шрифтом
+[03.02.2026 15:07:40.392] [00001884] [ INFO] TFiscalPrinter ------------------------------------------------------------
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter OpenPort
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Lock
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Open COM5
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Unlock
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Purge
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol SetCmdTimeout: 3000
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort SetCmdTimeout 3000
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol -> 05
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Write
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol ReadAckChar try
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort ReadChar
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol <- 15
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Purge
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol -> 02 2F 2F 1E 00 00 00 02 01 D1 EA E8 E4 EA E0 20 33 35 2E 37
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol -> 31 25 2E 2E 2E 2E 2E 2E 2E 2E 2E 2E 2E 2E 34 32 31 38 2E 37
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol -> 38 00 00 00 00 00 00 00 00 25
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Write
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol ReadAckChar try
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort ReadChar
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol <- 06
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol SetCmdTimeout: 30000
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort SetCmdTimeout 30000
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort ReadChar
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol <- 02
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort ReadChar
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol <- 03
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol SetCmdTimeout: 3000
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort SetCmdTimeout 3000
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Read
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol <- 2F 00 1E 32
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TPrinterProtocol -> 06
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TComPort Write
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter [DoSend] DriverIsBusy = False
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter DoSend.end
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TFiscalPrinter Unlock
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR PrintStringWithFont: 0
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Get_ResultCode
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Get_ResultCode: 0
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Get_ResultCodeDescription
+[03.02.2026 15:07:40.392] [00001884] [DEBUG] TDrvFR Get_ResultCodeDescription: Ошибок нет

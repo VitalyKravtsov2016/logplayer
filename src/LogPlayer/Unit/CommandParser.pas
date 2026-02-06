@@ -169,11 +169,9 @@ begin
     $11: Result := 'SERVICE_CMD_1_DIR_REMOVE_MONO_CHECKS';
     $12: Result := 'SERVICE_CMD_1_DIR_FORCE_SAVE_TABLES';
     $13: Result := 'SERVICE_CMD_1_DIR_VIF_SKIP_PASSWORD_CHK';
-
     $D0: Result := 'SERVICE_CMD_1_DIR_ACTIVATION_DATA_GEN';
     $D1: Result := 'SERVICE_CMD_1_DIR_ACTIVATION_DATA_READ';
     $D2: Result := 'SERVICE_CMD_1_DIR_SESSION_KEY_AGREEMENT';
-
     $E0: Result := 'SERVICE_CMD_1_DIR_REVERSE';
     $E1: Result := 'SERVICE_CMD_1_DIR_FORCE_FS_KEY_UPDATE';
     $E2: Result := 'SERVICE_CMD_1_DIR_SYNC_FS_DATE_TIME';
@@ -234,7 +232,6 @@ begin
     $11: Result := 'Удаление mono';
     $12: Result := 'Запись таблиц';
     $13: Result := 'Отмена проверки пароля';
-
     $E0: Result := 'Добавление в буфер команды обратной печати';
     $E1: Result := 'Выполнить обновление ключей ФН';
     $E2: Result := 'Синхронизация даты ККТ с датой последнего ФД';
