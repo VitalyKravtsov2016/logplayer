@@ -60,6 +60,7 @@ type
 
   TCommandList = class(TObjectList<TCommand>)
   public
+    function ItemByCode(Code: Integer): TCommand;
     function ItemByAttributes(const Text: string): TCommand;
     function ItemsByAttributes(const Text: string): TCommandList;
   end;
@@ -265,6 +266,21 @@ begin
 end;
 
 { TCommandList }
+
+function TCommandList.ItemByCode(Code: Integer): TCommand;
+var
+  Item: TCommand;
+begin
+  Result := nil;
+  for Item in Self do
+  begin
+    if Item.Code = Code then
+    begin
+      Result := Item;
+      Break;
+    end;
+  end;
+end;
 
 function TCommandList.ItemByAttributes(const Text: string): TCommand;
 var

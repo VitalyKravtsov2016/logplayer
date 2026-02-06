@@ -34,6 +34,7 @@ type
     procedure TestParseProtocol3;
     procedure TestCommand2F;
     procedure TestUnknownCommandLog;
+    procedure TestUnknownCommandsLog;
   end;
 
 implementation
@@ -351,6 +352,27 @@ begin
   end;
 end;
 
+procedure TLogParserTest.TestUnknownCommandsLog;
+var
+  Index: Integer;
+  Lines: TStrings;
+  Command: TCommand;
+  Commands: TCommandList;
+begin
+  Lines := TStringList.Create;
+  Commands := TCommandList.Create(True);
+  try
+    Lines.LoadFromFile('Data\UnknownCommands.log');
+    Check(Lines.Count > 0, 'Lines.Count <= 0');
+    ParseLog2(Lines, Commands);
+    CheckEquals(1269, Commands.Count, 'Invalid commands count');
+    Command := Commands.ItemByCode(0);
+    Check(Command = nil, 'Command not null');
+  finally
+    Lines.Free;
+    Commands.Free;
+  end;
+end;
 
 initialization
   RegisterTest('', TLogParserTest.Suite);
