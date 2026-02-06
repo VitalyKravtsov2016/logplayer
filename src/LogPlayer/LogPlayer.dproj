@@ -5,7 +5,7 @@
         <FrameworkType>VCL</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Application</AppType>
         <MainSource>LogPlayer.dpr</MainSource>
@@ -131,8 +131,9 @@
         <DCC_ExeOutput>Bin\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_DcuOutput>Dcu\$(Platform)\$(Config)</DCC_DcuOutput>
         <Icon_MainIcon>LogPlayer_Icon.ico</Icon_MainIcon>
-        <VerInfo_Keys>CompanyName=ТОРГОВЫЙ БАЛАНС М;FileDescription=$(MSBuildProjectName);FileVersion=1.2.12.0;InternalName=;LegalCopyright=ТОРГОВЫЙ БАЛАНС М;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.1.12.0;Comments=https://torgbalance.com/</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=ТОРГОВЫЙ БАЛАНС М;FileDescription=$(MSBuildProjectName);FileVersion=1.2.12.1;InternalName=;LegalCopyright=ТОРГОВЫЙ БАЛАНС М;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.1.12.0;Comments=https://torgbalance.com/</VerInfo_Keys>
         <VerInfo_MinorVer>2</VerInfo_MinorVer>
+        <VerInfo_Build>1</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
